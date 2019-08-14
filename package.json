@@ -1,0 +1,28 @@
+{
+  "name": "lyric-keeper",
+  "version": "1.0.0",
+  "description": "A friendly app for keeping track of all your favourite song lyrics and chords",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bruce773/lyric-keeper.git"
+  },
+  "keywords": [
+    "music",
+    "lyrics",
+    "chords",
+    "javascript"
+  ],
+  "author": "Bruce Johnson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bruce773/lyric-keeper/issues"
+  },
+  "homepage": "https://github.com/Bruce773/lyric-keeper#readme",
+  "dependencies": {
+    "react": "^16.9.0"
+  }
+}

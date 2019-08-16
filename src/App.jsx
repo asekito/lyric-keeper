@@ -5,6 +5,9 @@ import {
   MainAreaWrapper,
 } from './elements.jsx';
 
+import { Button, Snackbar, Fab } from '@material-ui/core';
+import { AddIcon } from '@material-ui/icons';
+
 export const App = () => {
   let lyricData = [];
 
@@ -17,8 +20,22 @@ export const App = () => {
       <WelcomeText>Lyric Keeper</WelcomeText>
       <MainAreaWrapper>
         {lyricData.length
-          ? lyricData.map(item => item)
+          ? lyricData.map((item) => item)
           : "You haven't stored any lyrics, yet"}
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          open={true}
+        >
+          <Button size="large" variant="contained">
+            <Fab>
+              <AddIcon />
+            </Fab>
+            New Lyric
+          </Button>
+        </Snackbar>
       </MainAreaWrapper>
     </DefaultPageWrapper>
   );

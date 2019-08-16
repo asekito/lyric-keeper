@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/Bruce773/lyric-keeper#readme",
   "dependencies": {
+    "@material-ui/core": "^4.3.2",
+    "@material-ui/icons": "^4.2.1",
     "concurrently": "^4.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",

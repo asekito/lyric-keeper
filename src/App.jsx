@@ -1,24 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   WelcomeText,
   DefaultPageWrapper,
   MainAreaWrapper,
 } from './elements.jsx';
+import { LyricCard } from './LyricCard';
+import { NewLyricModal } from './NewLyricModal';
+import axios from 'axios';
 
 export const App = () => {
-  let lyricData = [];
+  const [lyricData, setLyricData] = useState([]);
+
+  const getAndUpdateAllLyrics = () => {
+    axios.get('/getAllLyrics').then(({ data }) => setLyricData(data));
+  };
 
   useEffect(() => {
-    console.log('Make API call');
-  });
+    getAndUpdateAllLyrics();
+  }, []);
+
+  const addEntry = (title, chorus, verses) => {
+    axios({
+      method: 'post',
+      url: '/newLyricEntry',
+      data: {
+        title: title,
+        chorus: chorus,
+        verses: verses,
+      },
+    }).then(() => getAndUpdateAllLyrics());
+  };
 
   return (
     <DefaultPageWrapper>
       <WelcomeText>Lyric Keeper</WelcomeText>
       <MainAreaWrapper>
         {lyricData.length
-          ? lyricData.map(item => item)
+          ? lyricData.map(({ title }) => <LyricCard title={title} />)
           : "You haven't stored any lyrics, yet"}
+        <NewLyricModal />
       </MainAreaWrapper>
     </DefaultPageWrapper>
   );

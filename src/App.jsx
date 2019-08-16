@@ -1,41 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   WelcomeText,
   DefaultPageWrapper,
   MainAreaWrapper,
 } from './elements.jsx';
-
-import { Button, Snackbar, Fab } from '@material-ui/core';
-import { AddIcon } from '@material-ui/icons';
+import { LyricCard } from './LyricCard';
+import { NewLyricModal } from './NewLyricModal';
+import axios from 'axios';
 
 export const App = () => {
-  let lyricData = [];
+  const [lyricData, setLyricData] = useState([]);
+
+  const getAndUpdateAllLyrics = () => {
+    axios.get('/getAllLyrics').then(({ data }) => setLyricData(data));
+  };
 
   useEffect(() => {
-    console.log('Make API call');
-  });
+    getAndUpdateAllLyrics();
+  }, []);
+
+  const addEntry = (title, chorus, verses) => {
+    axios({
+      method: 'post',
+      url: '/newLyricEntry',
+      data: {
+        title: title,
+        chorus: chorus,
+        verses: verses,
+      },
+    }).then(() => getAndUpdateAllLyrics());
+  };
 
   return (
     <DefaultPageWrapper>
       <WelcomeText>Lyric Keeper</WelcomeText>
       <MainAreaWrapper>
         {lyricData.length
-          ? lyricData.map((item) => item)
+          ? lyricData.map(({ title }) => <LyricCard title={title} />)
           : "You haven't stored any lyrics, yet"}
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          open={true}
-        >
-          <Button size="large" variant="contained">
-            <Fab>
-              <AddIcon />
-            </Fab>
-            New Lyric
-          </Button>
-        </Snackbar>
+        <NewLyricModal />
       </MainAreaWrapper>
     </DefaultPageWrapper>
   );

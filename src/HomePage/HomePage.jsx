@@ -7,7 +7,7 @@ import {
 import { LyricCard } from '../LyricCard';
 import { NewLyricModal } from '../NewLyricModal';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link } from '../GlobalComponents.jsx';
 
 export const HomePage = () => {
   const [lyricData, setLyricData] = useState([]);
@@ -39,10 +39,7 @@ export const HomePage = () => {
       <MainAreaWrapper>
         {lyricData.length
           ? lyricData.map(({ title, author, shortUrl }) => (
-              <Link
-                to={`/lyric/${shortUrl}`}
-                style={{ textDecoration: 'none' }}
-              >
+              <Link to={`/lyric/${shortUrl}`}>
                 <LyricCard title={title} author={author} />
               </Link>
             ))

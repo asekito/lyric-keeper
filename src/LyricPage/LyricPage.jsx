@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { PageWrapper, Songtitle, SongAuthor } from './elements.jsx';
+import { Snackbar, Button } from '@material-ui/core';
+import { Home } from '@material-ui/icons';
 import axios from 'axios';
+import { Link } from '../GlobalComponents.jsx';
 
 export const LyricPage = () => {
   const [lyricData, setLyricData] = useState({ title: '' });
@@ -16,12 +20,26 @@ export const LyricPage = () => {
       });
   }, []);
 
-  const { title, author } = lyricData;
+  const { title, author, chorus, verses } = lyricData;
   return (
-    <div>
-      <h1>Currently visiting: {shortUrl}</h1>
-      <h2>Title: {title}</h2>
-      <h2>Testing...</h2>
-    </div>
+    <PageWrapper>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        open={true}
+      >
+        <Link to="/">
+          <Button size="large" variant="contained">
+            <Home /> Home
+          </Button>
+        </Link>
+      </Snackbar>
+      <Songtitle>{title}</Songtitle>
+      <SongAuthor>{author}</SongAuthor>
+      {chorus}
+      {verses}
+    </PageWrapper>
   );
 };

@@ -32,7 +32,7 @@ export const NewLyricModal = ({ addEntry }) => {
       <Modal disableAutoFocus open={open} onClose={() => setOpen(false)}>
         <ModalContentWrapper>
           <HeadingWrapper>
-            <HeadingTitle>Random Modal Test</HeadingTitle>
+            <HeadingTitle>New Lyric</HeadingTitle>
           </HeadingWrapper>
           <NewLyricForm setOpen={setOpen} addEntry={addEntry} />
         </ModalContentWrapper>

@@ -33,6 +33,7 @@ export const NewLyricForm = ({ addEntry, setOpen }) => {
             <TextFieldStyles>
               <TextField
                 multiline={multiline}
+                rowsMax={100}
                 rows={rows}
                 style={{ width: width }}
                 margin="dense"

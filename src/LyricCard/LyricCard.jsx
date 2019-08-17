@@ -27,7 +27,7 @@ export const LyricCard = ({
   };
 
   return (
-    <>
+    <div style={{ display: 'block' }}>
       <IconButton
         onClick={() => deleteLyric(shortUrl)}
         style={{
@@ -45,6 +45,6 @@ export const LyricCard = ({
           {author && <CardAuthor>{author}</CardAuthor>}
         </CardWrapper>
       </Link>
-    </>
+    </div>
   );
 };

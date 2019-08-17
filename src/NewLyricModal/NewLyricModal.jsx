@@ -29,7 +29,12 @@ export const NewLyricModal = ({ addEntry }) => {
           <AddIcon /> New Lyric
         </Button>
       </Snackbar>
-      <Modal disableAutoFocus open={open} onClose={() => setOpen(false)}>
+      <Modal
+        disableAutoFocus
+        open={open}
+        onClose={() => setOpen(false)}
+        disableScrollLock={true}
+      >
         <ModalContentWrapper>
           <HeadingWrapper>
             <HeadingTitle>New Lyric</HeadingTitle>

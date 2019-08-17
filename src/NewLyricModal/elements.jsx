@@ -5,12 +5,13 @@ export const ModalContentWrapper = styled.div`
   text-align: center;
   background-color: white;
   min-width: 65%;
-  min-height: 60vh;
+  height: 60vh;
   position: absolute;
   margin: auto;
   border-radius: 6px;
   top: 16%;
   left: 20%;
+  overflow: scroll;
 `;
 
 export const TextFieldStyles = styled.div`

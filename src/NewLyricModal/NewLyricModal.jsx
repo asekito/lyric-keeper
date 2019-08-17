@@ -8,7 +8,7 @@ import {
 import { NewLyricForm } from './NewLyricForm.jsx';
 import AddIcon from '@material-ui/icons/Add';
 
-export const NewLyricModal = () => {
+export const NewLyricModal = ({ addEntry }) => {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -21,12 +21,6 @@ export const NewLyricModal = () => {
       >
         <Button
           onClick={() => {
-            // addEntry(
-            //   'Random title',
-            //    'author'
-            //   'la la la chorus stuffs',
-            //   'verses stuffss',
-            // )
             setOpen(true);
           }}
           size="large"
@@ -40,7 +34,7 @@ export const NewLyricModal = () => {
           <HeadingWrapper>
             <HeadingTitle>Random Modal Test</HeadingTitle>
           </HeadingWrapper>
-          <NewLyricForm />
+          <NewLyricForm setOpen={setOpen} addEntry={addEntry} />
         </ModalContentWrapper>
       </Modal>
     </>

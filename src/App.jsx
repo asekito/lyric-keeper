@@ -37,9 +37,11 @@ export const App = () => {
       <WelcomeText>Lyric Keeper</WelcomeText>
       <MainAreaWrapper>
         {lyricData.length
-          ? lyricData.map(({ title }) => <LyricCard title={title} />)
+          ? lyricData.map(({ title, author }) => (
+              <LyricCard title={title} author={author} />
+            ))
           : "You haven't stored any lyrics, yet"}
-        <NewLyricModal />
+        <NewLyricModal addEntry={addEntry} />
       </MainAreaWrapper>
     </DefaultPageWrapper>
   );

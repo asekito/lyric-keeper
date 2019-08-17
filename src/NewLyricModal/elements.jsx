@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { SecondaryGreen } from '../ColorVars.js';
+import { MainGreen } from '../ColorVars.js';
 
 export const ModalContentWrapper = styled.div`
   text-align: center;
   background-color: white;
-  min-width: 80%;
+  min-width: 65%;
   min-height: 60vh;
   position: absolute;
   margin: auto;
   border-radius: 6px;
   top: 16%;
-  left: 10%;
+  left: 20%;
 `;
 
 export const TextFieldStyles = styled.div`
@@ -20,7 +20,7 @@ export const TextFieldStyles = styled.div`
 export const HeadingWrapper = styled.div`
   width: 100%;
   min-height: 30px;
-  background-color: ${SecondaryGreen};
+  background-color: ${MainGreen};
 `;
 
 export const HeadingTitle = styled.div`

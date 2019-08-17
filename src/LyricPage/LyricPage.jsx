@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { PageWrapper, Songtitle, SongAuthor } from './elements.jsx';
+import {
+  PageWrapper,
+  Songtitle,
+  SongAuthor,
+  SongChorus,
+  SongVerses,
+} from './elements.jsx';
 import { Snackbar, Button } from '@material-ui/core';
 import { Home } from '@material-ui/icons';
 import axios from 'axios';
@@ -10,6 +16,13 @@ export const LyricPage = () => {
   const shortUrl = window.location.pathname.slice(
     7,
     window.location.pathname.length - 1
+  );
+
+  const ChorusAndVerse = ({ chorus, verse }) => (
+    <>
+      <div>{verse}</div>
+      <SongChorus>{chorus}</SongChorus>
+    </>
   );
 
   useEffect(() => {
@@ -38,8 +51,20 @@ export const LyricPage = () => {
       </Snackbar>
       <Songtitle>{title}</Songtitle>
       <SongAuthor>{author}</SongAuthor>
-      {chorus}
-      {verses}
+      {verses && chorus && (
+        <>
+          <SongChorus>{chorus}</SongChorus>
+          <SongVerses>
+            {verses.split('(chorus)').map((item, index, arr) => {
+              if (index < arr.length - 1) {
+                return <ChorusAndVerse chorus={chorus} verse={item} />;
+              } else {
+                return item;
+              }
+            })}
+          </SongVerses>
+        </>
+      )}
     </PageWrapper>
   );
 };

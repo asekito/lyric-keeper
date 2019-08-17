@@ -6,6 +6,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const addNewLyric = require('../database/controllers').addNewLyric;
 const returnAllLyrics = require('../database/controllers').returnAllLyrics;
+const returnSingleLyricMatchingShortUrl = require('../database/controllers')
+  .returnSingleLyricMatchingShortUrl;
 
 // const { returnAllLyrics } = require('../database/controllers');
 
@@ -15,10 +17,17 @@ app.use(express.static(path.join(__dirname + '/../dist')));
 app.use(bodyParser.json());
 
 app.use('/', express.static(path.join(__dirname + '/../dist')));
+app.use('/lyric/:url', express.static(path.join(__dirname + '/../dist')));
 
 app.post('/newLyricEntry', (req, res) => {
   const { title, chorus, verses, author } = req.body;
   addNewLyric(title, chorus, verses, author, () => res.sendStatus(200));
+});
+
+app.get('/getSingleLyricByShortUrl', (req, res) => {
+  returnSingleLyricMatchingShortUrl(req.query.shortUrl, (data) => {
+    res.send(data);
+  });
 });
 
 app.get('/getAllLyrics', (req, res) => {

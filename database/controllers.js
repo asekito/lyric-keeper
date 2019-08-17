@@ -1,3 +1,4 @@
+const stringStandardizer = require('../src/untilities.js').stringStandardizer;
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/lyrics', { useNewUrlParser: true });
 
@@ -9,6 +10,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 const lyricSchema = new Schema({
   title: String,
+  shortUrl: String,
   author: String,
   chorus: String,
   verses: String,
@@ -19,6 +21,7 @@ const Lyric = mongoose.model('Lyric', lyricSchema);
 const addNewLyric = (title, chorus, verses, author, cb) => {
   const newLyric = new Lyric({
     title: title,
+    shortUrl: stringStandardizer(title),
     chorus: chorus,
     verses: verses,
     author: author,
@@ -30,4 +33,14 @@ const returnAllLyrics = (cb) => {
   Lyric.find({}, (err, data) => (!err ? cb(data) : console.error(err)));
 };
 
-module.exports = { addNewLyric: addNewLyric, returnAllLyrics: returnAllLyrics };
+const returnSingleLyricMatchingShortUrl = (shortUrl, cb) => {
+  Lyric.find({ shortUrl, shortUrl }, (err, data) =>
+    !err ? cb(data) : console.error(err)
+  );
+};
+
+module.exports = {
+  addNewLyric: addNewLyric,
+  returnAllLyrics: returnAllLyrics,
+  returnSingleLyricMatchingShortUrl: returnSingleLyricMatchingShortUrl,
+};

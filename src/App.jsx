@@ -1,48 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import {
-  WelcomeText,
-  DefaultPageWrapper,
-  MainAreaWrapper,
-} from './elements.jsx';
-import { LyricCard } from './LyricCard';
-import { NewLyricModal } from './NewLyricModal';
-import axios from 'axios';
+import React from 'react';
+import { HomePage } from './HomePage';
+import { LyricPage } from './LyricPage';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-export const App = () => {
-  const [lyricData, setLyricData] = useState([]);
-
-  const getAndUpdateAllLyrics = () => {
-    axios.get('/getAllLyrics').then(({ data }) => setLyricData(data));
-  };
-
-  useEffect(() => {
-    getAndUpdateAllLyrics();
-  }, []);
-
-  const addEntry = (title, chorus, verses, author) => {
-    axios({
-      method: 'post',
-      url: '/newLyricEntry',
-      data: {
-        title: title,
-        chorus: chorus,
-        verses: verses,
-        author: author,
-      },
-    }).then(() => getAndUpdateAllLyrics());
-  };
-
-  return (
-    <DefaultPageWrapper>
-      <WelcomeText>Lyric Keeper</WelcomeText>
-      <MainAreaWrapper>
-        {lyricData.length
-          ? lyricData.map(({ title, author }) => (
-              <LyricCard title={title} author={author} />
-            ))
-          : "You haven't stored any lyrics, yet"}
-        <NewLyricModal addEntry={addEntry} />
-      </MainAreaWrapper>
-    </DefaultPageWrapper>
-  );
-};
+export const App = () => (
+  <Router forceRefresh>
+    <Route path="/" exact component={HomePage} />
+    <Route path="/lyric/:lyricUrl" component={LyricPage} />
+  </Router>
+);

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MainGreen } from './ColorVars.js';
+import { MainGreen } from '../ColorVars.js';
 
 export const WelcomeText = styled.h1`
   font-weight: 500;

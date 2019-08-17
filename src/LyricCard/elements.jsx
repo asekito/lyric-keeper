@@ -9,6 +9,9 @@ export const CardWrapper = styled.div`
   padding: 8px;
   margin-top: 15px;
   border-radius: 6px;
+  div {
+    text-decoration: none !important;
+  }
 `;
 
 export const CardTitle = styled.div`

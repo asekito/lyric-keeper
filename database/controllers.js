@@ -9,14 +9,15 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 const lyricSchema = new Schema({
   title: String,
+  author: String,
   chorus: Array,
   verses: Array,
 });
 
 const Lyric = mongoose.model('Lyric', lyricSchema);
 
-const addNewLyric = (title, chorus, verses, cb) => {
-  const newLyric = new Lyric({ title: title, chorus: chorus, verses: verses });
+const addNewLyric = (title, chorus, verses, author, cb) => {
+  const newLyric = new Lyric({ title: title, chorus: chorus, verses: verses, author: author });
   newLyric.save((err) => (err ? console.error(err) : cb()));
 };
 

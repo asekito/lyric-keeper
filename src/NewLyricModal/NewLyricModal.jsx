@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Modal, Button, Snackbar } from '@material-ui/core';
-import { ModalContentWrapper } from './elements.jsx';
+import {
+  ModalContentWrapper,
+  HeadingWrapper,
+  HeadingTitle,
+} from './elements.jsx';
+import { NewLyricForm } from './NewLyricForm.jsx';
 import AddIcon from '@material-ui/icons/Add';
 
 export const NewLyricModal = () => {
@@ -18,8 +23,9 @@ export const NewLyricModal = () => {
           onClick={() => {
             // addEntry(
             //   'Random title',
+            //    'author'
             //   'la la la chorus stuffs',
-            //   'verses stuffss'
+            //   'verses stuffss',
             // )
             setOpen(true);
           }}
@@ -29,9 +35,12 @@ export const NewLyricModal = () => {
           <AddIcon /> New Lyric
         </Button>
       </Snackbar>
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal disableAutoFocus open={open} onClose={() => setOpen(false)}>
         <ModalContentWrapper>
-          <h1>Random Modal Test</h1>
+          <HeadingWrapper>
+            <HeadingTitle>Random Modal Test</HeadingTitle>
+          </HeadingWrapper>
+          <NewLyricForm />
         </ModalContentWrapper>
       </Modal>
     </>

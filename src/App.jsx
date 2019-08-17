@@ -19,7 +19,7 @@ export const App = () => {
     getAndUpdateAllLyrics();
   }, []);
 
-  const addEntry = (title, chorus, verses) => {
+  const addEntry = (title, chorus, verses, author) => {
     axios({
       method: 'post',
       url: '/newLyricEntry',
@@ -27,6 +27,7 @@ export const App = () => {
         title: title,
         chorus: chorus,
         verses: verses,
+        author: author,
       },
     }).then(() => getAndUpdateAllLyrics());
   };

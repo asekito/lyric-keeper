@@ -1,8 +1,8 @@
 import React from 'react';
-import { CardWrapper } from './elements.jsx';
+import { CardWrapper, CardTitle } from './elements.jsx';
 
 export const LyricCard = ({ title, chorus, verse }) => (
   <CardWrapper>
-    <h1>{title}</h1>
+    <CardTitle>{title}</CardTitle>
   </CardWrapper>
 );

@@ -17,8 +17,8 @@ app.use(bodyParser.json());
 app.use('/', express.static(path.join(__dirname + '/../dist')));
 
 app.post('/newLyricEntry', (req, res) => {
-  const { title, chorus, verses } = req.body;
-  addNewLyric(title, chorus, verses, () => res.sendStatus(200));
+  const { title, chorus, verses, author } = req.body;
+  addNewLyric(title, chorus, verses, author, () => res.sendStatus(200));
 });
 
 app.get('/getAllLyrics', (req, res) => {

@@ -1,4 +1,4 @@
-const stringStandardizer = require('../src/untilities.js').stringStandardizer;
+const stringStandardizer = require('../src/utilities.js').stringStandardizer;
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/lyrics', { useNewUrlParser: true });
 

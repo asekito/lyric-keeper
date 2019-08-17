@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { SemiLightGreen, PrimaryBlue, SecondaryColor } from '../ColorVars.js';
 
 export const CardWrapper = styled.div`
-  width: 25%;
   min-height 40px;
   background-color: ${SemiLightGreen};
   margin: auto;

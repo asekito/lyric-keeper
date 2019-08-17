@@ -10,7 +10,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 const lyricSchema = new Schema({
   title: String,
-  shortUrl: String,
+  shortUrl: { type: String, unique: true },
   author: String,
   chorus: String,
   verses: String,
@@ -39,8 +39,16 @@ const returnSingleLyricMatchingShortUrl = (shortUrl, cb) => {
   );
 };
 
+const removeLyricMatchingShortUrl = (shortUrl, cb) => {
+  Lyric.find(
+    { shortUrl, shortUrl },
+    (err, data) => err && console.error(err)
+  ).remove(() => cb());
+};
+
 module.exports = {
   addNewLyric: addNewLyric,
   returnAllLyrics: returnAllLyrics,
   returnSingleLyricMatchingShortUrl: returnSingleLyricMatchingShortUrl,
+  removeLyricMatchingShortUrl: removeLyricMatchingShortUrl,
 };

@@ -7,7 +7,6 @@ import {
 import { LyricCard } from '../LyricCard';
 import { NewLyricModal } from '../NewLyricModal';
 import axios from 'axios';
-import { Link } from '../GlobalComponents.jsx';
 
 export const HomePage = () => {
   const [lyricData, setLyricData] = useState([]);
@@ -39,9 +38,12 @@ export const HomePage = () => {
       <MainAreaWrapper>
         {lyricData.length
           ? lyricData.map(({ title, author, shortUrl }) => (
-              <Link to={`/lyric/${shortUrl}`}>
-                <LyricCard title={title} author={author} />
-              </Link>
+              <LyricCard
+                title={title}
+                author={author}
+                shortUrl={shortUrl}
+                getAndUpdateAllLyrics={getAndUpdateAllLyrics}
+              />
             ))
           : "You haven't stored any lyrics, yet"}
         <NewLyricModal addEntry={addEntry} />

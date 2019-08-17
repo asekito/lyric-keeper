@@ -8,8 +8,8 @@ const addNewLyric = require('../database/controllers').addNewLyric;
 const returnAllLyrics = require('../database/controllers').returnAllLyrics;
 const returnSingleLyricMatchingShortUrl = require('../database/controllers')
   .returnSingleLyricMatchingShortUrl;
-
-// const { returnAllLyrics } = require('../database/controllers');
+const removeLyricMatchingShortUrl = require('../database/controllers')
+  .removeLyricMatchingShortUrl;
 
 app.use(cors());
 
@@ -33,6 +33,12 @@ app.get('/getSingleLyricByShortUrl', (req, res) => {
 app.get('/getAllLyrics', (req, res) => {
   returnAllLyrics((data) => {
     res.send(data);
+  });
+});
+
+app.post('/deleteLyric', (req, res) => {
+  removeLyricMatchingShortUrl(req.body.shortUrl, () => {
+    res.sendStatus(200);
   });
 });
 

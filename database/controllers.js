@@ -46,9 +46,21 @@ const removeLyricMatchingShortUrl = (shortUrl, cb) => {
   ).remove(() => cb());
 };
 
+const update = ({ title, chorus, verses, author }, cb) => {
+  Lyric.findOneAndUpdate(
+    { title },
+    { title, chorus, verses, author },
+    {
+      new: true,
+    },
+    (err, newData) => (err ? console.error(err) : cb(newData))
+  );
+};
+
 module.exports = {
   addNewLyric: addNewLyric,
   returnAllLyrics: returnAllLyrics,
   returnSingleLyricMatchingShortUrl: returnSingleLyricMatchingShortUrl,
   removeLyricMatchingShortUrl: removeLyricMatchingShortUrl,
+  update: update,
 };

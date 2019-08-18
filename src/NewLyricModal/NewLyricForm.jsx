@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { TextFieldStyles } from './elements.jsx';
 
-export const NewLyricForm = ({ addEntry, setOpen }) => {
-  const [title, setTitle] = useState('');
-  const [chorus, setChorus] = useState('');
-  const [verses, setVerses] = useState('');
-  const [author, setAuthor] = useState('');
+export const NewLyricForm = ({ onClickFunction, lyricData }) => {
+  const [title, setTitle] = useState(lyricData.title ? lyricData.title : '');
+  const [chorus, setChorus] = useState(
+    lyricData.chorus ? lyricData.chorus : ''
+  );
+  const [verses, setVerses] = useState(
+    lyricData.verses ? lyricData.verses : ''
+  );
+  const [author, setAuthor] = useState(
+    lyricData.author ? lyricData.author : ''
+  );
 
   return (
     <>
@@ -46,11 +52,10 @@ export const NewLyricForm = ({ addEntry, setOpen }) => {
         )
       )}
       <Button
-        style={{ marginTop: '20px' }}
+        style={{ margin: '20px' }}
         variant="contained"
         onClick={() => {
-          addEntry(title, chorus, verses, author);
-          setOpen(false);
+          onClickFunction(title, chorus, verses, author);
         }}
       >
         Save

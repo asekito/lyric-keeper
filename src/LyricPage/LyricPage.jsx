@@ -43,7 +43,11 @@ export const LyricPage = () => {
           verses={verses}
         />
       ) : (
-        <EditView />
+        <EditView
+          setEdit={setEdit}
+          lyricData={lyricData}
+          setLyricData={setLyricData}
+        />
       )}
     </PageWrapper>
   );

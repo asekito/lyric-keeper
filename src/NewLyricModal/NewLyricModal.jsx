@@ -10,6 +10,11 @@ import AddIcon from '@material-ui/icons/Add';
 
 export const NewLyricModal = ({ addEntry }) => {
   const [open, setOpen] = useState(false);
+
+  const onClickFunction = (title, chorus, verses, author) => {
+    addEntry(title, chorus, verses, author);
+    setOpen(false);
+  };
   return (
     <>
       <Snackbar
@@ -39,7 +44,11 @@ export const NewLyricModal = ({ addEntry }) => {
           <HeadingWrapper>
             <HeadingTitle>New Lyric</HeadingTitle>
           </HeadingWrapper>
-          <NewLyricForm setOpen={setOpen} addEntry={addEntry} />
+          <NewLyricForm
+            setOpen={setOpen}
+            addEntry={addEntry}
+            onClickFunction={onClickFunction}
+          />
         </ModalContentWrapper>
       </Modal>
     </>

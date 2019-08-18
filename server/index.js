@@ -10,6 +10,7 @@ const returnSingleLyricMatchingShortUrl = require('../database/controllers')
   .returnSingleLyricMatchingShortUrl;
 const removeLyricMatchingShortUrl = require('../database/controllers')
   .removeLyricMatchingShortUrl;
+const update = require('../database/controllers.js').update;
 
 app.use(cors());
 
@@ -39,6 +40,13 @@ app.get('/getAllLyrics', (req, res) => {
 app.post('/deleteLyric', (req, res) => {
   removeLyricMatchingShortUrl(req.body.shortUrl, () => {
     res.sendStatus(200);
+  });
+});
+
+app.post('/updateLyric', (req, res) => {
+  // console.log(req.body);
+  update(req.body, (newData) => {
+    res.send(newData);
   });
 });
 

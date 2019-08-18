@@ -1,7 +1,4 @@
-dist/*
+dist/
 *.swp
-<<<<<<< Updated upstream
-=======
 .node_modules/
 package-lock.json
->>>>>>> Stashed changes

@@ -1,8 +1,50 @@
 import React from 'react';
-import { CardWrapper } from './elements.jsx';
+import {
+  CardWrapper,
+  CardTitle,
+  CardAuthor,
+  TitleAuthorDivider,
+} from './elements.jsx';
+import { Delete } from '@material-ui/icons';
+import { IconButton } from '@material-ui/core';
+import axios from 'axios';
+import { Link } from '../GlobalComponents.jsx';
 
-export const LyricCard = ({ title, chorus, verse }) => (
-  <CardWrapper>
-    <h1>{title}</h1>
-  </CardWrapper>
-);
+export const LyricCard = ({
+  title,
+  author,
+  shortUrl,
+  getAndUpdateAllLyrics,
+}) => {
+  const deleteLyric = (shortUrl) => {
+    axios({
+      method: 'post',
+      url: '/deleteLyric',
+      data: {
+        shortUrl: shortUrl,
+      },
+    }).then(() => getAndUpdateAllLyrics());
+  };
+
+  return (
+    <div style={{ display: 'block' }}>
+      <IconButton
+        onClick={() => deleteLyric(shortUrl)}
+        style={{
+          display: 'inline',
+          verticalAlign: 'super',
+          marginRight: '5px',
+        }}
+      >
+        <Delete />
+      </IconButton>
+      <Link to={`/lyric/${shortUrl}`} style={{ display: 'inline-block' }}>
+        <CardWrapper>
+          <CardTitle>{title}</CardTitle>
+          <TitleAuthorDivider>{' | '}</TitleAuthorDivider>
+          {author && <CardAuthor>{author}</CardAuthor>}
+        </CardWrapper>
+      </Link>
+    </div>
+  );
+};

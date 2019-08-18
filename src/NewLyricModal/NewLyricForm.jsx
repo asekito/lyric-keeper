@@ -3,15 +3,17 @@ import { TextField, Button } from '@material-ui/core';
 import { TextFieldStyles } from './elements.jsx';
 
 export const NewLyricForm = ({ onClickFunction, lyricData }) => {
-  const [title, setTitle] = useState(lyricData.title ? lyricData.title : '');
+  const [title, setTitle] = useState(
+    lyricData && lyricData.title ? lyricData.title : ''
+  );
   const [chorus, setChorus] = useState(
-    lyricData.chorus ? lyricData.chorus : ''
+    lyricData && lyricData.chorus ? lyricData.chorus : ''
   );
   const [verses, setVerses] = useState(
-    lyricData.verses ? lyricData.verses : ''
+    lyricData && lyricData.verses ? lyricData.verses : ''
   );
   const [author, setAuthor] = useState(
-    lyricData.author ? lyricData.author : ''
+    lyricData && lyricData.author ? lyricData.author : ''
   );
 
   return (

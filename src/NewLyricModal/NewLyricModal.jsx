@@ -15,6 +15,7 @@ export const NewLyricModal = ({ addEntry }) => {
     addEntry(title, chorus, verses, author);
     setOpen(false);
   };
+
   return (
     <>
       <Snackbar
@@ -44,11 +45,7 @@ export const NewLyricModal = ({ addEntry }) => {
           <HeadingWrapper>
             <HeadingTitle>New Lyric</HeadingTitle>
           </HeadingWrapper>
-          <NewLyricForm
-            setOpen={setOpen}
-            addEntry={addEntry}
-            onClickFunction={onClickFunction}
-          />
+          <NewLyricForm onClickFunction={onClickFunction} />
         </ModalContentWrapper>
       </Modal>
     </>

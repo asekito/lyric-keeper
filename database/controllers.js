@@ -1,3 +1,4 @@
+const stringStandardizer = require('../src/utilities.js').stringStandardizer;
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/lyrics', { useNewUrlParser: true });
 
@@ -9,14 +10,22 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 const lyricSchema = new Schema({
   title: String,
-  chorus: Array,
-  verses: Array,
+  shortUrl: { type: String, unique: true },
+  author: String,
+  chorus: String,
+  verses: String,
 });
 
 const Lyric = mongoose.model('Lyric', lyricSchema);
 
-const addNewLyric = (title, chorus, verses, cb) => {
-  const newLyric = new Lyric({ title: title, chorus: chorus, verses: verses });
+const addNewLyric = (title, chorus, verses, author, cb) => {
+  const newLyric = new Lyric({
+    title: title,
+    shortUrl: stringStandardizer(title),
+    chorus: chorus,
+    verses: verses,
+    author: author,
+  });
   newLyric.save((err) => (err ? console.error(err) : cb()));
 };
 
@@ -24,4 +33,34 @@ const returnAllLyrics = (cb) => {
   Lyric.find({}, (err, data) => (!err ? cb(data) : console.error(err)));
 };
 
-module.exports = { addNewLyric: addNewLyric, returnAllLyrics: returnAllLyrics };
+const returnSingleLyricMatchingShortUrl = (shortUrl, cb) => {
+  Lyric.find({ shortUrl, shortUrl }, (err, data) =>
+    !err ? cb(data) : console.error(err)
+  );
+};
+
+const removeLyricMatchingShortUrl = (shortUrl, cb) => {
+  Lyric.find(
+    { shortUrl, shortUrl },
+    (err, data) => err && console.error(err)
+  ).remove(() => cb());
+};
+
+const update = ({ title, chorus, verses, author }, cb) => {
+  Lyric.findOneAndUpdate(
+    { title },
+    { title, chorus, verses, author },
+    {
+      new: true,
+    },
+    (err, newData) => (err ? console.error(err) : cb(newData))
+  );
+};
+
+module.exports = {
+  addNewLyric: addNewLyric,
+  returnAllLyrics: returnAllLyrics,
+  returnSingleLyricMatchingShortUrl: returnSingleLyricMatchingShortUrl,
+  removeLyricMatchingShortUrl: removeLyricMatchingShortUrl,
+  update: update,
+};

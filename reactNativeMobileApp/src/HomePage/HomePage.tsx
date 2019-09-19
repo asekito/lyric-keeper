@@ -9,6 +9,7 @@ import {
 import { LyricCard } from '../LyricCard';
 // import { NewLyricModal } from '../NewLyricModal';
 import axios from 'axios';
+import { StyledTextInput } from '../MainPage/elements';
 // import { TextField, Select, MenuItem } from '@material-ui/core';
 
 export const HomePage = () => {
@@ -54,14 +55,13 @@ export const HomePage = () => {
     <DefaultPageWrapper>
       <WelcomeText>Lyric Keeper</WelcomeText>
       <MainAreaWrapper>
-        {/*
-                <StyledTextInput
-        onFocus={() => setInputText('')}
-        defaultValue="Input text, here"
-        value={inputText}
-        onChangeText={(text) => setInputText(text)}
-      />
-        */}
+        <TextField
+          onFocus={() => setSearchString('')}
+          on
+          defaultValue="Input text, here"
+          value={setSearchString}
+          onChangeText={(text) => setSearchString(text)}
+        />
         {/* <TextField
           defaultValue="Search"
           value={searchString}
@@ -85,7 +85,7 @@ export const HomePage = () => {
         >
           <MenuItem value="title">Title</MenuItem>
           <MenuItem value="author">Artist</MenuItem>
-        </Select> */}
+        </Select>
         {lyricData.length ? (
           lyricData.map(({ title, author, shortUrl }) => (
             <LyricCard

@@ -1,17 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { WelcomeText, DefaultPageWrapper, MainAreaWrapper } from "./elements";
-import { LyricCard } from "../LyricCard";
-import { NewLyricModal } from "../NewLyricModal";
+import { LyricCard } from "LyricCard";
+import { NewLyricModal } from "NewLyricModal";
+import { useQuery } from "react-apollo";
 // import axios from "axios";
-import { TextField, Select, MenuItem } from "@material-ui/core";
+import MenuItem from "@material-ui/core/MenuItem";
+import TextField from "@material-ui/core/Select";
+import Select from "@material-ui/core/Select";
+import { Query_Get_All_Lyrics } from "operations";
+
+// apollo-codegen generate **/*.graphql --schema schema.json --target typescript --output operation-result-types.ts --tag-name --addTypename
+
+// apollo client:codegen --no-addTypename --outputFlat --target=typescript --tagName=gql --includes="src/**/*" --endpoint=http://localhost:8181
 
 export const Homepage: React.FC = () => {
   const [lyricDataSourceOfTruth, setLyricDataSourceOfTruth] = useState([]);
   const [lyricData, setLyricData] = useState([]);
-  const [searchString, setSearchString] = useState("");
+  const [searchString, setSearchString] = useState<any>(""); // @TODO: Fix types
   const [filterBy, setFilterBy] = useState<any>("title");
 
-  const filter = (searchTerm: string) => {
+  const { data, loading, error } = useQuery(Query_Get_All_Lyrics);
+
+  if (loading) console.log("Loading...");
+
+  if (!loading) console.log(data || error);
+
+  const filter = (searchTerm: any) => {
+    // @TODO: Fix types
     setLyricData([]);
     // setLyricData(
     //   lyricDataSourceOfTruth.filter(item => item[filterBy].includes(searchTerm))
@@ -50,9 +65,9 @@ export const Homepage: React.FC = () => {
         <TextField
           label="Search"
           value={searchString}
-          onChange={e => {
-            setSearchString(e.target.value);
-            filter(e.target.value);
+          onChange={({ target: value }) => {
+            setSearchString(value);
+            filter(value);
           }}
           style={{ display: "inline-block" }}
         />

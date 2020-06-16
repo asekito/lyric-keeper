@@ -1,3 +1,10 @@
+# Lyric Keeper
+### A friendly app for keeping track of all your favourite song lyrics and chords
+
+---
+
+## Dev notes
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

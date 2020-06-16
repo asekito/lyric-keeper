@@ -24,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "codegen": "rm -rf types && mkdir types && yarn apollo client:codegen ./types/ --no-addTypename --outputFlat --target=typescript --tagName=gql --includes='src/**/*' --endpoint=http://localhost:8181"
+    "codegen": "cd Types && rm -rf __types__ && mkdir __types__ && yarn apollo client:codegen Types/__types__ --no-addTypename --outputFlat --target=typescript --tagName=gql --includes='src/**/*' --endpoint=http://localhost:8181 && node generationScript.js"
   },
   "eslintConfig": {
     "extends": "react-app"

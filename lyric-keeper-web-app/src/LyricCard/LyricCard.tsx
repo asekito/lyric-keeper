@@ -7,23 +7,31 @@ import {
 } from "./elements";
 import { Delete } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
-import axios from "axios";
+// import axios from "axios";
 import { Link } from "../GlobalComponents";
 
-export const LyricCard: React.FC = ({
+interface Props {
+  title: string;
+  author: string;
+  shortUrl: string;
+  getAndUpdateAllLyrics: any; // @TODO: Fix types
+}
+
+export const LyricCard: React.FC<Props> = ({
   title,
   author,
   shortUrl,
   getAndUpdateAllLyrics,
 }) => {
-  const deleteLyric = shortUrl => {
-    axios({
-      method: "post",
-      url: "/deleteLyric",
-      data: {
-        shortUrl: shortUrl,
-      },
-    }).then(() => getAndUpdateAllLyrics());
+  const deleteLyric = (shortUrl: string) => {
+    // axios({
+    //   method: "post",
+    //   url: "/deleteLyric",
+    //   data: {
+    //     shortUrl: shortUrl,
+    //   },
+    // }).then(() => getAndUpdateAllLyrics());
+    return [];
   };
 
   return (

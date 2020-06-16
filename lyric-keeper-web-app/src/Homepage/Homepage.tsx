@@ -2,44 +2,45 @@ import React, { useEffect, useState } from "react";
 import { WelcomeText, DefaultPageWrapper, MainAreaWrapper } from "./elements";
 import { LyricCard } from "../LyricCard";
 import { NewLyricModal } from "../NewLyricModal";
-import axios from "axios";
+// import axios from "axios";
 import { TextField, Select, MenuItem } from "@material-ui/core";
 
 export const Homepage: React.FC = () => {
   const [lyricDataSourceOfTruth, setLyricDataSourceOfTruth] = useState([]);
   const [lyricData, setLyricData] = useState([]);
   const [searchString, setSearchString] = useState("");
-  const [filterBy, setFilterBy] = useState("title");
+  const [filterBy, setFilterBy] = useState<any>("title");
 
-  const filter = searchTerm => {
+  const filter = (searchTerm: string) => {
     setLyricData([]);
-    setLyricData(
-      lyricDataSourceOfTruth.filter(item => item[filterBy].includes(searchTerm))
-    );
+    // setLyricData(
+    //   lyricDataSourceOfTruth.filter(item => item[filterBy].includes(searchTerm))
+    // );
   };
 
   const getAndUpdateAllLyrics = () => {
-    axios.get("/getAllLyrics").then(({ data }) => {
-      setLyricDataSourceOfTruth(data);
-      setLyricData(data);
-    });
+    // axios.get("/getAllLyrics").then(({ data }) => {
+    //   setLyricDataSourceOfTruth(data);
+    //   setLyricData(data);
+    // });
+    return [];
   };
 
   useEffect(() => {
     getAndUpdateAllLyrics();
   }, []);
 
-  const addEntry = (title, chorus, verses, author) => {
-    axios({
-      method: "post",
-      url: "/newLyricEntry",
-      data: {
-        title: title,
-        chorus: chorus,
-        verses: verses,
-        author: author,
-      },
-    }).then(() => getAndUpdateAllLyrics());
+  const addEntry = (title: any, chorus: any, verses: any, author: any) => {
+    // axios({
+    //   method: "post",
+    //   url: "/newLyricEntry",
+    //   data: {
+    //     title: title,
+    //     chorus: chorus,
+    //     verses: verses,
+    //     author: author,
+    //   },
+    // }).then(() => getAndUpdateAllLyrics());
   };
 
   return (
@@ -57,8 +58,8 @@ export const Homepage: React.FC = () => {
         />
         <Select
           value={filterBy}
-          onChange={e => {
-            setFilterBy(e.target.value);
+          onChange={({ target: { value } }) => {
+            setFilterBy(value);
           }}
           style={{
             display: "inline-block",

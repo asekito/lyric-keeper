@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MainGreen, PrimaryBlue, SecondaryColor } from '../ColorVars.js';
+import { MainGreen, PrimaryBlue, SecondaryColor } from 'ColorVars';
 
 export const PageWrapper = styled.div`
   text-align: center;

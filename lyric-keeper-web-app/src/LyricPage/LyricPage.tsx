@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { PageWrapper } from './elements';
-import { Snackbar } from '@material-ui/core';
-import axios from 'axios';
-import { LyricView } from './LyricView';
-import { SnackbarButtons } from './SnackbarButtons';
-import { EditView } from './EditView';
+import React, { useState, useEffect } from "react";
+import { PageWrapper } from "./elements";
+import { Snackbar } from "@material-ui/core";
+// import axios from 'axios';
+import { LyricView } from "./LyricView";
+import { SnackbarButtons } from "./SnackbarButtons";
+import { EditView } from "./EditView";
 
 export const LyricPage: React.FC = () => {
-  const [lyricData, setLyricData] = useState({ title: '' });
+  const [lyricData, setLyricData] = useState<any>({ title: "" }); // @TODO: Fix types
   const [edit, setEdit] = useState(false);
 
   const shortUrl = window.location.pathname.slice(
@@ -16,11 +16,12 @@ export const LyricPage: React.FC = () => {
   );
 
   useEffect(() => {
-    axios
-      .get('/getSingleLyricByShortUrl', { params: { shortUrl: shortUrl } })
-      .then(({ data }) => {
-        setLyricData(data[0]);
-      });
+    // axios
+    //   .get('/getSingleLyricByShortUrl', { params: { shortUrl: shortUrl } })
+    //   .then(({ data }) => {
+    //     setLyricData(data[0]);
+    //   });
+    return setLyricData([]);
   }, []);
 
   const { title, author, chorus, verses } = lyricData;
@@ -28,8 +29,8 @@ export const LyricPage: React.FC = () => {
     <PageWrapper>
       <Snackbar
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
         open={true}
       >

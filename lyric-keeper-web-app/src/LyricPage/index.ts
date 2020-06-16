@@ -1,1 +1,1 @@
-export * from './LyricPage';
+export { LyricPage } from "./LyricPage";

@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { TextFieldStyles } from "./elements";
 
-export const NewLyricForm: React.FC = ({ onClickFunction, lyricData }) => {
+export const NewLyricForm: React.FC<any> = ({ onClickFunction, lyricData }) => { // @TODO: Fix types
   const [title, setTitle] = useState(
     lyricData && lyricData.title ? lyricData.title : ""
   );

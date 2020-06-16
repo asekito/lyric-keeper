@@ -1,9 +1,9 @@
-import React from 'react';
-import { Button, Grid } from '@material-ui/core';
-import { Home, Edit, Cancel } from '@material-ui/icons';
-import { Link } from '../GlobalComponents';
+import React from "react";
+import { Button, Grid } from "@material-ui/core";
+import { Home, Edit, Cancel } from "@material-ui/icons";
+import { Link } from "../GlobalComponents";
 
-export const SnackbarButtons: React.FC = ({ edit, setEdit }) => (
+export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => (
   <Grid container>
     <Grid item xs={12}>
       <Link to="/">
@@ -11,7 +11,7 @@ export const SnackbarButtons: React.FC = ({ edit, setEdit }) => (
           size="large"
           variant="contained"
           style={{
-            display: !!edit ? 'flex' : 'flex',
+            display: !!edit ? "flex" : "flex",
           }}
         >
           <Home /> Home
@@ -23,8 +23,8 @@ export const SnackbarButtons: React.FC = ({ edit, setEdit }) => (
         size="large"
         variant="contained"
         style={{
-          marginTop: '15px',
-          display: !!edit ? 'flex' : 'flex',
+          marginTop: "15px",
+          display: !!edit ? "flex" : "flex",
         }}
         onClick={() => setEdit(true)}
       >
@@ -36,8 +36,8 @@ export const SnackbarButtons: React.FC = ({ edit, setEdit }) => (
         size="large"
         variant="contained"
         style={{
-          marginTop: '15px',
-          display: !!edit ? 'flex' : 'none',
+          marginTop: "15px",
+          display: !!edit ? "flex" : "none",
         }}
         onClick={() => setEdit(false)}
       >

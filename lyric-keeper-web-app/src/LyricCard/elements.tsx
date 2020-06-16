@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { PrimaryBlue, SecondaryColor, MainGreen } from '../ColorVars.js';
+import styled from "styled-components";
+import { PrimaryBlue, SecondaryColor, MainGreen } from "ColorVars";
 
 export const CardWrapper = styled.div`
   min-height 40px;

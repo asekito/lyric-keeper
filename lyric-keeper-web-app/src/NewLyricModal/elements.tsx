@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MainGreen } from '../ColorVars.js';
+import { MainGreen } from 'ColorVars';
 
 export const ModalContentWrapper = styled.div`
   text-align: center;

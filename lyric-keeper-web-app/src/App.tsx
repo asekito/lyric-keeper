@@ -1,6 +1,6 @@
 import React from "react";
 import { Homepage } from "Homepage";
-import { LyricPage } from "Lyricpage";
+import { LyricPage } from "LyricPage";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = () => (

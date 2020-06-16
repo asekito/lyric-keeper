@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { Modal, Button, Snackbar } from '@material-ui/core';
-import {
-  ModalContentWrapper,
-  HeadingWrapper,
-  HeadingTitle,
-} from './elements';
-import { NewLyricForm } from './NewLyricForm';
-import AddIcon from '@material-ui/icons/Add';
+import React, { useState } from "react";
+import { Modal, Button, Snackbar } from "@material-ui/core";
+import { ModalContentWrapper, HeadingWrapper, HeadingTitle } from "./elements";
+import { NewLyricForm } from "./NewLyricForm";
+import AddIcon from "@material-ui/icons/Add";
 
-export const NewLyricModal = ({ addEntry }) => {
+export const NewLyricModal = ({ addEntry }: any) => { // @TODO: FIX types
   const [open, setOpen] = useState(false);
 
-  const onClickFunction = (title, chorus, verses, author) => {
+  const onClickFunction = (
+    title: any,
+    chorus: any,
+    verses: any,
+    author: any
+  ) => { // @TODO: Fix types
     addEntry(title, chorus, verses, author);
     setOpen(false);
   };
@@ -20,8 +21,8 @@ export const NewLyricModal = ({ addEntry }) => {
     <>
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right",
         }}
         open={true}
       >

@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: Query_Get_All_Lyrics
+// GraphQL query operation: Get_All_Lyrics
 // ====================================================
 
-export interface Query_Get_All_Lyrics_allLyrics {
+export interface Get_All_Lyrics_allLyrics {
   title: string;
   shortUrl: string;
   author: string;
@@ -15,6 +15,6 @@ export interface Query_Get_All_Lyrics_allLyrics {
   verses: string;
 }
 
-export interface Query_Get_All_Lyrics {
-  allLyrics: (Query_Get_All_Lyrics_allLyrics | null)[];
+export interface Get_All_Lyrics {
+  allLyrics: (Get_All_Lyrics_allLyrics | null)[];
 }

@@ -8,18 +8,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/Select";
 import Select from "@material-ui/core/Select";
 import { Query_Get_All_Lyrics } from "operations";
+import { Get_All_Lyrics } from "Types";
 
-// apollo-codegen generate **/*.graphql --schema schema.json --target typescript --output operation-result-types.ts --tag-name --addTypename
-
-// apollo client:codegen --no-addTypename --outputFlat --target=typescript --tagName=gql --includes="src/**/*" --endpoint=http://localhost:8181
+type allLyrics = Get_All_Lyrics["allLyrics"];
 
 export const Homepage: React.FC = () => {
-  const [lyricDataSourceOfTruth, setLyricDataSourceOfTruth] = useState([]);
-  const [lyricData, setLyricData] = useState([]);
+  const [lyricDataSourceOfTruth, setLyricDataSourceOfTruth] = useState<
+    allLyrics | undefined
+  >([]);
+  const [lyricData, setLyricData] = useState<allLyrics | undefined>([]);
   const [searchString, setSearchString] = useState<any>(""); // @TODO: Fix types
   const [filterBy, setFilterBy] = useState<any>("title");
 
-  const { data, loading, error } = useQuery(Query_Get_All_Lyrics);
+  const { data, loading, error } = useQuery<allLyrics>(Query_Get_All_Lyrics);
 
   if (loading) console.log("Loading...");
 
@@ -34,11 +35,8 @@ export const Homepage: React.FC = () => {
   };
 
   const getAndUpdateAllLyrics = () => {
-    // axios.get("/getAllLyrics").then(({ data }) => {
-    //   setLyricDataSourceOfTruth(data);
-    //   setLyricData(data);
-    // });
-    return [];
+    setLyricDataSourceOfTruth(data);
+    setLyricData(data);
   };
 
   useEffect(() => {
@@ -86,7 +84,7 @@ export const Homepage: React.FC = () => {
           <MenuItem value="title">Title</MenuItem>
           <MenuItem value="author">Artist</MenuItem>
         </Select>
-        {lyricData.length ? (
+        {lyricData && lyricData.length ? (
           lyricData.map(({ title, author, shortUrl }) => (
             <LyricCard
               title={title}

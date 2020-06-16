@@ -8,6 +8,7 @@
 // ====================================================
 
 export interface Get_All_Lyrics_allLyrics {
+  __typename: "Lyric";
   title: string;
   shortUrl: string;
   author: string;
@@ -16,5 +17,5 @@ export interface Get_All_Lyrics_allLyrics {
 }
 
 export interface Get_All_Lyrics {
-  allLyrics: (Get_All_Lyrics_allLyrics | null)[];
+  allLyrics: Get_All_Lyrics_allLyrics[] | null;
 }

@@ -5,10 +5,12 @@ import { NewLyricModal } from "NewLyricModal";
 import { useQuery } from "react-apollo";
 // import axios from "axios";
 import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/Select";
+import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { Query_Get_All_Lyrics } from "operations";
 import { Get_All_Lyrics } from "Types";
+import { useFormik } from "formik";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -17,31 +19,34 @@ export const Homepage: React.FC = () => {
     allLyrics | undefined
   >([]);
   const [lyricData, setLyricData] = useState<allLyrics | undefined>([]);
-  const [searchString, setSearchString] = useState<any>(""); // @TODO: Fix types
-  const [filterBy, setFilterBy] = useState<any>("title");
 
-  const { data, loading, error } = useQuery<allLyrics>(Query_Get_All_Lyrics);
+  const {
+    handleChange,
+    values: { search, filterBy },
+  } = useFormik({
+    initialValues: { search: "", filterBy: "title" as "title" | "author" },
+    onSubmit: () => undefined,
+  });
 
-  if (loading) console.log("Loading...");
+  const { data, loading, error } = useQuery(Query_Get_All_Lyrics);
 
-  if (!loading) console.log(data || error);
-
-  const filter = (searchTerm: any) => {
-    // @TODO: Fix types
-    setLyricData([]);
-    // setLyricData(
-    //   lyricDataSourceOfTruth.filter(item => item[filterBy].includes(searchTerm))
-    // );
+  const filter = (searchTerm: string) => {
+    setLyricData(
+      lyricDataSourceOfTruth &&
+        lyricDataSourceOfTruth.filter(item =>
+          item[filterBy].includes(searchTerm)
+        )
+    );
   };
 
   const getAndUpdateAllLyrics = () => {
-    setLyricDataSourceOfTruth(data);
-    setLyricData(data);
+    setLyricDataSourceOfTruth(data?.allLyrics);
+    setLyricData(data?.allLyrics);
   };
 
   useEffect(() => {
     getAndUpdateAllLyrics();
-  }, []);
+  }, [data]);
 
   const addEntry = (title: any, chorus: any, verses: any, author: any) => {
     // axios({
@@ -56,23 +61,34 @@ export const Homepage: React.FC = () => {
     // }).then(() => getAndUpdateAllLyrics());
   };
 
+  if (loading)
+    return (
+      <CircularProgress
+        size="large"
+        style={{ textAlign: "center", marginTop: "20%" }}
+      />
+    );
+
   return (
     <DefaultPageWrapper>
       <WelcomeText>Lyric Keeper</WelcomeText>
       <MainAreaWrapper>
         <TextField
           label="Search"
-          value={searchString}
-          onChange={({ target: value }) => {
-            setSearchString(value);
-            filter(value);
+          name="search"
+          value={search}
+          onChange={e => {
+            handleChange(e);
+            filter(search);
           }}
           style={{ display: "inline-block" }}
         />
         <Select
           value={filterBy}
-          onChange={({ target: { value } }) => {
-            setFilterBy(value);
+          name="filterBy"
+          onChange={e => {
+            handleChange(e);
+            console.log(filterBy);
           }}
           style={{
             display: "inline-block",

@@ -27,6 +27,12 @@ fs.readdir("./__types__", (err, files) => {
     if (err) throw err;
   });
 
+  // Fixes ugly tslint error with Create React App
+  fs.appendFile("__types__/globalTypes.ts", "\nexport {}", err => {
+    // @TODO: Figure out a better way of handling... preferably not in this file...
+    if (err) throw err;
+  });
+
   // Create final index.ts file to export everything from __types__
   fs.writeFile("index.ts", 'export * from "./__types__";', err => {
     if (err) throw err;

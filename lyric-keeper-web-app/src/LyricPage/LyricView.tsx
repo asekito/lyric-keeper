@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Songtitle, SongAuthor, SongVerse, SongChorus } from "./elements";
 import { Lyric_Without_Short_Url } from "Types";
 

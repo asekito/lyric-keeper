@@ -95,26 +95,33 @@ export const Homepage: React.FC = () => {
           <MenuItem value="title">Title</MenuItem>
           <MenuItem value="author">Artist</MenuItem>
         </Select>
-        {lyricData && lyricData.length ? (
-          lyricData.map(({ title, author, shortUrl }) => (
-            <LyricCard
-              title={title}
-              author={author}
-              shortUrl={shortUrl}
-              getAndUpdateAllLyrics={getAndUpdateAllLyrics}
-            />
-          ))
+        {!loading ? (
+          lyricData && lyricData.length ? (
+            lyricData.map(({ title, author, shortUrl }) => (
+              <LyricCard
+                title={title}
+                author={author}
+                shortUrl={shortUrl}
+                getAndUpdateAllLyrics={getAndUpdateAllLyrics}
+              />
+            ))
+          ) : (
+            <div
+              style={{
+                marginTop: "5vh",
+                fontSize: "3vh",
+                display: "block",
+                letterSpacing: "0.2vw",
+              }}
+            >
+              No Lyrics to display...
+            </div>
+          )
         ) : (
-          <div
-            style={{
-              marginTop: "5vh",
-              fontSize: "3vh",
-              display: "block",
-              letterSpacing: "0.2vw",
-            }}
-          >
-            No Lyrics to display...
-          </div>
+          <CircularProgress
+            size="large"
+            style={{ textAlign: "center", marginTop: "20%" }}
+          />
         )}
         <NewLyricModal addEntry={addEntry} />
       </MainAreaWrapper>

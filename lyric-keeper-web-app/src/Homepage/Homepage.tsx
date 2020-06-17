@@ -27,7 +27,7 @@ export const Homepage: React.FC = () => {
     onSubmit: () => undefined,
   });
 
-  const { data, loading, error } = useQuery(Query_Get_All_Lyrics);
+  const { data, loading, refetch } = useQuery(Query_Get_All_Lyrics);
 
   const [addNewLyric] = useMutation<{ addNewLyric: Add_New_LyricVariables }>(
     Mutation_Add_New_Lyric
@@ -35,14 +35,17 @@ export const Homepage: React.FC = () => {
 
   const filter = (searchTerm: string) => {
     setLyricData(
-      lyricDataSourceOfTruth &&
-        lyricDataSourceOfTruth.filter(item =>
-          item[filterBy].includes(searchTerm)
-        )
+      searchTerm.length
+        ? lyricDataSourceOfTruth &&
+            lyricDataSourceOfTruth.filter(item =>
+              item[filterBy].includes(searchTerm)
+            )
+        : lyricDataSourceOfTruth
     );
   };
 
   const getAndUpdateAllLyrics = () => {
+    refetch();
     setLyricDataSourceOfTruth(data?.allLyrics);
     setLyricData(data?.allLyrics);
   };
@@ -53,6 +56,7 @@ export const Homepage: React.FC = () => {
 
   const addEntry = (lyric: Lyric) => {
     addNewLyric({ variables: lyric });
+    getAndUpdateAllLyrics();
   };
 
   if (loading)

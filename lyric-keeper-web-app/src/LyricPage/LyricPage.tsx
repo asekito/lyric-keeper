@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { PageWrapper } from "./elements";
-// import Snackbar from "@material-ui/core/Snackbar";
+import Snackbar from "@material-ui/core/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { LyricView } from "./LyricView";
-// import { SnackbarButtons } from "./SnackbarButtons";
+import { SnackbarButtons } from "./SnackbarButtons";
 import { EditView } from "./EditView";
 import { Lyric } from "Types";
 import { useQuery } from "react-apollo";
@@ -47,7 +47,7 @@ export const LyricPage: React.FC = () => {
 
   return (
     <PageWrapper>
-      {/* <Snackbar
+      <Snackbar
         anchorOrigin={{
           vertical: "top",
           horizontal: "left",
@@ -55,7 +55,7 @@ export const LyricPage: React.FC = () => {
         open={true}
       >
         <SnackbarButtons edit={edit} setEdit={setEdit} />
-      </Snackbar> */}
+      </Snackbar>
       {!edit ? (
         <LyricView
           title={title}

@@ -38,7 +38,13 @@ export const LyricCard: React.FC<Props> = ({
 
   const limit = isMobile ? 9 : 14;
 
-  if (loading) console.log(loading);
+  if (loading)
+    return (
+      <CircularProgress
+        size="large"
+        style={{ textAlign: "center", marginTop: "20%" }}
+      />
+    );
 
   return (
     <div style={{ display: "block" }}>

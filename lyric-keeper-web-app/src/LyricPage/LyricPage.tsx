@@ -43,8 +43,6 @@ export const LyricPage: React.FC = () => {
 
   const { title, author, chorus, verses } = lyricData;
 
-  console.log(title, author, chorus, verses);
-
   return (
     <PageWrapper>
       <Snackbar

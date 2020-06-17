@@ -1,5 +1,7 @@
-import styled from 'styled-components';
-import { MainGreen, PrimaryBlue, SecondaryColor } from 'ColorVars';
+import styled from "styled-components";
+import { MainGreen, PrimaryBlue, SecondaryColor } from "ColorVars";
+import React from "react";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export const PageWrapper = styled.div`
   text-align: center;
@@ -26,12 +28,25 @@ export const SongChorus = styled.div`
   font-size: 2.2vh;
   letter-spacing: 0.1vw;
   color: ${SecondaryColor};
+  white-space: pre-wrap;
 `;
 
-export const SongVerse = styled.div`
+const SongVerse_ = styled.div<{ isMobile: boolean }>`
   text-align: left;
   margin: auto 27vw;
   margin-top: 5px;
   font-size: 2.1vh;
   letter-spacing: 0.1vw;
+  white-space: pre-wrap;
+  ${({ isMobile }) =>
+    isMobile &&
+    `
+      margin: auto 10px;
+    `}
 `;
+
+export const SongVerse: React.FC = ({ children }) => {
+  const isMobile = !useMediaQuery("(min-width:500px)");
+
+  return <SongVerse_ isMobile={isMobile}>{children}</SongVerse_>;
+};

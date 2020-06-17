@@ -8,12 +8,10 @@
 // ====================================================
 
 export interface Add_New_Lyric_addNewLyric_result {
-  __typename: "Error";
   error: string | null;
 }
 
 export interface Add_New_Lyric_addNewLyric {
-  __typename: "AddNewLyricResult";
   result: Add_New_Lyric_addNewLyric_result | null;
 }
 

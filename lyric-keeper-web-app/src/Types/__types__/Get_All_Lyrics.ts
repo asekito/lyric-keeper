@@ -8,7 +8,6 @@
 // ====================================================
 
 export interface Get_All_Lyrics_allLyrics {
-  __typename: "Lyric";
   title: string;
   shortUrl: string;
   author: string;

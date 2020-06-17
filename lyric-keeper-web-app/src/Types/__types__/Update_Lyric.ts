@@ -8,7 +8,6 @@
 // ====================================================
 
 export interface Update_Lyric_updateLyric {
-  __typename: "LyricWithoutShortUrl";
   title: string;
   author: string;
   chorus: string;

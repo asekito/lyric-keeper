@@ -8,7 +8,6 @@
 // ====================================================
 
 export interface Find_Lyric_With_Short_Url_findLyricWithShortUrl {
-  __typename: "Lyric";
   title: string;
   shortUrl: string;
   author: string;

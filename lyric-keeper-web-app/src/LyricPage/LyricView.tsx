@@ -1,5 +1,7 @@
 import React from "react";
 import { Songtitle, SongAuthor, SongVerse, SongChorus } from "./elements";
+import { Lyric_Without_Short_Url } from "Types";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const ChorusAndVerse = (
   { chorus, verse }: any // @TODO: Fix types
@@ -10,9 +12,12 @@ const ChorusAndVerse = (
   </>
 );
 
-export const LyricView: React.FC<any> = (
-  { title, author, verses, chorus } // @TODO: Fix types
-) => (
+export const LyricView: React.FC<Lyric_Without_Short_Url> = ({
+  title,
+  author,
+  verses,
+  chorus,
+}) => (
   <>
     <Songtitle>{title}</Songtitle>
     <SongAuthor>{author}</SongAuthor>

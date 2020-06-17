@@ -33,12 +33,14 @@ export const NewLyricForm: React.FC<Props> = ({
       label: "Title",
       value: title,
       name: "title",
+      width: "60%",
       helpText: "Title of song",
     },
     {
       label: "Artist",
       value: author,
       name: "author",
+      width: "60%",
       helpText: "Artist of song",
     },
     {
@@ -64,7 +66,15 @@ export const NewLyricForm: React.FC<Props> = ({
   return (
     <Container maxWidth="sm">
       {formFields.map(
-        ({ label, value, multiline = false, rows = 1, helpText, name }) => (
+        ({
+          label,
+          value,
+          multiline = false,
+          rows = 1,
+          helpText,
+          name,
+          width = "100%",
+        }) => (
           <>
             <TextFieldStyles>
               <TextField
@@ -73,7 +83,7 @@ export const NewLyricForm: React.FC<Props> = ({
                 multiline={multiline}
                 rowsMax={100}
                 rows={rows}
-                style={{ width: "100%" }}
+                style={{ width }}
                 margin="dense"
                 label={label}
                 value={value}

@@ -58,7 +58,7 @@ export const Homepage: React.FC = () => {
 
   useEffect(() => {
     getAndUpdateAllLyrics();
-    // tslint:disable-next-line:react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const addEntry = (lyric: Lyric) => {

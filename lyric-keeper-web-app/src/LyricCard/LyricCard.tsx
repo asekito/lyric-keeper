@@ -13,6 +13,7 @@ import { useMutation } from "react-apollo";
 import { Delete_Lyric_Matching_Short_UrlVariables } from "Types";
 import { Mutation_Delete_Lyric_Matching_Short_Url } from "operations";
 import { truncate } from "utilities";
+import { UseResponsiveCheck } from "Hooks";
 
 interface Props {
   title: string;
@@ -33,6 +34,10 @@ export const LyricCard: React.FC<Props> = ({
     onCompleted: () => getAndUpdateAllLyrics(),
   });
 
+  const { isMobile } = UseResponsiveCheck();
+
+  const limit = isMobile ? 9 : 14;
+
   if (loading) console.log(loading);
 
   return (
@@ -50,10 +55,10 @@ export const LyricCard: React.FC<Props> = ({
           {loading && <CircularProgress />}
         </IconButton>
         <Link to={`/lyric/${shortUrl}`} style={{ display: "inline-block" }}>
-          <CardTitle>{truncate({ string: title, limit: 14 })}</CardTitle>
+          <CardTitle>{truncate({ string: title, limit })}</CardTitle>
           <TitleAuthorDivider>{" | "}</TitleAuthorDivider>
           {author && (
-            <CardAuthor>{truncate({ string: author, limit: 14 })}</CardAuthor>
+            <CardAuthor>{truncate({ string: author, limit })}</CardAuthor>
           )}
         </Link>
       </CardWrapper>

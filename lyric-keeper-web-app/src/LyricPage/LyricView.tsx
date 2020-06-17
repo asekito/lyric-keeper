@@ -13,15 +13,10 @@ export const LyricView: React.FC<Lyric_Without_Short_Url> = ({
     <SongAuthor>{author}</SongAuthor>
     {verses && chorus && (
       <>
-        {console.log(`**Verses split by chorus: `, verses.split("(chorus)"))}
         {verses
           .split("(chorus)")
           .map((item: any, index: number, arr: string | any[]) => {
             if (index < arr.length - 1) {
-              console.log(
-                "Is not at end of arr",
-                `**Verse:** ${item} \n**Chorus:** ${chorus}`
-              );
               return (
                 <>
                   <SongVerse>{item}</SongVerse>
@@ -29,7 +24,6 @@ export const LyricView: React.FC<Lyric_Without_Short_Url> = ({
                 </>
               );
             } else {
-              console.log(`**SongVerse**: `, item);
               return <SongVerse key={index}>{item}</SongVerse>;
             }
           })}

@@ -25,8 +25,6 @@ export const LyricPage: React.FC = () => {
     }
   );
 
-  console.log(data);
-
   useEffect(() => {
     data && setLyricData(data.findLyricWithShortUrl[0]);
   }, [data]);
@@ -44,6 +42,8 @@ export const LyricPage: React.FC = () => {
   if (error) console.log(error);
 
   const { title, author, chorus, verses } = lyricData;
+
+  console.log(title, author, chorus, verses);
 
   return (
     <PageWrapper>

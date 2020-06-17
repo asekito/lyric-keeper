@@ -15,6 +15,7 @@ export const DefaultPageWrapper = styled.div`
 
 export const MainAreaWrapper = styled(Container)`
   margin: auto;
+  padding-bottom: 50px;
 `;
 
 export const StyledSelect = styled(Select)`

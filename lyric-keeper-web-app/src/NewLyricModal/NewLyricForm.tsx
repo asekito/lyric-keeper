@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import { TextFieldStyles } from "./elements";
 import { useFormik } from "formik";
 import { Lyric } from "Types";
+import Container from "@material-ui/core/Container";
 
 interface Props {
   lyricData?: Lyric;
@@ -27,51 +28,43 @@ export const NewLyricForm: React.FC<Props> = ({
     onSubmit: () => undefined,
   });
 
+  const formFields = [
+    {
+      label: "Title",
+      value: title,
+      name: "title",
+      helpText: "Title of song",
+    },
+    {
+      label: "Artist",
+      value: author,
+      name: "author",
+      helpText: "Artist of song",
+    },
+    {
+      label: "Chorus",
+      value: chorus,
+      name: "chorus",
+      multiline: true,
+      rows: 4,
+      helpText:
+        "Chorus of the song. This will get placed in the body of the lyric anywhere you use the phrase: (chorus)",
+    },
+    {
+      label: "Verses",
+      value: verses,
+      name: "verses",
+      multiline: true,
+      rows: 4,
+      helpText:
+        "Verses of song. Use (chorus) anywhere the above chorus is needed",
+    },
+  ];
+
   return (
-    <>
-      {[
-        {
-          label: "Title",
-          value: title,
-          name: "title",
-          width: "30%",
-          helpText: "Title of song",
-        },
-        {
-          label: "Artist",
-          value: author,
-          name: "author",
-          width: "30%",
-          helpText: "Artist of song",
-        },
-        {
-          label: "Chorus",
-          value: chorus,
-          name: "chorus",
-          multiline: true,
-          rows: 4,
-          helpText:
-            "Chorus of the song. This will get placed in the body of the lyric anywhere you use the phrase: (chorus)",
-        },
-        {
-          label: "Verses",
-          value: verses,
-          name: "verses",
-          multiline: true,
-          rows: 4,
-          helpText:
-            "Verses of song. Use (chorus) anywhere the above chorus is needed",
-        },
-      ].map(
-        ({
-          label,
-          value,
-          width = "60%",
-          multiline = false,
-          rows = 1,
-          helpText,
-          name,
-        }) => (
+    <Container maxWidth="sm">
+      {formFields.map(
+        ({ label, value, multiline = false, rows = 1, helpText, name }) => (
           <>
             <TextFieldStyles>
               <TextField
@@ -80,7 +73,7 @@ export const NewLyricForm: React.FC<Props> = ({
                 multiline={multiline}
                 rowsMax={100}
                 rows={rows}
-                style={{ width: width }}
+                style={{ width: "100%" }}
                 margin="dense"
                 label={label}
                 value={value}
@@ -100,6 +93,6 @@ export const NewLyricForm: React.FC<Props> = ({
       >
         Save
       </Button>
-    </>
+    </Container>
   );
 };

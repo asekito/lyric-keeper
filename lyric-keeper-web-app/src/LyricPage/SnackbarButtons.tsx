@@ -1,48 +1,82 @@
 import React from "react";
-import { Button, Grid } from "@material-ui/core";
-import { Home, Edit, Cancel } from "@material-ui/icons";
-import { Link } from "../GlobalComponents";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Home from "@material-ui/icons/Home";
+import Edit from "@material-ui/icons/Edit";
+import Cancel from "@material-ui/icons/Cancel";
+import IconButton from "@material-ui/core/IconButton";
+import { Link } from "GlobalComponents";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { SecondaryLightGrey } from "ColorVars";
 
-export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => (
-  <Grid container>
-    <Grid item xs={12}>
-      <Link to="/">
-        <Button
-          size="large"
-          variant="contained"
-          style={{
-            display: !!edit ? "flex" : "flex",
-          }}
-        >
-          <Home /> Home
-        </Button>
-      </Link>
+export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
+  const isNotMobile = useMediaQuery("(min-width:800px)");
+
+  const buttons = [
+    {
+      name: "Home",
+      icon: () => <Home />,
+      link: "/",
+    },
+    {
+      name: "EDIT",
+      icon: () => <Edit />,
+      onClick: () => setEdit(true),
+    },
+    {
+      name: "CANCEL",
+      icon: () => <Cancel />,
+      display: !!edit ? "flex" : "none",
+      onClick: () => setEdit(false),
+    },
+  ];
+
+  return (
+    <Grid container>
+      {buttons.map(
+        ({ name, icon, onClick = () => null, display = "flex", ...rest }) => {
+          const InnerWrapper: React.FC<{ to?: string }> = ({
+            children,
+            to = "",
+          }) => (
+            <>{rest.link ? <Link to={to}>{children}</Link> : <>{children}</>}</>
+          );
+
+          const ButtonElement: React.FC<{
+            style: React.CSSProperties;
+            onClick(): void;
+          }> = ({ children, style }: any) =>
+            !isNotMobile ? (
+              <IconButton
+                edge="end"
+                style={{
+                  ...style,
+                  backgroundColor: SecondaryLightGrey,
+                }}
+              >
+                {children}
+              </IconButton>
+            ) : (
+              <Button style={{ ...style }} size="large" variant="contained">
+                {children}
+              </Button>
+            );
+
+          return (
+            <Grid item xs={12} key={name} onClick={onClick}>
+              <InnerWrapper to={rest.link && rest.link}>
+                <ButtonElement
+                  onClick={onClick}
+                  style={{ display, marginTop: "15px" }}
+                >
+                  {icon()}
+                  {isNotMobile && name}
+                </ButtonElement>
+              </InnerWrapper>
+            </Grid>
+          );
+        }
+      )}
     </Grid>
-    <Grid item xs={12}>
-      <Button
-        size="large"
-        variant="contained"
-        style={{
-          marginTop: "15px",
-          display: !!edit ? "flex" : "flex",
-        }}
-        onClick={() => setEdit(true)}
-      >
-        <Edit /> EDIT
-      </Button>
-    </Grid>
-    <Grid item xs={12}>
-      <Button
-        size="large"
-        variant="contained"
-        style={{
-          marginTop: "15px",
-          display: !!edit ? "flex" : "none",
-        }}
-        onClick={() => setEdit(false)}
-      >
-        <Cancel /> CANCEL
-      </Button>
-    </Grid>
-  </Grid>
-);
+  );
+};

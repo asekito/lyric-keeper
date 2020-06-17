@@ -16,7 +16,6 @@ import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
 import { useFormik } from "formik";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { SecondaryLightGrey } from "ColorVars";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 

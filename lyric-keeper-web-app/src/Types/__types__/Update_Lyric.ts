@@ -1,0 +1,23 @@
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: Update_Lyric
+// ====================================================
+
+export interface Update_Lyric_updateLyric {
+  __typename: "LyricWithoutShortUrl";
+}
+
+export interface Update_Lyric {
+  updateLyric: Update_Lyric_updateLyric;
+}
+
+export interface Update_LyricVariables {
+  title: string;
+  author: string;
+  chorus: string;
+  verses: string;
+}

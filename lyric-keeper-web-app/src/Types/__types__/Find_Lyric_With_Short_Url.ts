@@ -17,7 +17,7 @@ export interface Find_Lyric_With_Short_Url_findLyricWithShortUrl {
 }
 
 export interface Find_Lyric_With_Short_Url {
-  findLyricWithShortUrl: Find_Lyric_With_Short_Url_findLyricWithShortUrl;
+  findLyricWithShortUrl: Find_Lyric_With_Short_Url_findLyricWithShortUrl[] | null;
 }
 
 export interface Find_Lyric_With_Short_UrlVariables {

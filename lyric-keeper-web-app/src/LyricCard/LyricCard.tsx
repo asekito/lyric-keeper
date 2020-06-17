@@ -7,14 +7,16 @@ import {
 } from "./elements";
 import { Delete } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
-// import axios from "axios";
 import { Link } from "../GlobalComponents";
+import { useMutation } from "react-apollo";
+import { Delete_Lyric_Matching_Short_UrlVariables } from "Types";
+import { Mutation_Delete_Lyric_Matching_Short_Url } from "operations";
 
 interface Props {
   title: string;
   author: string;
   shortUrl: string;
-  getAndUpdateAllLyrics: any; // @TODO: Fix types
+  getAndUpdateAllLyrics(): void;
 }
 
 export const LyricCard: React.FC<Props> = ({
@@ -23,21 +25,16 @@ export const LyricCard: React.FC<Props> = ({
   shortUrl,
   getAndUpdateAllLyrics,
 }) => {
-  const deleteLyric = (shortUrl: string) => {
-    // axios({
-    //   method: "post",
-    //   url: "/deleteLyric",
-    //   data: {
-    //     shortUrl: shortUrl,
-    //   },
-    // }).then(() => getAndUpdateAllLyrics());
-    return [];
-  };
+  const [deleteLyric] = useMutation<{
+    deleteLyric: Delete_Lyric_Matching_Short_UrlVariables;
+  }>(Mutation_Delete_Lyric_Matching_Short_Url, {
+    onCompleted: () => getAndUpdateAllLyrics(),
+  });
 
   return (
     <div style={{ display: "block" }}>
       <IconButton
-        onClick={() => deleteLyric(shortUrl)}
+        onClick={() => deleteLyric({ variables: { shortUrl } })}
         style={{
           display: "inline",
           verticalAlign: "super",

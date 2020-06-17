@@ -30,8 +30,7 @@ export const Homepage: React.FC = () => {
   const { data, loading, error } = useQuery(Query_Get_All_Lyrics);
 
   const [addNewLyric] = useMutation<{ addNewLyric: Add_New_LyricVariables }>(
-    Mutation_Add_New_Lyric,
-    { onCompleted: () => {} }
+    Mutation_Add_New_Lyric
   );
 
   const filter = (searchTerm: string) => {

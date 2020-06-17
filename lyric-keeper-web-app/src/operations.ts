@@ -47,3 +47,33 @@ export const Mutation_Add_New_Lyric = gql`
     }
   }
 `;
+
+export const Mutation_Delete_Lyric_Matching_Short_Url = gql`
+  mutation Delete_Lyric_Matching_Short_Url($shortUrl: String!) {
+    deleteLyricMatchingShortUrl(input: { shortUrl: $shortUrl }) {
+      ...Lyric
+    }
+  }
+  ${Lyric}
+`;
+
+export const Mutation_Update_Lyric = gql`
+  mutation Update_Lyric(
+    $title: String!
+    $author: String!
+    $chorus: String!
+    $verses: String!
+  ) {
+    updateLyric(
+      input: {
+        title: $title
+        author: $author
+        chorus: $chorus
+        verses: $verses
+      }
+    ) {
+      ...Lyric
+    }
+  }
+  ${Lyric}
+`;

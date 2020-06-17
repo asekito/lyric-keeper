@@ -25,6 +25,8 @@ export const LyricPage: React.FC = () => {
     }
   );
 
+  console.log(data);
+
   useEffect(() => {
     data && setLyricData(data.findLyricWithShortUrl[0]);
   }, [data]);

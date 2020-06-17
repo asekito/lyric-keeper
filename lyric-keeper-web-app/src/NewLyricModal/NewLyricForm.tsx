@@ -1,22 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { TextFieldStyles } from "./elements";
+import { useFormik } from "formik";
+import { Lyric } from "Types";
 
-export const NewLyricForm: React.FC<any> = ({ onClickFunction, lyricData }) => { // @TODO: Fix types
-  const [title, setTitle] = useState(
-    lyricData && lyricData.title ? lyricData.title : ""
-  );
-  const [chorus, setChorus] = useState(
-    lyricData && lyricData.chorus ? lyricData.chorus : ""
-  );
-  const [verses, setVerses] = useState(
-    lyricData && lyricData.verses ? lyricData.verses : ""
-  );
-  const [author, setAuthor] = useState(
-    lyricData && lyricData.author ? lyricData.author : ""
-  );
-  const [showHelp, setShowHelp] = useState(true);
+interface Props {
+  lyricData?: Lyric;
+  onClickFunction(item: Partial<Lyric>): void;
+}
+
+export const NewLyricForm: React.FC<Props> = ({
+  onClickFunction,
+  lyricData,
+}) => {
+  const {
+    handleChange,
+    values: { title, chorus, verses, author },
+  } = useFormik({
+    initialValues: {
+      title: (lyricData && lyricData.title) || "",
+      chorus: (lyricData && lyricData.chorus) || "",
+      verses: (lyricData && lyricData.verses) || "",
+      author: (lyricData && lyricData.author) || "",
+    },
+    onSubmit: () => undefined,
+  });
 
   return (
     <>
@@ -24,21 +33,21 @@ export const NewLyricForm: React.FC<any> = ({ onClickFunction, lyricData }) => {
         {
           label: "Title",
           value: title,
-          set: setTitle,
+          name: "title",
           width: "30%",
           helpText: "Title of song",
         },
         {
           label: "Artist",
           value: author,
-          set: setAuthor,
+          name: "author",
           width: "30%",
           helpText: "Artist of song",
         },
         {
           label: "Chorus",
           value: chorus,
-          set: setChorus,
+          name: "chorus",
           multiline: true,
           rows: 4,
           helpText:
@@ -47,7 +56,7 @@ export const NewLyricForm: React.FC<any> = ({ onClickFunction, lyricData }) => {
         {
           label: "Verses",
           value: verses,
-          set: setVerses,
+          name: "verses",
           multiline: true,
           rows: 4,
           helpText:
@@ -57,16 +66,17 @@ export const NewLyricForm: React.FC<any> = ({ onClickFunction, lyricData }) => {
         ({
           label,
           value,
-          set,
           width = "60%",
           multiline = false,
           rows = 1,
           helpText,
+          name,
         }) => (
           <>
             <TextFieldStyles>
               <TextField
                 required
+                name={name}
                 multiline={multiline}
                 rowsMax={100}
                 rows={rows}
@@ -74,7 +84,7 @@ export const NewLyricForm: React.FC<any> = ({ onClickFunction, lyricData }) => {
                 margin="dense"
                 label={label}
                 value={value}
-                onChange={e => set(e.target.value)}
+                onChange={handleChange}
                 placeholder={helpText}
               />
             </TextFieldStyles>
@@ -85,7 +95,7 @@ export const NewLyricForm: React.FC<any> = ({ onClickFunction, lyricData }) => {
         style={{ margin: "20px" }}
         variant="contained"
         onClick={() => {
-          onClickFunction(title, chorus, verses, author);
+          onClickFunction({ title, chorus, verses, author });
         }}
       >
         Save

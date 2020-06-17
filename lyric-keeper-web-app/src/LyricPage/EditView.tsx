@@ -13,7 +13,8 @@ export const EditView: React.FC<any> = ({
     chorus: any,
     verses: any,
     author: any
-  ) => { // @TODO: Fix types
+  ) => {
+    // @TODO: Fix types
     // axios({
     //   url: "/updateLyric",
     //   method: "post",
@@ -34,4 +35,4 @@ export const EditView: React.FC<any> = ({
   return (
     <NewLyricForm lyricData={lyricData} onClickFunction={onClickFunction} />
   );
-};
+};  

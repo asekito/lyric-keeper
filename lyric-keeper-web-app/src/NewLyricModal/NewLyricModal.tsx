@@ -3,17 +3,17 @@ import { Modal, Button, Snackbar } from "@material-ui/core";
 import { ModalContentWrapper, HeadingWrapper, HeadingTitle } from "./elements";
 import { NewLyricForm } from "./NewLyricForm";
 import AddIcon from "@material-ui/icons/Add";
+import { Lyric } from "Types";
 
-export const NewLyricModal = ({ addEntry }: any) => { // @TODO: FIX types
+interface Props {
+  addEntry(item: Lyric): void;
+}
+
+export const NewLyricModal = ({ addEntry }: Props) => {
   const [open, setOpen] = useState(false);
 
-  const onClickFunction = (
-    title: any,
-    chorus: any,
-    verses: any,
-    author: any
-  ) => { // @TODO: Fix types
-    addEntry(title, chorus, verses, author);
+  const onClickFunction = (lyric: Lyric) => {
+    addEntry(lyric);
     setOpen(false);
   };
 

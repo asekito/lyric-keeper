@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { PageWrapper } from "./elements";
 import { Snackbar } from "@material-ui/core";
-// import axios from 'axios';
 import { LyricView } from "./LyricView";
 import { SnackbarButtons } from "./SnackbarButtons";
 import { EditView } from "./EditView";

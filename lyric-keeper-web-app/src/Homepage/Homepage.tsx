@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { WelcomeText, DefaultPageWrapper, MainAreaWrapper } from "./elements";
 import { LyricCard } from "LyricCard";
 import { NewLyricModal } from "NewLyricModal";
-import { useQuery } from "react-apollo";
-// import axios from "axios";
+import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Query_Get_All_Lyrics } from "operations";
-import { Get_All_Lyrics } from "Types";
+import { Query_Get_All_Lyrics, Mutation_Add_New_Lyric } from "operations";
+import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
 import { useFormik } from "formik";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
@@ -30,6 +29,11 @@ export const Homepage: React.FC = () => {
 
   const { data, loading, error } = useQuery(Query_Get_All_Lyrics);
 
+  const [addNewLyric] = useMutation<{ addNewLyric: Add_New_LyricVariables }>(
+    Mutation_Add_New_Lyric,
+    { onCompleted: () => {} }
+  );
+
   const filter = (searchTerm: string) => {
     setLyricData(
       lyricDataSourceOfTruth &&
@@ -48,17 +52,8 @@ export const Homepage: React.FC = () => {
     getAndUpdateAllLyrics();
   }, [data]);
 
-  const addEntry = (title: any, chorus: any, verses: any, author: any) => {
-    // axios({
-    //   method: "post",
-    //   url: "/newLyricEntry",
-    //   data: {
-    //     title: title,
-    //     chorus: chorus,
-    //     verses: verses,
-    //     author: author,
-    //   },
-    // }).then(() => getAndUpdateAllLyrics());
+  const addEntry = (lyric: Lyric) => {
+    addNewLyric({ variables: lyric });
   };
 
   if (loading)

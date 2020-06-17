@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npx react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "codegen": "cd src/Types && rm -rf __types__ && mkdir __types__ && yarn apollo client:codegen src/Types/__types__ --outputFlat --target=typescript --tagName=gql --includes='src/**/*' --endpoint=http://localhost:8181 && node generationScript.js"

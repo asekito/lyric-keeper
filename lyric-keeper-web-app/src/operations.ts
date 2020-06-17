@@ -52,7 +52,9 @@ export const Mutation_Add_New_Lyric = gql`
         verses: $verses
       }
     ) {
-      error
+      result {
+        error
+      }
     }
   }
 `;

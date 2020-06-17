@@ -7,11 +7,6 @@
 // START Enums and Input Objects
 //==============================================================
 
-export enum ErrorUnion {
-  Boolean = "Boolean",
-  ErrorCode = "ErrorCode",
-}
-
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

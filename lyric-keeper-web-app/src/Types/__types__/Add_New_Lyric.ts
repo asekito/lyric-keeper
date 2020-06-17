@@ -3,15 +3,18 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ErrorUnion } from "./globalTypes";
-
 // ====================================================
 // GraphQL mutation operation: Add_New_Lyric
 // ====================================================
 
-export interface Add_New_Lyric_addNewLyric {
+export interface Add_New_Lyric_addNewLyric_result {
   __typename: "Error";
-  error: ErrorUnion | null;
+  error: string | null;
+}
+
+export interface Add_New_Lyric_addNewLyric {
+  __typename: "AddNewLyricResult";
+  result: Add_New_Lyric_addNewLyric_result | null;
 }
 
 export interface Add_New_Lyric {

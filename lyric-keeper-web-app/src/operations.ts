@@ -10,6 +10,15 @@ export const Lyric = gql`
   }
 `;
 
+export const Lyric_Without_Short_Url = gql`
+  fragment Lyric_Without_Short_Url on LyricWithoutShortUrl {
+    title
+    author
+    chorus
+    verses
+  }
+`;
+
 export const Query_Get_All_Lyrics = gql`
   query Get_All_Lyrics {
     allLyrics {
@@ -69,8 +78,8 @@ export const Mutation_Update_Lyric = gql`
         verses: $verses
       }
     ) {
-      ...Lyric
+      ...Lyric_Without_Short_Url
     }
   }
-  ${Lyric}
+  ${Lyric_Without_Short_Url}
 `;

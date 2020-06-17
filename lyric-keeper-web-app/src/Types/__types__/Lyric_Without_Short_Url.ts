@@ -4,22 +4,11 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: Update_Lyric
+// GraphQL fragment: Lyric_Without_Short_Url
 // ====================================================
 
-export interface Update_Lyric_updateLyric {
+export interface Lyric_Without_Short_Url {
   __typename: "LyricWithoutShortUrl";
-  title: string;
-  author: string;
-  chorus: string;
-  verses: string;
-}
-
-export interface Update_Lyric {
-  updateLyric: Update_Lyric_updateLyric;
-}
-
-export interface Update_LyricVariables {
   title: string;
   author: string;
   chorus: string;

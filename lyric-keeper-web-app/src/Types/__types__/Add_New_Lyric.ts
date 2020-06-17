@@ -11,11 +11,11 @@ import { ErrorUnion } from "./globalTypes";
 
 export interface Add_New_Lyric_addNewLyric {
   __typename: "Error";
-  error: ErrorUnion;
+  error: ErrorUnion | null;
 }
 
 export interface Add_New_Lyric {
-  addNewLyric: Add_New_Lyric_addNewLyric;
+  addNewLyric: Add_New_Lyric_addNewLyric | null;
 }
 
 export interface Add_New_LyricVariables {

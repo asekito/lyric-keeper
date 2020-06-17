@@ -1,38 +1,29 @@
 import React from "react";
 import { NewLyricForm } from "../NewLyricModal/";
-// import axios from "axios";
+import { Lyric, Update_LyricVariables } from "Types";
+import { useMutation } from "react-apollo";
+import { Mutation_Update_Lyric } from "operations";
 
-export const EditView: React.FC<any> = ({
-  setEdit,
-  lyricData,
-  setLyricData,
-}) => {
-  // @TODO: Fix types
-  const onClickFunction: any = (
-    title: any,
-    chorus: any,
-    verses: any,
-    author: any
-  ) => {
-    // @TODO: Fix types
-    // axios({
-    //   url: "/updateLyric",
-    //   method: "post",
-    //   data: {
-    //     title,
-    //     chorus,
-    //     verses,
-    //     author,
-    //   },
-    // }).then(({ data }) => {
-    //   console.log(data);
-    //   setLyricData(data);
-    // });
-    setLyricData([]);
+interface Props {
+  lyricData: Lyric | null;
+  setEdit(editStatus: boolean): void;
+  refetch?: () => void;
+}
+
+export const EditView: React.FC<Props> = ({ setEdit, lyricData, refetch }) => {
+  const [updateLyric] = useMutation<{ updateLyric: Update_LyricVariables }>(
+    Mutation_Update_Lyric
+  );
+
+  const onClickFunction = (item: Lyric) => {
+    updateLyric({ variables: item });
     setEdit(false);
+    refetch && refetch();
   };
 
   return (
-    <NewLyricForm lyricData={lyricData} onClickFunction={onClickFunction} />
+    lyricData && (
+      <NewLyricForm lyricData={lyricData} onClickFunction={onClickFunction} />
+    )
   );
-};  
+};

@@ -18,9 +18,12 @@ export const LyricPage: React.FC = () => {
     window.location.pathname.length
   );
 
-  const { data, loading, error } = useQuery(Query_Find_Lyric_With_Short_Url, {
-    variables: { shortUrl },
-  });
+  const { data, loading, error, refetch } = useQuery(
+    Query_Find_Lyric_With_Short_Url,
+    {
+      variables: { shortUrl },
+    }
+  );
 
   useEffect(() => {
     data && setLyricData(data.findLyricWithShortUrl[0]);
@@ -59,11 +62,7 @@ export const LyricPage: React.FC = () => {
           verses={verses}
         />
       ) : (
-        <EditView
-          setEdit={setEdit}
-          lyricData={lyricData}
-          setLyricData={setLyricData}
-        />
+        <EditView setEdit={setEdit} lyricData={lyricData} refetch={refetch} />
       )}
     </PageWrapper>
   );

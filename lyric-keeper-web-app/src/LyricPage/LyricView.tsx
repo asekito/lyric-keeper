@@ -1,7 +1,6 @@
 import React from "react";
 import { Songtitle, SongAuthor, SongVerse, SongChorus } from "./elements";
 import { Lyric_Without_Short_Url } from "Types";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const ChorusAndVerse = (
   { chorus, verse }: any // @TODO: Fix types

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { MainGreen, PrimaryBlue, SecondaryColor } from "ColorVars";
 import React from "react";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { UseResponsiveCheck } from "Hooks";
 
 export const PageWrapper = styled.div`
   text-align: center;
@@ -46,7 +46,7 @@ const SongVerse_ = styled.div<{ isMobile: boolean }>`
 `;
 
 export const SongVerse: React.FC = ({ children }) => {
-  const isMobile = !useMediaQuery("(min-width:500px)");
+  const { isMobile } = UseResponsiveCheck();
 
   return <SongVerse_ isMobile={isMobile}>{children}</SongVerse_>;
 };

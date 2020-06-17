@@ -6,11 +6,11 @@ import Edit from "@material-ui/icons/Edit";
 import Cancel from "@material-ui/icons/Cancel";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "GlobalComponents";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { SecondaryLightGrey } from "ColorVars";
+import { UseResponsiveCheck } from "Hooks";
 
 export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
-  const isNotMobile = useMediaQuery("(min-width:800px)");
+  const { isTablet } = UseResponsiveCheck();
 
   const buttons = [
     {
@@ -46,7 +46,7 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
             style: React.CSSProperties;
             onClick(): void;
           }> = ({ children, style }: any) =>
-            !isNotMobile ? (
+            isTablet ? (
               <IconButton
                 edge="end"
                 style={{
@@ -70,7 +70,7 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
                   style={{ display, marginTop: "15px" }}
                 >
                   {icon()}
-                  {isNotMobile && name}
+                  {!isTablet && name}
                 </ButtonElement>
               </InnerWrapper>
             </Grid>

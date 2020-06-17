@@ -19,7 +19,7 @@ export const CardWrapper = styled.div`
 `;
 
 export const CardTitle = styled.div`
-  font-size: 2em;
+  font-size: 1.6rem;
   font-weight: 400;
   vertical-align: super;
   color: ${MainGreen};
@@ -27,7 +27,7 @@ export const CardTitle = styled.div`
 `;
 
 export const CardAuthor = styled.div`
-  font-size: 2em;
+  font-size: 1.6rem;
   vertical-align: super;
   font-weight: 700;
   color: ${PrimaryBlue};
@@ -35,7 +35,7 @@ export const CardAuthor = styled.div`
 `;
 
 export const TitleAuthorDivider = styled.div`
-  font-size: 2em;
+  font-size: 1.6rem;
   font-weight: 900;
   vertical-align: super;
   color: ${SecondaryColor};

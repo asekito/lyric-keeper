@@ -74,7 +74,7 @@ export const Homepage: React.FC = () => {
 
   return (
     <DefaultPageWrapper>
-      <WelcomeText>Lyric Keeper</WelcomeText>
+      <WelcomeText variant="h3">Lyric Keeper</WelcomeText>
       <MainAreaWrapper maxWidth="sm">
         <TextField
           label="Search"

@@ -14,6 +14,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { Query_Get_All_Lyrics, Mutation_Add_New_Lyric } from "operations";
 import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
 import { useFormik } from "formik";
+import IconButton from "@material-ui/core/IconButton";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import { SecondaryLightGrey } from "ColorVars";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -91,6 +94,12 @@ export const Homepage: React.FC = () => {
           <MenuItem value="title">Title</MenuItem>
           <MenuItem value="author">Artist</MenuItem>
         </StyledSelect>
+        <IconButton
+          onClick={getAndUpdateAllLyrics}
+          style={{ marginLeft: "26px", marginTop: "9px" }}
+        >
+          <RefreshIcon />
+        </IconButton>
         {!loading ? (
           lyricData && lyricData.length ? (
             lyricData.map(({ title, author, shortUrl }) => (

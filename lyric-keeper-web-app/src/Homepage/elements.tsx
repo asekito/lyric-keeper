@@ -14,6 +14,7 @@ export const WelcomeText = styled(Typography)`
   margin: auto;
   padding: 2px;
   padding-left: 7px;
+  margin-top: 50px;
 `;
 
 export const DefaultPageWrapper = styled.div`
@@ -21,6 +22,7 @@ export const DefaultPageWrapper = styled.div`
 `;
 
 export const MainAreaWrapper = styled(Container)`
+  padding-top: 30px;
   margin: auto;
   padding-bottom: 70px;
 `;

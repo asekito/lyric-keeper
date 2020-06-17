@@ -76,7 +76,7 @@ export const NewLyricForm: React.FC<Props> = ({
           width = "100%",
         }) => (
           <>
-            <TextFieldStyles>
+            <TextFieldStyles key={name}>
               <TextField
                 required
                 name={name}

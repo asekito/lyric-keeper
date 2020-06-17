@@ -31,51 +31,48 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
     },
   ];
 
+  const ButtonElement: React.FC<{
+    style: React.CSSProperties;
+    onClick(): void;
+  }> = ({ children, style }: any) =>
+    isTablet ? (
+      <IconButton
+        edge="end"
+        style={{
+          ...style,
+          backgroundColor: SecondaryLightGrey,
+        }}
+      >
+        {children}
+      </IconButton>
+    ) : (
+      <Button style={{ ...style }} size="large" variant="contained">
+        {children}
+      </Button>
+    );
+
+  const InnerWrapper: React.FC<{ to?: string; link?: any }> = ({
+    children,
+    to = "",
+    link,
+  }) => <>{link ? <Link to={to}>{children}</Link> : <>{children}</>}</>;
+
   return (
     <Grid container>
       {buttons.map(
-        ({ name, icon, onClick = () => null, display = "flex", ...rest }) => {
-          const InnerWrapper: React.FC<{ to?: string }> = ({
-            children,
-            to = "",
-          }) => (
-            <>{rest.link ? <Link to={to}>{children}</Link> : <>{children}</>}</>
-          );
-
-          const ButtonElement: React.FC<{
-            style: React.CSSProperties;
-            onClick(): void;
-          }> = ({ children, style }: any) =>
-            isTablet ? (
-              <IconButton
-                edge="end"
-                style={{
-                  ...style,
-                  backgroundColor: SecondaryLightGrey,
-                }}
+        ({ name, icon, onClick = () => null, display = "flex", ...rest }) => (
+          <Grid item xs={12} key={name} onClick={onClick}>
+            <InnerWrapper link={rest.link} to={rest.link && rest.link}>
+              <ButtonElement
+                onClick={onClick}
+                style={{ display, marginTop: "15px" }}
               >
-                {children}
-              </IconButton>
-            ) : (
-              <Button style={{ ...style }} size="large" variant="contained">
-                {children}
-              </Button>
-            );
-
-          return (
-            <Grid item xs={12} key={name} onClick={onClick}>
-              <InnerWrapper to={rest.link && rest.link}>
-                <ButtonElement
-                  onClick={onClick}
-                  style={{ display, marginTop: "15px" }}
-                >
-                  {icon()}
-                  {!isTablet && name}
-                </ButtonElement>
-              </InnerWrapper>
-            </Grid>
-          );
-        }
+                {icon()}
+                {!isTablet && name}
+              </ButtonElement>
+            </InnerWrapper>
+          </Grid>
+        )
       )}
     </Grid>
   );

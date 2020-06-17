@@ -35,9 +35,11 @@ export const LyricView: React.FC<Lyric_Without_Short_Url> = ({
             .map(
               (item: React.ReactNode, index: number, arr: string | any[]) => {
                 if (index < arr.length - 1) {
-                  return <ChorusAndVerse chorus={chorus} verse={item} />;
+                  return (
+                    <ChorusAndVerse key={index} chorus={chorus} verse={item} />
+                  );
                 } else {
-                  return <SongVerse>{item}</SongVerse>;
+                  return <SongVerse key={index}>{item}</SongVerse>;
                 }
               }
             )}

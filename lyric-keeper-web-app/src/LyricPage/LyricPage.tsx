@@ -47,7 +47,7 @@ export const LyricPage: React.FC = () => {
 
   return (
     <PageWrapper>
-      <Snackbar
+      {/* <Snackbar
         anchorOrigin={{
           vertical: "top",
           horizontal: "left",
@@ -55,7 +55,7 @@ export const LyricPage: React.FC = () => {
         open={true}
       >
         <SnackbarButtons edit={edit} setEdit={setEdit} />
-      </Snackbar>
+      </Snackbar> */}
       {!edit ? (
         <LyricView
           title={title}

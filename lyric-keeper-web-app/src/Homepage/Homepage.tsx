@@ -58,7 +58,7 @@ export const Homepage: React.FC = () => {
 
   useEffect(() => {
     getAndUpdateAllLyrics();
-  }, [data]);
+  }, [data, getAndUpdateAllLyrics]);
 
   const addEntry = (lyric: Lyric) => {
     addNewLyric({ variables: lyric });

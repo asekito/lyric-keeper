@@ -28,6 +28,7 @@ export const LyricView: React.FC<Lyric_Without_Short_Url> = ({
           .split("(chorus)")
           .map((item: any, index: number, arr: string | any[]) => {
             if (index < arr.length - 1) {
+              console.log("Is not at end of arr");
               return (
                 <ChorusAndVerse key={index} chorus={chorus} verse={item} /> ||
                 null

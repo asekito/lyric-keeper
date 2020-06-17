@@ -34,8 +34,6 @@ export const LyricCard: React.FC<Props> = ({
     return [];
   };
 
-  console.log(title, author, shortUrl);
-
   return (
     <div style={{ display: "block" }}>
       <IconButton

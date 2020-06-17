@@ -81,10 +81,7 @@ export const Homepage: React.FC = () => {
         <Select
           value={filterBy}
           name="filterBy"
-          onChange={e => {
-            handleChange(e);
-            console.log(filterBy);
-          }}
+          onChange={handleChange}
           style={{
             display: "inline-block",
             width: "7%",

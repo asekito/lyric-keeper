@@ -44,7 +44,6 @@ app.post('/deleteLyric', (req, res) => {
 });
 
 app.post('/updateLyric', (req, res) => {
-  // console.log(req.body);
   update(req.body, (newData) => {
     res.send(newData);
   });

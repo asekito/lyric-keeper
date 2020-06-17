@@ -1,8 +1,13 @@
 import styled from "styled-components";
-import { PrimaryBlue, SecondaryColor, MainGreen } from "ColorVars";
+import {
+  PrimaryBlue,
+  SecondaryColor,
+  MainGreen,
+  SecondaryLightGrey,
+} from "ColorVars";
 
 export const CardWrapper = styled.div`
-  min-height 40px;
+  min-height: 40px;
   margin: auto;
   padding: 8px;
   margin-top: 15px;
@@ -10,6 +15,7 @@ export const CardWrapper = styled.div`
   div {
     text-decoration: none !important;
   }
+  background-color: ${SecondaryLightGrey};
 `;
 
 export const CardTitle = styled.div`

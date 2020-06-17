@@ -12,6 +12,7 @@ import { Link } from "GlobalComponents";
 import { useMutation } from "react-apollo";
 import { Delete_Lyric_Matching_Short_UrlVariables } from "Types";
 import { Mutation_Delete_Lyric_Matching_Short_Url } from "operations";
+import { truncate } from "utilities";
 
 interface Props {
   title: string;
@@ -36,24 +37,26 @@ export const LyricCard: React.FC<Props> = ({
 
   return (
     <div style={{ display: "block" }}>
-      <IconButton
-        onClick={() => deleteLyric({ variables: { shortUrl } })}
-        style={{
-          display: "inline",
-          verticalAlign: "super",
-          marginRight: "5px",
-        }}
-      >
-        <Delete />
-        {loading && <CircularProgress />}
-      </IconButton>
-      <Link to={`/lyric/${shortUrl}`} style={{ display: "inline-block" }}>
-        <CardWrapper>
-          <CardTitle>{title}</CardTitle>
+      <CardWrapper>
+        <IconButton
+          onClick={() => deleteLyric({ variables: { shortUrl } })}
+          style={{
+            display: "inline",
+            verticalAlign: "super",
+            marginRight: "5px",
+          }}
+        >
+          <Delete />
+          {loading && <CircularProgress />}
+        </IconButton>
+        <Link to={`/lyric/${shortUrl}`} style={{ display: "inline-block" }}>
+          <CardTitle>{truncate({ string: title, limit: 14 })}</CardTitle>
           <TitleAuthorDivider>{" | "}</TitleAuthorDivider>
-          {author && <CardAuthor>{author}</CardAuthor>}
-        </CardWrapper>
-      </Link>
+          {author && (
+            <CardAuthor>{truncate({ string: author, limit: 14 })}</CardAuthor>
+          )}
+        </Link>
+      </CardWrapper>
     </div>
   );
 };

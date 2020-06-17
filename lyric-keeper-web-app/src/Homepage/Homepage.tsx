@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { WelcomeText, DefaultPageWrapper, MainAreaWrapper } from "./elements";
+import {
+  WelcomeText,
+  DefaultPageWrapper,
+  MainAreaWrapper,
+  StyledSelect,
+} from "./elements";
 import { LyricCard } from "LyricCard";
 import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
+import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Query_Get_All_Lyrics, Mutation_Add_New_Lyric } from "operations";
 import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
 import { useFormik } from "formik";
+import Container from "@material-ui/core/Container";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -70,31 +77,34 @@ export const Homepage: React.FC = () => {
   return (
     <DefaultPageWrapper>
       <WelcomeText>Lyric Keeper</WelcomeText>
-      <MainAreaWrapper>
-        <TextField
-          label="Search"
-          name="search"
-          value={search}
-          onChange={e => {
-            handleChange(e);
-            filter(search);
-          }}
-          style={{ display: "inline-block" }}
-        />
-        <Select
-          value={filterBy}
-          name="filterBy"
-          onChange={handleChange}
-          style={{
-            display: "inline-block",
-            width: "7%",
-            bottom: "-16px",
-            left: "13px",
-          }}
-        >
-          <MenuItem value="title">Title</MenuItem>
-          <MenuItem value="author">Artist</MenuItem>
-        </Select>
+      <MainAreaWrapper maxWidth="sm">
+        <Container maxWidth="xs">
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <TextField
+                label="Search"
+                name="search"
+                value={search}
+                variant="standard"
+                onChange={e => {
+                  handleChange(e);
+                  filter(search);
+                }}
+                style={{ display: "inline-block" }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <StyledSelect
+                value={filterBy}
+                name="filterBy"
+                onChange={handleChange}
+              >
+                <MenuItem value="title">Title</MenuItem>
+                <MenuItem value="author">Artist</MenuItem>
+              </StyledSelect>
+            </Grid>
+          </Grid>
+        </Container>
         {!loading ? (
           lyricData && lyricData.length ? (
             lyricData.map(({ title, author, shortUrl }) => (

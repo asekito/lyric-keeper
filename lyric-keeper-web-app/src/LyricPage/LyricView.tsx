@@ -2,16 +2,6 @@ import React from "react";
 import { Songtitle, SongAuthor, SongVerse, SongChorus } from "./elements";
 import { Lyric_Without_Short_Url } from "Types";
 
-const ChorusAndVerse = (
-  { chorus, verse }: any // @TODO: Fix types
-) => (
-  <>
-    {verse.length && <SongVerse>{verse}</SongVerse>}
-    <SongChorus>{chorus}</SongChorus>
-    {console.log(`**ChorusAndVerse**: `, verse, chorus)}
-  </>
-);
-
 export const LyricView: React.FC<Lyric_Without_Short_Url> = ({
   title,
   author,
@@ -33,7 +23,10 @@ export const LyricView: React.FC<Lyric_Without_Short_Url> = ({
                 `**Verse:** ${item} \n**Chorus:** ${chorus}`
               );
               return (
-                <ChorusAndVerse key={index} chorus={chorus} verse={item} />
+                <>
+                  <SongVerse>{item}</SongVerse>
+                  <SongChorus>{chorus}</SongChorus>
+                </>
               );
             } else {
               console.log(`**SongVerse**: `, item);

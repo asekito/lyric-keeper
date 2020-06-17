@@ -31,7 +31,7 @@ export const SongChorus = styled.div`
   white-space: pre-wrap;
 `;
 
-const SongVerse_ = styled.div<{ isMobile: boolean }>`
+const SongVerseStyles = styled.div<{ isMobile: boolean }>`
   text-align: left;
   margin: auto 27vw;
   margin-top: 5px;
@@ -48,5 +48,5 @@ const SongVerse_ = styled.div<{ isMobile: boolean }>`
 export const SongVerse: React.FC = ({ children }) => {
   const { isMobile } = UseResponsiveCheck();
 
-  return <SongVerse_ isMobile={isMobile}>{children}</SongVerse_>;
+  return <SongVerseStyles isMobile={isMobile}>{children}</SongVerseStyles>;
 };

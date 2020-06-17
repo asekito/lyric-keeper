@@ -18,6 +18,7 @@ export const LyricView: React.FC<Lyric_Without_Short_Url> = ({
   chorus,
 }) => (
   <>
+    {console.log("LyricView mounted!")}
     <Songtitle>{title}</Songtitle>
     <SongAuthor>{author}</SongAuthor>
     {verses && chorus && (

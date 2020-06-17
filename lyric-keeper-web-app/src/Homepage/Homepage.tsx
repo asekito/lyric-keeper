@@ -10,7 +10,6 @@ import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Query_Get_All_Lyrics, Mutation_Add_New_Lyric } from "operations";

@@ -22,10 +22,11 @@ export const Lyric_Without_Short_Url = gql`
 export const Query_Get_All_Lyrics = gql`
   query Get_All_Lyrics {
     allLyrics {
-      ...Lyric
+      title
+      author
+      shortUrl
     }
   }
-  ${Lyric}
 `;
 
 export const Query_Find_Lyric_With_Short_Url = gql`

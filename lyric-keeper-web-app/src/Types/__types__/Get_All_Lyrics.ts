@@ -9,10 +9,8 @@
 
 export interface Get_All_Lyrics_allLyrics {
   title: string;
-  shortUrl: string;
   author: string;
-  chorus: string;
-  verses: string;
+  shortUrl: string;
 }
 
 export interface Get_All_Lyrics {

@@ -16,7 +16,7 @@ function App() {
     const setPersistantCache = async () => {
       await persistCache({
         cache,
-        storage: window.localStorage as any,
+        storage: window.sessionStorage as any,
       });
     };
 

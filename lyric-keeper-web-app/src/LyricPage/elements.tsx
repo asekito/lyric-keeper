@@ -7,6 +7,7 @@ export const PageWrapper = styled.div`
   text-align: center;
   margin: auto;
   white-space: pre;
+  margin-bottom: 60px;
 `;
 
 export const Songtitle = styled.div`

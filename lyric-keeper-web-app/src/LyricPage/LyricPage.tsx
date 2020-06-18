@@ -33,7 +33,6 @@ export const LyricPage: React.FC<any> = ({ client }) => {
           query: Query_Find_Lyric_With_Short_Url,
           variables: { shortUrl } as any,
         });
-        console.log(cachedData);
         setLyricData(cachedData.findLyricWithShortUrl[0] as any);
       } catch (error) {
         console.log(error);

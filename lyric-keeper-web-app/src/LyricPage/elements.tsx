@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { MainGreen, PrimaryBlue, SecondaryColor } from "ColorVars";
-import React from "react";
-import { UseResponsiveCheck } from "Hooks";
 
 export const PageWrapper = styled.div`
   text-align: center;
@@ -33,26 +31,14 @@ export const SongChorus = styled.div`
   white-space: pre-wrap;
 `;
 
-const SongVerseStyles = styled.div<{ isTablet: boolean }>`
-  text-align: left;
+export const SongVerse = styled.div`
+  text-align: center;
   margin: auto 4vw auto;
   margin-top: 5px;
   font-size: 2.1vh;
   letter-spacing: 0.1vw;
   white-space: pre-wrap;
-  ${({ isTablet }) =>
-    isTablet &&
-    `
-      margin: auto 10px;
-      text-align: center;
-    `}
 `;
-
-export const SongVerse: React.FC = ({ children }) => {
-  const { isTablet } = UseResponsiveCheck();
-
-  return <SongVerseStyles isTablet={isTablet}>{children}</SongVerseStyles>;
-};
 
 export const StyledErrorMessage = styled.h1`
   color: red;

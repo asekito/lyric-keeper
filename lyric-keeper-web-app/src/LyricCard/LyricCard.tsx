@@ -7,8 +7,7 @@ import {
 } from "./elements";
 import Delete from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { Link } from "GlobalComponents";
+import { Link, LoadingIndicator } from "GlobalComponents";
 import { useMutation } from "react-apollo";
 import { Delete_Lyric_Matching_Short_UrlVariables } from "Types";
 import { Mutation_Delete_Lyric_Matching_Short_Url } from "operations";
@@ -38,13 +37,7 @@ export const LyricCard: React.FC<Props> = ({
 
   const limit = isMobile ? 7 : 14;
 
-  if (loading)
-    return (
-      <CircularProgress
-        size="large"
-        style={{ textAlign: "center", marginTop: "20%" }}
-      />
-    );
+  if (loading) return <LoadingIndicator />;
 
   return (
     <div style={{ display: "block" }}>
@@ -58,7 +51,7 @@ export const LyricCard: React.FC<Props> = ({
           }}
         >
           <Delete />
-          {loading && <CircularProgress />}
+          {loading && <LoadingIndicator />}
         </IconButton>
         <Link to={`/lyric/${shortUrl}`} style={{ display: "inline-block" }}>
           <CardTitle>{truncate({ string: title, limit })}</CardTitle>

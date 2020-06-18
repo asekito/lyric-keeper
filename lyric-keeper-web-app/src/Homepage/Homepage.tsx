@@ -10,12 +10,12 @@ import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { Query_Get_All_Lyrics, Mutation_Add_New_Lyric } from "operations";
 import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
 import { useFormik } from "formik";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
+import { LoadingIndicator } from "GlobalComponents";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -66,13 +66,7 @@ export const Homepage: React.FC = () => {
     getAndUpdateAllLyrics();
   };
 
-  if (loading)
-    return (
-      <CircularProgress
-        size="large"
-        style={{ textAlign: "center", marginTop: "20%" }}
-      />
-    );
+  if (loading) return <LoadingIndicator />;
 
   return (
     <DefaultPageWrapper>
@@ -99,8 +93,8 @@ export const Homepage: React.FC = () => {
           <RefreshIcon />
         </IconButton>
         {!loading ? (
-          lyricData && lyricData.length ? (
-            lyricData.map(({ title, author, shortUrl }) => (
+          lyricData && lyricData?.length ? (
+            lyricData?.map(({ title, author, shortUrl }) => (
               <LyricCard
                 title={title}
                 author={author}
@@ -121,10 +115,7 @@ export const Homepage: React.FC = () => {
             </div>
           )
         ) : (
-          <CircularProgress
-            size="large"
-            style={{ textAlign: "center", marginTop: "20%" }}
-          />
+          <LoadingIndicator />
         )}
         <NewLyricModal addEntry={addEntry} />
       </MainAreaWrapper>

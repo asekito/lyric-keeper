@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { PageWrapper } from "./elements";
 import Snackbar from "@material-ui/core/Snackbar";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { LyricView } from "./LyricView";
 import { SnackbarButtons } from "./SnackbarButtons";
 import { EditView } from "./EditView";
 import { Lyric } from "Types";
 import { useQuery } from "react-apollo";
 import { Query_Find_Lyric_With_Short_Url } from "operations";
+import { LoadingIndicator } from "GlobalComponents";
 
 export const LyricPage: React.FC = () => {
   const [lyricData, setLyricData] = useState<Lyric | null>();
@@ -29,13 +29,7 @@ export const LyricPage: React.FC = () => {
     data && setLyricData(data.findLyricWithShortUrl[0]);
   }, [data]);
 
-  if (loading)
-    return (
-      <CircularProgress
-        size="large"
-        style={{ textAlign: "center", marginTop: "20%" }}
-      />
-    );
+  if (loading) return <LoadingIndicator />;
 
   if (lyricData === undefined || !lyricData) return <h1>Lyric not found</h1>;
 

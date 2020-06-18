@@ -30,6 +30,6 @@ export const MainAreaWrapper = styled(Container)`
 export const StyledSelect = styled(Select)`
   width: 4.5rem;
   display: inline-block;
-  bottom: -5px;
+  margin-top: 16px;
   left: 13px;
 `;

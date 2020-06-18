@@ -87,7 +87,6 @@ export const Homepage: React.FC = () => {
             handleChange(e);
             filter(search);
           }}
-          style={{ display: "inline-block" }}
         />
         <StyledSelect value={filterBy} name="filterBy" onChange={handleChange}>
           <MenuItem value="title">Title</MenuItem>
@@ -95,7 +94,7 @@ export const Homepage: React.FC = () => {
         </StyledSelect>
         <IconButton
           onClick={getAndUpdateAllLyrics}
-          style={{ marginLeft: "26px", marginTop: "9px" }}
+          style={{ marginLeft: "26px" }}
         >
           <RefreshIcon />
         </IconButton>

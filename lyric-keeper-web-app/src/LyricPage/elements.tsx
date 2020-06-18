@@ -13,6 +13,7 @@ export const Songtitle = styled.div`
   font-size: 4.5vh;
   font-weight: 500;
   color: ${MainGreen};
+  margin-top: 40px;
 `;
 
 export const SongAuthor = styled.div`

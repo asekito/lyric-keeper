@@ -4,6 +4,7 @@ import {
   DefaultPageWrapper,
   MainAreaWrapper,
   StyledSelect,
+  LyricCount,
 } from "./elements";
 import { LyricCard } from "LyricCard";
 import { NewLyricModal } from "NewLyricModal";
@@ -41,12 +42,10 @@ export const Homepage: React.FC = () => {
 
   const filter = (searchTerm: string) => {
     setLyricData(
-      searchTerm !== ""
-        ? lyricDataSourceOfTruth &&
-            lyricDataSourceOfTruth.filter(item =>
-              item[filterBy].toLowerCase().includes(searchTerm.toLowerCase())
-            )
-        : lyricDataSourceOfTruth
+      lyricDataSourceOfTruth &&
+        lyricDataSourceOfTruth.filter(item =>
+          item[filterBy].toLowerCase().includes(searchTerm.toLowerCase())
+        )
     );
   };
 
@@ -92,6 +91,7 @@ export const Homepage: React.FC = () => {
         >
           <RefreshIcon />
         </IconButton>
+        <LyricCount>{`Lyrics: ${lyricData?.length}`}</LyricCount>
         {!loading ? (
           lyricData && lyricData?.length ? (
             lyricData?.map(({ title, author, shortUrl }) => (

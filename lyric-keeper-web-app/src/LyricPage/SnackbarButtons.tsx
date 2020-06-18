@@ -5,12 +5,25 @@ import Home from "@material-ui/icons/Home";
 import Edit from "@material-ui/icons/Edit";
 import Cancel from "@material-ui/icons/Cancel";
 import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import PauseIcon from "@material-ui/icons/Pause";
+import RemoveIcon from "@material-ui/icons/Remove";
 import { Link } from "GlobalComponents";
 import { SecondaryLightGrey } from "ColorVars";
 import { UseResponsiveCheck } from "Hooks";
+import { UseScrollHandler } from "./UseScrollHandler";
 
 export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
   const { isTablet } = UseResponsiveCheck();
+  const {
+    increaseTime,
+    start,
+    isScrolling,
+    stop,
+    decreaseTime,
+    timeoutDuration,
+  } = UseScrollHandler();
 
   const buttons = [
     {
@@ -28,6 +41,23 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
       icon: () => <Cancel />,
       display: !!edit ? "flex" : "none",
       onClick: () => setEdit(false),
+    },
+    {
+      name: "Increase time",
+      icon: () => <AddIcon />,
+      onClick: () => increaseTime(),
+    },
+    {
+      name: isScrolling
+        ? `Stop - ${timeoutDuration}`
+        : `Start - ${timeoutDuration}`,
+      icon: () => (isScrolling ? <PauseIcon /> : <PlayArrowIcon />),
+      onClick: () => (isScrolling ? stop() : start()),
+    },
+    {
+      name: "Decrease time",
+      icon: () => <RemoveIcon />,
+      onClick: () => decreaseTime(),
     },
   ];
 

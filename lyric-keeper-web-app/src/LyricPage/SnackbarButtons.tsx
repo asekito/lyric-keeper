@@ -39,23 +39,26 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
     {
       name: "CANCEL",
       icon: () => <Cancel />,
-      display: !!edit ? "flex" : "none",
+      display: edit ? "flex" : "none",
       onClick: () => setEdit(false),
     },
     {
       name: "Increase time",
       icon: () => <AddIcon />,
+      display: edit ? "none" : "flex",
       onClick: () => increaseTime(),
     },
     {
       name: isScrolling ? "Stop" : "Start",
       icon: () => (isScrolling ? <PauseIcon /> : <PlayArrowIcon />),
+      display: edit ? "none" : "flex",
       numberText: ` - ${timeoutDuration}`,
       onClick: () => (isScrolling ? stop() : start()),
     },
     {
       name: "Decrease time",
       icon: () => <RemoveIcon />,
+      display: edit ? "none" : "flex",
       onClick: () => decreaseTime(),
     },
   ];

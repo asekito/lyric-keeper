@@ -15,6 +15,7 @@ export const WelcomeText = styled(Typography)`
   padding: 2px;
   padding-left: 7px;
   margin-top: 50px;
+  margin-bottom: 30px;
 `;
 
 export const DefaultPageWrapper = styled.div`
@@ -22,7 +23,6 @@ export const DefaultPageWrapper = styled.div`
 `;
 
 export const MainAreaWrapper = styled(Container)`
-  padding-top: 30px;
   margin: auto;
   padding-bottom: 70px;
 `;
@@ -30,6 +30,6 @@ export const MainAreaWrapper = styled(Container)`
 export const StyledSelect = styled(Select)`
   width: 4.5rem;
   display: inline-block;
-  bottom: -16px;
+  bottom: -5px;
   left: 13px;
 `;

@@ -48,10 +48,9 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
       onClick: () => increaseTime(),
     },
     {
-      name: isScrolling
-        ? `Stop - ${timeoutDuration}`
-        : `Start - ${timeoutDuration}`,
+      name: isScrolling ? "Stop" : "Start",
       icon: () => (isScrolling ? <PauseIcon /> : <PlayArrowIcon />),
+      numberText: ` - ${timeoutDuration}`,
       onClick: () => (isScrolling ? stop() : start()),
     },
     {
@@ -99,6 +98,7 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
               >
                 {icon()}
                 {!isTablet && name}
+                {rest.numberText && rest.numberText}
               </ButtonElement>
             </InnerWrapper>
           </Grid>

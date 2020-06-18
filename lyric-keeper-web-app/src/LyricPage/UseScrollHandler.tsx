@@ -21,11 +21,20 @@ export const UseScrollHandler = () => {
     setIsScrolling(false);
   };
 
+  const clearAndRestart = () => {
+    if (isScrolling) {
+      stop();
+      start();
+    }
+  };
+
   const increaseTime = () => {
+    clearAndRestart();
     setTimeoutDuration(t => t + 500);
   };
 
   const decreaseTime = () => {
+    clearAndRestart();
     setTimeoutDuration(t => t - 500);
   };
 

@@ -41,10 +41,10 @@ export const Homepage: React.FC = () => {
 
   const filter = (searchTerm: string) => {
     setLyricData(
-      searchTerm.length
+      searchTerm !== ""
         ? lyricDataSourceOfTruth &&
             lyricDataSourceOfTruth.filter(item =>
-              item[filterBy].includes(searchTerm)
+              item[filterBy].toLowerCase().includes(searchTerm.toLowerCase())
             )
         : lyricDataSourceOfTruth
     );
@@ -79,7 +79,7 @@ export const Homepage: React.FC = () => {
           variant="standard"
           onChange={e => {
             handleChange(e);
-            filter(search);
+            filter(e.target.value);
           }}
         />
         <StyledSelect value={filterBy} name="filterBy" onChange={handleChange}>

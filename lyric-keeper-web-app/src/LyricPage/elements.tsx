@@ -52,3 +52,9 @@ export const SongVerse: React.FC = ({ children }) => {
 
   return <SongVerseStyles isMobile={isMobile}>{children}</SongVerseStyles>;
 };
+
+export const StyledErrorMessage = styled.h1`
+  color: red;
+  text-align: center;
+  margin-top: 20%;
+`;

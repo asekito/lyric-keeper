@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PageWrapper } from "./elements";
+import { PageWrapper, StyledErrorMessage } from "./elements";
 import Snackbar from "@material-ui/core/Snackbar";
 import { LyricView } from "./LyricView";
 import { SnackbarButtons } from "./SnackbarButtons";
@@ -7,9 +7,9 @@ import { EditView } from "./EditView";
 import { Lyric } from "Types";
 import { useQuery } from "react-apollo";
 import { Query_Find_Lyric_With_Short_Url } from "operations";
-import { LoadingIndicator } from "GlobalComponents";
+import { LoadingIndicator, Link } from "GlobalComponents";
 
-export const LyricPage: React.FC = () => {
+export const LyricPage: React.FC<any> = ({ client }) => {
   const [lyricData, setLyricData] = useState<Lyric | null>();
   const [edit, setEdit] = useState(false);
 
@@ -26,12 +26,33 @@ export const LyricPage: React.FC = () => {
   );
 
   useEffect(() => {
-    data && setLyricData(data.findLyricWithShortUrl[0]);
-  }, [data]);
+    // Handle fetching cached data if offline
+    if (!data && !loading) {
+      try {
+        const cachedData = client.readQuery({
+          query: Query_Find_Lyric_With_Short_Url,
+          variables: { shortUrl } as any,
+        });
+        console.log(cachedData);
+        setLyricData(cachedData.findLyricWithShortUrl[0] as any);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (data) setLyricData(data.findLyricWithShortUrl[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, loading]);
 
   if (loading) return <LoadingIndicator />;
 
-  if (lyricData === undefined || !lyricData) return <h1>Lyric not found</h1>;
+  if (lyricData === undefined || !lyricData)
+    return (
+      <StyledErrorMessage>
+        Sorry! It looks like this Lyric doesn't exist!
+        <br />
+        <Link to="/">Click here to go back</Link>
+      </StyledErrorMessage>
+    );
 
   if (error) console.log(error);
 

@@ -33,24 +33,25 @@ export const SongChorus = styled.div`
   white-space: pre-wrap;
 `;
 
-const SongVerseStyles = styled.div<{ isMobile: boolean }>`
+const SongVerseStyles = styled.div<{ isTablet: boolean }>`
   text-align: left;
   margin: auto 4vw auto;
   margin-top: 5px;
   font-size: 2.1vh;
   letter-spacing: 0.1vw;
   white-space: pre-wrap;
-  ${({ isMobile }) =>
-    isMobile &&
+  ${({ isTablet }) =>
+    isTablet &&
     `
       margin: auto 10px;
+      text-align: center;
     `}
 `;
 
 export const SongVerse: React.FC = ({ children }) => {
-  const { isMobile } = UseResponsiveCheck();
+  const { isTablet } = UseResponsiveCheck();
 
-  return <SongVerseStyles isMobile={isMobile}>{children}</SongVerseStyles>;
+  return <SongVerseStyles isTablet={isTablet}>{children}</SongVerseStyles>;
 };
 
 export const StyledErrorMessage = styled.h1`

@@ -29,7 +29,7 @@ export const LyricPage: React.FC<any> = ({ client }) => {
   );
 
   document.addEventListener(
-    "click",
+    "touchstart",
     function enableNoSleep() {
       document.removeEventListener("click", enableNoSleep, false);
       noSleep.enable();

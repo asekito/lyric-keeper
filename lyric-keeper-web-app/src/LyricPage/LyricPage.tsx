@@ -8,6 +8,9 @@ import { Lyric } from "Types";
 import { useQuery } from "react-apollo";
 import { Query_Find_Lyric_With_Short_Url } from "operations";
 import { LoadingIndicator, Link } from "GlobalComponents";
+import NoSleep from "nosleep.js";
+
+const noSleep = new NoSleep();
 
 export const LyricPage: React.FC<any> = ({ client }) => {
   const [lyricData, setLyricData] = useState<Lyric | null>();
@@ -23,6 +26,15 @@ export const LyricPage: React.FC<any> = ({ client }) => {
     {
       variables: { shortUrl },
     }
+  );
+
+  document.addEventListener(
+    "click",
+    function enableNoSleep() {
+      document.removeEventListener("click", enableNoSleep, false);
+      noSleep.enable();
+    },
+    false
   );
 
   useEffect(() => {

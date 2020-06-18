@@ -6,7 +6,7 @@ export const UseScrollHandler = () => {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const scroll = () => {
-    window.scrollBy(0, timeoutDuration / 80);
+    window.scrollBy(0, 10);
     start();
   };
 

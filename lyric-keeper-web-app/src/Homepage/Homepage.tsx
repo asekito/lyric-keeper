@@ -20,7 +20,7 @@ import { LoadingIndicator } from "GlobalComponents";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
-export const Homepage: React.FC = () => {
+export const Homepage: React.FC<any> = ({ client }) => {
   const [lyricDataSourceOfTruth, setLyricDataSourceOfTruth] = useState<
     allLyrics | undefined
   >([]);
@@ -49,16 +49,33 @@ export const Homepage: React.FC = () => {
     );
   };
 
-  const getAndUpdateAllLyrics = () => {
-    refetch();
-    setLyricDataSourceOfTruth(data?.allLyrics);
-    setLyricData(data?.allLyrics);
+  interface settingsObj {
+    refetchLyrics?: boolean;
+  }
+
+  const getAndUpdateAllLyrics = (settings?: settingsObj) => {
+    settings?.refetchLyrics && refetch();
+
+    if (!data && !loading) {
+      try {
+        const cachedData = client.readQuery({
+          query: Query_Get_All_Lyrics,
+        });
+        console.log(cachedData);
+        setLyricData(cachedData.allLyrics as any);
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (data && !loading) {
+      setLyricDataSourceOfTruth(data?.allLyrics);
+      setLyricData(data?.allLyrics);
+    }
   };
 
   useEffect(() => {
     getAndUpdateAllLyrics();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, loading]);
 
   const addEntry = (lyric: Lyric) => {
     addNewLyric({ variables: lyric });
@@ -86,7 +103,7 @@ export const Homepage: React.FC = () => {
           <MenuItem value="author">Artist</MenuItem>
         </StyledSelect>
         <IconButton
-          onClick={getAndUpdateAllLyrics}
+          onClick={() => getAndUpdateAllLyrics()}
           style={{ marginLeft: "26px" }}
         >
           <RefreshIcon />

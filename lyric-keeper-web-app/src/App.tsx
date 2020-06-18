@@ -6,6 +6,7 @@ import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { persistCache } from "apollo-cache-persist";
+import localForage from "localforage";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -16,7 +17,7 @@ function App() {
     const setPersistantCache = async () => {
       await persistCache({
         cache,
-        storage: window.sessionStorage as any,
+        storage: localForage as any,
       });
     };
 
@@ -36,7 +37,11 @@ function App() {
     return (
       <ApolloProvider client={client}>
         <Router forceRefresh>
-          <Route path="/" exact component={Homepage} />
+          <Route
+            path="/"
+            exact
+            component={() => <Homepage client={client} />}
+          />
           <Route
             path="/lyric/:lyricUrl"
             component={() => <LyricPage client={client} />}

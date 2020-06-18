@@ -34,7 +34,7 @@ export const SongChorus = styled.div`
 
 const SongVerseStyles = styled.div<{ isMobile: boolean }>`
   text-align: left;
-  margin: auto 27vw;
+  margin: auto 4vw auto;
   margin-top: 5px;
   font-size: 2.1vh;
   letter-spacing: 0.1vw;

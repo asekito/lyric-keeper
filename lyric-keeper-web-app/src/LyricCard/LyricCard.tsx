@@ -36,7 +36,7 @@ export const LyricCard: React.FC<Props> = ({
 
   const { isMobile } = UseResponsiveCheck();
 
-  const limit = isMobile ? 9 : 14;
+  const limit = isMobile ? 7 : 14;
 
   if (loading)
     return (

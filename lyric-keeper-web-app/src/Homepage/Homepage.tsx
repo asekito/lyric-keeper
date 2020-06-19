@@ -16,7 +16,7 @@ import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
 import { useFormik } from "formik";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { LoadingIndicator } from "GlobalComponents";
+import { LoadingIndicator, LoginCreateAccountModal } from "GlobalComponents";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -25,6 +25,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
     allLyrics | undefined
   >([]);
   const [lyricData, setLyricData] = useState<allLyrics | undefined>([]);
+  const [loginModalIsOpen, setLoginModalIsOpen] = useState(true);
 
   const {
     handleChange,
@@ -55,7 +56,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
 
   const getAndUpdateAllLyrics = (settings?: settingsObj) => {
     settings?.refetchLyrics && refetch();
-
+    // Handled offline data
     if (!data && !loading) {
       try {
         const cachedData = client.readQuery({
@@ -86,6 +87,10 @@ export const Homepage: React.FC<any> = ({ client }) => {
 
   return (
     <DefaultPageWrapper>
+      <LoginCreateAccountModal
+        isOpen={loginModalIsOpen}
+        setIsOpen={setLoginModalIsOpen}
+      />
       <WelcomeText variant="h3">Lyric Keeper</WelcomeText>
       <MainAreaWrapper maxWidth="sm">
         <TextField

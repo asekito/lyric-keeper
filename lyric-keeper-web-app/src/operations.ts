@@ -22,11 +22,10 @@ export const Lyric_Without_Short_Url = gql`
 export const Query_Get_All_Lyrics = gql`
   query Get_All_Lyrics {
     allLyrics {
-      title
-      author
-      shortUrl
+      ...Lyric
     }
   }
+  ${Lyric}
 `;
 
 export const Query_Find_Lyric_With_Short_Url = gql`
@@ -85,4 +84,12 @@ export const Mutation_Update_Lyric = gql`
     }
   }
   ${Lyric_Without_Short_Url}
+`;
+
+export const Query_Get_Current_User = gql`
+  query Get_Current_User($uid: String!) {
+    getCurrentUser(input: { uid: $uid }) {
+      lyricId
+    }
+  }
 `;

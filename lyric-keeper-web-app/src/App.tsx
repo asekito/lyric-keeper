@@ -24,8 +24,8 @@ function App() {
     setPersistantCache();
     setClient(
       new ApolloClient({
-        uri: "https://lyric-keeper-server.herokuapp.com/",
-        // uri: "http://localhost:8181/",
+        // uri: "https://lyric-keeper-server.herokuapp.com/",
+        uri: "http://localhost:8181/",
         cache,
       })
     );

@@ -25,7 +25,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
     allLyrics | undefined
   >([]);
   const [lyricData, setLyricData] = useState<allLyrics | undefined>([]);
-  const [loginModalIsOpen, setLoginModalIsOpen] = useState(true);
+  const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
 
   const {
     handleChange,

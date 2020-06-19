@@ -40,6 +40,10 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
     handleChange,
     values: { email, password },
     errors,
+    validateForm,
+    handleBlur,
+    touched,
+    setTouched,
   } = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema,
@@ -51,14 +55,18 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
       <StyledContainer maxWidth="xs">
         <LoginHeader>{isLoginType ? "Login" : "Create Account"}</LoginHeader>
         <StyledTextField
+          type="email"
+          onBlur={handleBlur}
           placeholder="Email"
           name="email"
           value={email}
           variant="standard"
           onChange={handleChange}
         />
-        <Error>{errors.email && errors.email}</Error>
+        <Error>{errors.email && touched.email && errors.email}</Error>
         <StyledTextField
+          type="password"
+          onBlur={handleBlur}
           placeholder={`Password ${
             isCreateAccountType ? "must be minimum of 8 characters" : ""
           }`}
@@ -67,8 +75,18 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
           variant="standard"
           onChange={handleChange}
         />
-        <Error>{errors.password && errors.password}</Error>
-        <StyledButton variant="contained">
+        <Error>{errors.password && touched.password && errors.password}</Error>
+        <StyledButton
+          onClick={() => {
+            (async () => {
+              const errors = await validateForm();
+              !errors.email && !errors.password
+                ? console.log(email, password)
+                : setTouched({ email: true, password: true });
+            })();
+          }}
+          variant="contained"
+        >
           {isLoginType ? "Login" : "Create Account"}
         </StyledButton>
         <ModalStyleSwitcher

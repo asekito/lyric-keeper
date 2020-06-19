@@ -7,7 +7,8 @@ import Button from "@material-ui/core/Button";
 
 export const StyledContainer = styled(Container)`
   background-color: white;
-  height: 315px;
+  min-height: 315px;
+  padding: 15px;
   margin-top: 20px;
   padding-top: 13px;
   text-align: center;

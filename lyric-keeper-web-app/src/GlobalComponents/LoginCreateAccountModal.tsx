@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Modal from "@material-ui/core/Modal";
@@ -11,6 +11,7 @@ import {
   ModalStyleSwitcher,
 } from "./elements";
 import { firebase } from "firebaseApp";
+import { UseCurrentUser } from "Hooks";
 
 interface Props {
   isOpen: boolean;
@@ -23,24 +24,6 @@ interface EmailAndPassword {
   setError: React.Dispatch<any>;
 }
 
-const createNewUser = ({ email, password, setError }: EmailAndPassword) => {
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-      setError(errorMessage);
-    })
-    .then((r: any) => {
-      if (r.user) {
-        console.log(r.user.uid);
-      }
-    });
-};
-
 export const LoginCreateAccountModal: React.FC<Props> = ({
   isOpen,
   setIsOpen,
@@ -49,9 +32,54 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
     "login"
   );
   const [authError, setAuthError] = useState("");
+  const { setUser, isLoggedIn } = UseCurrentUser();
 
   const isLoginType = modalType === "login";
   const isCreateAccountType = modalType === "create-account";
+
+  // \\\\\\ CREATE ACCOUNT LOGIC //////
+
+  const createNewUser = ({ email, password, setError }: EmailAndPassword) => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        setError(errorMessage);
+      })
+      .then((r: any) => {
+        if (r && r.user) {
+          setUser({ uid: r.user.uid });
+        }
+      });
+  };
+
+  // \\\\\\ LOGIN LOGIC //////
+
+  const signInUser = ({ email, password, setError }: EmailAndPassword) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        setError(errorMessage);
+      })
+      .then((r: any) => {
+        if (r && r.user) {
+          setUser({ uid: r.user.uid });
+        }
+      });
+  };
+
+  useEffect(() => {
+    console.log("isLoggedIn changed in LoginCreateAccountModal: ", isLoggedIn);
+  }, [isLoggedIn]);
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -109,9 +137,7 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
               if (!errors.email && !errors.password) {
                 isCreateAccountType
                   ? createNewUser({ email, password, setError: setAuthError })
-                  : console.log(
-                      `Login with:\n email: ${email}\n password: ${password}`
-                    );
+                  : signInUser({ email, password, setError: setAuthError });
               } else {
                 setTouched({ email: true, password: true });
               }

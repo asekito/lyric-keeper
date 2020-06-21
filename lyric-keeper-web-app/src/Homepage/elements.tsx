@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MainGreen, LighterPurple } from "ColorVars";
+import { MainGreen, LighterPurple, SemiLightGreen } from "ColorVars";
 import Select from "@material-ui/core/Select";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -39,4 +39,11 @@ export const LyricCount = styled.div`
   text-align: left;
   letter-spacing: 2px;
   color: ${LighterPurple};
+`;
+
+export const LoginOrCreateAccountText = styled(Typography)`
+  font-size: 1rem;
+  color: ${SemiLightGreen};
+  cursor: pointer;
+  margin-top: 30px;
 `;

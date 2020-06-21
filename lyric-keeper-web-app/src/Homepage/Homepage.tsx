@@ -5,6 +5,7 @@ import {
   MainAreaWrapper,
   StyledSelect,
   LyricCount,
+  LoginOrCreateAccountText,
 } from "./elements";
 import { LyricCard } from "LyricCard";
 import { NewLyricModal } from "NewLyricModal";
@@ -17,6 +18,7 @@ import { useFormik } from "formik";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import { LoadingIndicator, LoginCreateAccountModal } from "GlobalComponents";
+import { UseCurrentUser } from "Hooks";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -26,6 +28,8 @@ export const Homepage: React.FC<any> = ({ client }) => {
   >([]);
   const [lyricData, setLyricData] = useState<allLyrics | undefined>([]);
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
+
+  const { isLoggedIn } = UseCurrentUser();
 
   const {
     handleChange,
@@ -40,6 +44,10 @@ export const Homepage: React.FC<any> = ({ client }) => {
   const [addNewLyric] = useMutation<{ addNewLyric: Add_New_LyricVariables }>(
     Mutation_Add_New_Lyric
   );
+
+  useEffect(() => {
+    console.log("isLoggedIn changed in Homepage: ", isLoggedIn);
+  }, [isLoggedIn]);
 
   const filter = (searchTerm: string) => {
     setLyricData(
@@ -91,6 +99,11 @@ export const Homepage: React.FC<any> = ({ client }) => {
         isOpen={loginModalIsOpen}
         setIsOpen={setLoginModalIsOpen}
       />
+      {!isLoggedIn && (
+        <LoginOrCreateAccountText onClick={() => setLoginModalIsOpen(true)}>
+          Login or Create Account
+        </LoginOrCreateAccountText>
+      )}
       <WelcomeText variant="h3">Lyric Keeper</WelcomeText>
       <MainAreaWrapper maxWidth="sm">
         <TextField
@@ -139,7 +152,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
         ) : (
           <LoadingIndicator />
         )}
-        <NewLyricModal addEntry={addEntry} />
+        {isLoggedIn && <NewLyricModal addEntry={addEntry} />}
       </MainAreaWrapper>
     </DefaultPageWrapper>
   );

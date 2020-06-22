@@ -59,7 +59,7 @@ export const LyricPage: React.FC<any> = ({ client }) => {
   if (lyricData === undefined || !lyricData)
     return (
       <StyledErrorMessage>
-        Sorry! It looks like this Lyric doesn't exist!
+        Sorry! But we were unable to find this Lyric!
         <br />
         <Link to="/">Click here to go back</Link>
       </StyledErrorMessage>

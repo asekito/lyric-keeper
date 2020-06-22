@@ -23,10 +23,20 @@ export interface UseCurrentUserReturnShape {
   isLoggedIn: boolean;
 }
 
+const getFromLocalStorage = (item: string) =>
+  window.localStorage.getItem(item) || "";
+
+const setToLocalStorage = (key: string, val: any) =>
+  window.localStorage.setItem(key, JSON.stringify(val));
+
 export const UseCurrentUser = () => {
   const [currentUid, setCurrentUid] = useState<string | null>(null);
-  const [currentUser, setCurrentUser] = useState<CurrentUserShape | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<CurrentUserShape | null>(
+    JSON.parse(getFromLocalStorage("currentUser") as any) || null
+  );
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    getFromLocalStorage("isLoggedIn").includes("true")
+  );
   const [skip, setSkip] = useState(true);
 
   const { data, error, loading, refetch } = useQuery<
@@ -36,6 +46,14 @@ export const UseCurrentUser = () => {
     skip,
     variables: { uid: currentUid ? currentUid : "" },
   });
+
+  useEffect(() => {
+    setToLocalStorage("isLoggedIn", `${isLoggedIn}`);
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    setToLocalStorage("currentUser", currentUser);
+  }, [currentUser]);
 
   if (error) console.log(error);
 
@@ -50,10 +68,6 @@ export const UseCurrentUser = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skip]);
-
-  useEffect(() => {
-    console.log("isLoggedIn changed in UseCurrentUser: ", isLoggedIn);
-  }, [isLoggedIn]);
 
   const setUser = ({ uid }: SetUserTypes) => {
     setCurrentUid(() => {

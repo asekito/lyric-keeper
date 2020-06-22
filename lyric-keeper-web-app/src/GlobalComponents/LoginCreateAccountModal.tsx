@@ -16,6 +16,7 @@ import { UseCurrentUser } from "Hooks";
 interface Props {
   isOpen: boolean;
   setIsOpen: React.Dispatch<boolean>;
+  setUser: React.Dispatch<any>;
 }
 
 interface EmailAndPassword {
@@ -27,12 +28,12 @@ interface EmailAndPassword {
 export const LoginCreateAccountModal: React.FC<Props> = ({
   isOpen,
   setIsOpen,
+  setUser,
 }) => {
   const [modalType, setModalType] = useState<"login" | "create-account">(
     "login"
   );
   const [authError, setAuthError] = useState("");
-  const { setUser, isLoggedIn } = UseCurrentUser();
 
   const isLoginType = modalType === "login";
   const isCreateAccountType = modalType === "create-account";
@@ -76,10 +77,6 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
         }
       });
   };
-
-  useEffect(() => {
-    console.log("isLoggedIn changed in LoginCreateAccountModal: ", isLoggedIn);
-  }, [isLoggedIn]);
 
   const validationSchema = Yup.object({
     email: Yup.string()

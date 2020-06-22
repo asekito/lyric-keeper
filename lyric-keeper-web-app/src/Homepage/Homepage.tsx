@@ -29,7 +29,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
   const [lyricData, setLyricData] = useState<allLyrics | undefined>([]);
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
 
-  const { isLoggedIn } = UseCurrentUser();
+  const { isLoggedIn, setUser } = UseCurrentUser();
 
   const {
     handleChange,
@@ -86,6 +86,10 @@ export const Homepage: React.FC<any> = ({ client }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, loading]);
 
+  useEffect(() => {
+    if (isLoggedIn) setLoginModalIsOpen(false);
+  }, [isLoggedIn]);
+
   const addEntry = (lyric: Lyric) => {
     addNewLyric({ variables: lyric });
     getAndUpdateAllLyrics();
@@ -98,6 +102,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
       <LoginCreateAccountModal
         isOpen={loginModalIsOpen}
         setIsOpen={setLoginModalIsOpen}
+        setUser={setUser}
       />
       {!isLoggedIn && (
         <LoginOrCreateAccountText onClick={() => setLoginModalIsOpen(true)}>

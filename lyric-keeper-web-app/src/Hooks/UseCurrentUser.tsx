@@ -9,10 +9,10 @@ import {
 
 interface SetUserTypes {
   uid: string;
+  email: string;
 }
 
-interface CurrentUserShape {
-  uid: string;
+interface CurrentUserShape extends SetUserTypes {
   lyrics: Get_Current_User_getCurrentUser[] | [];
 }
 
@@ -21,6 +21,7 @@ export interface UseCurrentUserReturnShape {
   currentUser: CurrentUserShape | null;
   currentUserIsLoading: boolean;
   isLoggedIn: boolean;
+  logout(): void;
 }
 
 const getFromLocalStorage = (item: string) =>
@@ -30,13 +31,20 @@ const setToLocalStorage = (key: string, val: any) =>
   window.localStorage.setItem(key, JSON.stringify(val));
 
 export const UseCurrentUser = () => {
+  // Use userConfigItems for adding new user items in the future
+  const [userConfigItems, setUserConfigItems] = useState<
+    Partial<SetUserTypes>
+  >();
   const [currentUid, setCurrentUid] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<CurrentUserShape | null>(
-    JSON.parse(getFromLocalStorage("currentUser") as any) || null
+    (getFromLocalStorage("currentUser") &&
+      JSON.parse(getFromLocalStorage("currentUser") as any)) ||
+      null
   );
   const [isLoggedIn, setIsLoggedIn] = useState(
     getFromLocalStorage("isLoggedIn").includes("true")
   );
+  // Skip the first query for Get_Current_User since currentUid will initially be null
   const [skip, setSkip] = useState(true);
 
   const { data, error, loading, refetch } = useQuery<
@@ -47,6 +55,7 @@ export const UseCurrentUser = () => {
     variables: { uid: currentUid ? currentUid : "" },
   });
 
+  // Use persistant storage to keep track of current user data across the site
   useEffect(() => {
     setToLocalStorage("isLoggedIn", `${isLoggedIn}`);
   }, [isLoggedIn]);
@@ -62,6 +71,7 @@ export const UseCurrentUser = () => {
       refetch();
       setCurrentUser({
         uid: currentUid,
+        email: userConfigItems?.email || "",
         lyrics: data?.getCurrentUser ? data?.getCurrentUser : [],
       });
       setIsLoggedIn(true);
@@ -69,11 +79,18 @@ export const UseCurrentUser = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skip]);
 
-  const setUser = ({ uid }: SetUserTypes) => {
+  const setUser = ({ uid, email }: SetUserTypes) => {
     setCurrentUid(() => {
       setSkip(false);
+      setUserConfigItems({ email });
       return uid;
     });
+  };
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    setCurrentUid(null);
   };
 
   const returnObj: UseCurrentUserReturnShape = {
@@ -81,6 +98,7 @@ export const UseCurrentUser = () => {
     currentUser,
     currentUserIsLoading: loading,
     isLoggedIn,
+    logout,
   };
 
   return returnObj;

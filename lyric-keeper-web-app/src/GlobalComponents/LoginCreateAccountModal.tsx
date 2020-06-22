@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Modal from "@material-ui/core/Modal";
@@ -11,12 +11,13 @@ import {
   ModalStyleSwitcher,
 } from "./elements";
 import { firebase } from "firebaseApp";
-import { UseCurrentUser } from "Hooks";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 interface Props {
   isOpen: boolean;
   setIsOpen: React.Dispatch<boolean>;
   setUser: React.Dispatch<any>;
+  currentUserIsLoading: boolean;
 }
 
 interface EmailAndPassword {
@@ -29,11 +30,14 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
   isOpen,
   setIsOpen,
   setUser,
+  currentUserIsLoading,
 }) => {
   const [modalType, setModalType] = useState<"login" | "create-account">(
     "login"
   );
   const [authError, setAuthError] = useState("");
+
+  const [authIsLoading, setAuthIsLoading] = useState(false);
 
   const isLoginType = modalType === "login";
   const isCreateAccountType = modalType === "create-account";
@@ -41,6 +45,7 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
   // \\\\\\ CREATE ACCOUNT LOGIC //////
 
   const createNewUser = ({ email, password, setError }: EmailAndPassword) => {
+    setAuthIsLoading(true);
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -50,10 +55,12 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
         var errorMessage = error.message;
         console.log(errorCode, errorMessage);
         setError(errorMessage);
+        setAuthIsLoading(false);
       })
       .then((r: any) => {
+        setAuthIsLoading(false);
         if (r && r.user) {
-          setUser({ uid: r.user.uid });
+          setUser({ uid: r.user.uid, email: r.user.email });
         }
       });
   };
@@ -61,6 +68,7 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
   // \\\\\\ LOGIN LOGIC //////
 
   const signInUser = ({ email, password, setError }: EmailAndPassword) => {
+    setAuthIsLoading(true);
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -70,10 +78,12 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
         var errorMessage = error.message;
         console.log(errorCode, errorMessage);
         setError(errorMessage);
+        setAuthIsLoading(false);
       })
       .then((r: any) => {
         if (r && r.user) {
-          setUser({ uid: r.user.uid });
+          setAuthIsLoading(false);
+          setUser({ uid: r.user.uid, email: r.user.email });
         }
       });
   };
@@ -100,6 +110,14 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
     validationSchema,
     onSubmit: () => undefined,
   });
+
+  let buttonText: any = "";
+
+  if (!currentUserIsLoading && !authIsLoading) {
+    buttonText = isLoginType ? "Login" : "Create Account";
+  } else if (currentUserIsLoading || authIsLoading) {
+    buttonText = <CircularProgress />;
+  }
 
   return (
     <Modal open={isOpen} onClose={() => setIsOpen(false)}>
@@ -142,7 +160,7 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
           }}
           variant="contained"
         >
-          {isLoginType ? "Login" : "Create Account"}
+          {buttonText}
         </StyledButton>
         <Error>{authError}</Error>
         <ModalStyleSwitcher

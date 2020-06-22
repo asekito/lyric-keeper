@@ -29,7 +29,13 @@ export const Homepage: React.FC<any> = ({ client }) => {
   const [lyricData, setLyricData] = useState<allLyrics | undefined>([]);
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
 
-  const { isLoggedIn, setUser } = UseCurrentUser();
+  const {
+    isLoggedIn,
+    setUser,
+    currentUser,
+    currentUserIsLoading,
+    logout,
+  } = UseCurrentUser();
 
   const {
     handleChange,
@@ -44,10 +50,6 @@ export const Homepage: React.FC<any> = ({ client }) => {
   const [addNewLyric] = useMutation<{ addNewLyric: Add_New_LyricVariables }>(
     Mutation_Add_New_Lyric
   );
-
-  useEffect(() => {
-    console.log("isLoggedIn changed in Homepage: ", isLoggedIn);
-  }, [isLoggedIn]);
 
   const filter = (searchTerm: string) => {
     setLyricData(
@@ -100,13 +102,20 @@ export const Homepage: React.FC<any> = ({ client }) => {
   return (
     <DefaultPageWrapper>
       <LoginCreateAccountModal
+        currentUserIsLoading={currentUserIsLoading}
         isOpen={loginModalIsOpen}
         setIsOpen={setLoginModalIsOpen}
         setUser={setUser}
       />
-      {!isLoggedIn && (
+      {!isLoggedIn ? (
         <LoginOrCreateAccountText onClick={() => setLoginModalIsOpen(true)}>
           Login or Create Account
+        </LoginOrCreateAccountText>
+      ) : (
+        <LoginOrCreateAccountText onClick={() => logout()}>
+          Logged in as {currentUser?.email}
+          <br />
+          Log out
         </LoginOrCreateAccountText>
       )}
       <WelcomeText variant="h3">Lyric Keeper</WelcomeText>

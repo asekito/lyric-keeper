@@ -8,6 +8,7 @@ import {
   StyledFab,
   SecondaryMarketingText,
   LoginOrCreateAccountButton,
+  MarketingText,
 } from "./elements";
 
 interface Props {
@@ -35,6 +36,10 @@ export const MarketingModal: React.FC<Props> = ({
             - Create new lyrics
             <br />- Edit lyrics
           </SecondaryMarketingText>
+          <MarketingText>
+            You are not currently signed in! To access the above features,
+            please login or create an account.
+          </MarketingText>
           <LoginOrCreateAccountButton
             variant="contained"
             onClick={handleLoginButtonClick}

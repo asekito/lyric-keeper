@@ -7,6 +7,7 @@ import {
   SecondaryGreen,
   SecondaryColor,
   PrimaryBlue,
+  LighterPurple,
 } from "ColorVars";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
@@ -77,8 +78,8 @@ export const MainMarketingHeader = styled(Typography)`
 `;
 
 export const StyledFab = styled(Fab)`
-  right: -47%;
-  top: -10px;
+  right: -52%;
+  top: -21px;
   & {
     width: 35px;
     height: 35px;
@@ -94,11 +95,21 @@ export const SecondaryMarketingText = styled(Typography)`
   }
 `;
 
+export const MarketingText = styled(Typography)`
+  & {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-top: 35px;
+    color: ${LighterPurple};
+  }
+`;
+
 export const LoginOrCreateAccountButton = styled(Button)`
   & {
     color: ${PrimaryBlue};
     margin-right: auto;
     margin-left: auto;
-    margin-top: 40px;
+    margin-top: 15px;
+    margin-bottom: 30px;
   }
 `;

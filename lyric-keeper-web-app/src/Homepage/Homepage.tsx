@@ -110,7 +110,10 @@ export const Homepage: React.FC<any> = ({ client }) => {
   }, [data, loading]);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (
+      isLoggedIn ||
+      window.localStorage.getItem("showMarketing") === "false"
+    ) {
       setLoginModalIsOpen(false);
       setMarketingModalIsOpen(false);
     } else {

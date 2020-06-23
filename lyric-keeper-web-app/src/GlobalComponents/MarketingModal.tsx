@@ -26,7 +26,13 @@ export const MarketingModal: React.FC<Props> = ({
     <Modal open={isOpen} onClose={() => setIsOpen(false)}>
       <StyledContainer maxWidth="xs">
         <MarketingWrapper>
-          <StyledFab size="small" onClick={() => setIsOpen(false)}>
+          <StyledFab
+            size="small"
+            onClick={() => {
+              setIsOpen(false);
+              window.localStorage.setItem("showMarketing", "false");
+            }}
+          >
             <CloseIcon />
           </StyledFab>
           <MainMarketingHeader variant="h4">

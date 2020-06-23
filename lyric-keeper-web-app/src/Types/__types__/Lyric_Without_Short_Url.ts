@@ -8,6 +8,7 @@
 // ====================================================
 
 export interface Lyric_Without_Short_Url {
+  id: string;
   title: string;
   author: string;
   chorus: string;

@@ -2,8 +2,14 @@ import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { MainGreen, SecondaryGreen } from "ColorVars";
+import {
+  MainGreen,
+  SecondaryGreen,
+  SecondaryColor,
+  PrimaryBlue,
+} from "ColorVars";
 import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
 
 export const StyledContainer = styled(Container)`
   background-color: white;
@@ -54,4 +60,45 @@ export const ModalStyleSwitcher = styled(Typography)`
   color: ${SecondaryGreen};
   margin-top: 30px;
   cursor: pointer;
+`;
+
+export const MarketingWrapper = styled.div`
+  background-color: #79cb798c;
+  min-height: 288px;
+`;
+
+export const MainMarketingHeader = styled(Typography)`
+  & {
+    font-size: 1.5rem;
+    color: black;
+    letter-spacing: 2px;
+    font-weight: 100;
+  }
+`;
+
+export const StyledFab = styled(Fab)`
+  right: -47%;
+  top: -10px;
+  & {
+    width: 35px;
+    height: 35px;
+  }
+`;
+
+export const SecondaryMarketingText = styled(Typography)`
+  & {
+    font-size: 1.2rem;
+    color: ${SecondaryColor};
+    letter-spacing: 3px;
+    margin-top: 35px;
+  }
+`;
+
+export const LoginOrCreateAccountButton = styled(Button)`
+  & {
+    color: ${PrimaryBlue};
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 40px;
+  }
 `;

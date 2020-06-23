@@ -8,6 +8,7 @@
 // ====================================================
 
 export interface Get_All_Lyrics_allLyrics {
+  id: string;
   title: string;
   shortUrl: string;
   author: string;

@@ -2,7 +2,7 @@ import React from "react";
 import { Songtitle, SongAuthor, SongVerse, SongChorus } from "./elements";
 import { Lyric_Without_Short_Url } from "Types";
 
-export const LyricView: React.FC<Lyric_Without_Short_Url> = ({
+export const LyricView: React.FC<Omit<Lyric_Without_Short_Url, "id">> = ({
   title,
   author,
   verses,

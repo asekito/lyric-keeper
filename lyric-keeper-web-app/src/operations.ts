@@ -2,6 +2,7 @@ import { gql } from "apollo-boost";
 
 export const Lyric = gql`
   fragment Lyric on Lyric {
+    id
     title
     shortUrl
     author
@@ -12,6 +13,7 @@ export const Lyric = gql`
 
 export const Lyric_Without_Short_Url = gql`
   fragment Lyric_Without_Short_Url on LyricWithoutShortUrl {
+    id
     title
     author
     chorus
@@ -90,6 +92,16 @@ export const Query_Get_Current_User = gql`
   query Get_Current_User($uid: String!) {
     getCurrentUser(input: { uid: $uid }) {
       lyricId
+    }
+  }
+`;
+
+export const Mutation_Add_New_Lyric_To_User_List = gql`
+  mutation Add_New_Lyric_To_User_List($uid: String!, $lyricId: String!) {
+    addNewLyricToUserList(input: { uid: $uid, lyricId: $lyricId }) {
+      result {
+        error
+      }
     }
   }
 `;

@@ -6,18 +6,33 @@ import {
   StyledSelect,
   LyricCount,
   LoginOrCreateAccountText,
+  NoLyricsToDisplayText,
 } from "./elements";
 import { LyricCard } from "LyricCard";
 import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import { Query_Get_All_Lyrics, Mutation_Add_New_Lyric } from "operations";
-import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
+import {
+  Query_Get_All_Lyrics,
+  Mutation_Add_New_Lyric,
+  Mutation_Add_New_Lyric_To_User_List,
+} from "operations";
+import {
+  Get_All_Lyrics,
+  Lyric,
+  Add_New_LyricVariables,
+  Add_New_Lyric_To_User_List_addNewLyricToUserList,
+  Add_New_Lyric_To_User_ListVariables,
+} from "Types";
 import { useFormik } from "formik";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { LoadingIndicator, LoginCreateAccountModal } from "GlobalComponents";
+import {
+  LoadingIndicator,
+  LoginCreateAccountModal,
+  MarketingModal,
+} from "GlobalComponents";
 import { UseCurrentUser } from "Hooks";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
@@ -28,6 +43,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
   >([]);
   const [lyricData, setLyricData] = useState<allLyrics | undefined>([]);
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
+  const [marketingModalIsOpen, setMarketingModalIsOpen] = useState(true);
 
   const {
     isLoggedIn,
@@ -50,6 +66,11 @@ export const Homepage: React.FC<any> = ({ client }) => {
   const [addNewLyric] = useMutation<{ addNewLyric: Add_New_LyricVariables }>(
     Mutation_Add_New_Lyric
   );
+
+  const [addNewLyricToUserList] = useMutation<
+    Add_New_Lyric_To_User_List_addNewLyricToUserList,
+    Add_New_Lyric_To_User_ListVariables
+  >(Mutation_Add_New_Lyric_To_User_List);
 
   const filter = (searchTerm: string) => {
     setLyricData(
@@ -89,12 +110,41 @@ export const Homepage: React.FC<any> = ({ client }) => {
   }, [data, loading]);
 
   useEffect(() => {
-    if (isLoggedIn) setLoginModalIsOpen(false);
+    if (isLoggedIn) {
+      setLoginModalIsOpen(false);
+      setMarketingModalIsOpen(false);
+    } else {
+      setMarketingModalIsOpen(true);
+    }
   }, [isLoggedIn]);
 
   const addEntry = (lyric: Lyric) => {
-    addNewLyric({ variables: lyric });
-    getAndUpdateAllLyrics();
+    if (currentUser) {
+      addNewLyric({ variables: lyric });
+      getAndUpdateAllLyrics();
+
+      // const newLyricId = () => {
+      //   let returnId = "";
+      //   lyricData?.forEach(({ id, title }) => {
+      //     if (title === lyric.title) {
+      //       returnId = id;
+      //     }
+      //   });
+      //   return returnId;
+      // };
+
+      // const lyricId = newLyricId();
+
+      // addNewLyricToUserList({
+      //   variables: { uid: currentUser?.uid, lyricId },
+      // });
+      // console.log({ uid: currentUser?.uid, lyricId });
+    }
+  };
+
+  const handleMarketingLoginButtonClick = () => {
+    setMarketingModalIsOpen(false);
+    setLoginModalIsOpen(true);
   };
 
   if (loading) return <LoadingIndicator />;
@@ -106,6 +156,11 @@ export const Homepage: React.FC<any> = ({ client }) => {
         isOpen={loginModalIsOpen}
         setIsOpen={setLoginModalIsOpen}
         setUser={setUser}
+      />
+      <MarketingModal
+        handleLoginButtonClick={handleMarketingLoginButtonClick}
+        isOpen={marketingModalIsOpen}
+        setIsOpen={setMarketingModalIsOpen}
       />
       {!isLoggedIn ? (
         <LoginOrCreateAccountText onClick={() => setLoginModalIsOpen(true)}>
@@ -152,16 +207,9 @@ export const Homepage: React.FC<any> = ({ client }) => {
               />
             ))
           ) : (
-            <div
-              style={{
-                marginTop: "5vh",
-                fontSize: "3vh",
-                display: "block",
-                letterSpacing: "0.2vw",
-              }}
-            >
+            <NoLyricsToDisplayText>
               No Lyrics to display...
-            </div>
+            </NoLyricsToDisplayText>
           )
         ) : (
           <LoadingIndicator />

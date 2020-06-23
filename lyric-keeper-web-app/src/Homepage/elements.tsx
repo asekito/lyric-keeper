@@ -47,3 +47,10 @@ export const LoginOrCreateAccountText = styled(Typography)`
   cursor: pointer;
   margin-top: 30px;
 `;
+
+export const NoLyricsToDisplayText = styled.div`
+  margin-top: 5vh;
+  font-size: 3vh;
+  display: block;
+  letter-spacing: 0.2vw;
+`;

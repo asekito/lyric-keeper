@@ -13,6 +13,8 @@ import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import IconButton from "@material-ui/core/IconButton";
+import RefreshIcon from "@material-ui/icons/Refresh";
 import {
   Query_Get_All_Lyrics,
   Mutation_Add_New_Lyric,
@@ -26,8 +28,6 @@ import {
   Add_New_Lyric_To_User_ListVariables,
 } from "Types";
 import { useFormik } from "formik";
-import IconButton from "@material-ui/core/IconButton";
-import RefreshIcon from "@material-ui/icons/Refresh";
 import {
   LoadingIndicator,
   LoginCreateAccountModal,

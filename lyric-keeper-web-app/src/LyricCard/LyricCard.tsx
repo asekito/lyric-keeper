@@ -9,28 +9,29 @@ import Delete from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import { Link, LoadingIndicator } from "GlobalComponents";
 import { useMutation } from "react-apollo";
-import { Delete_Lyric_Matching_Short_UrlVariables } from "Types";
-import { Mutation_Delete_Lyric_Matching_Short_Url } from "operations";
+import {
+  Delete_Lyric_Matching_IdVariables,
+  Lyric,
+  Delete_Lyric_Matching_Id,
+} from "Types";
+import { Mutation_Delete_Lyric_Matching_Id } from "operations";
 import { truncate } from "utilities";
 import { UseResponsiveCheck } from "Hooks";
 import { SettingsObj } from "Homepage";
 
-interface Props {
-  title: string;
-  author: string;
-  shortUrl: string;
-  getAndUpdateAllLyrics(settings?: SettingsObj): void;
-}
+type Props = Lyric & { getAndUpdateAllLyrics(settings?: SettingsObj): void };
 
 export const LyricCard: React.FC<Props> = ({
   title,
   author,
   shortUrl,
+  id,
   getAndUpdateAllLyrics,
 }) => {
-  const [deleteLyric, { loading: mutationLoading }] = useMutation<{
-    deleteLyric: Delete_Lyric_Matching_Short_UrlVariables;
-  }>(Mutation_Delete_Lyric_Matching_Short_Url, {
+  const [deleteLyric, { loading: mutationLoading }] = useMutation<
+    Delete_Lyric_Matching_Id,
+    Delete_Lyric_Matching_IdVariables
+  >(Mutation_Delete_Lyric_Matching_Id, {
     onCompleted: () => getAndUpdateAllLyrics({ refetchLyrics: true }),
   });
 
@@ -44,7 +45,7 @@ export const LyricCard: React.FC<Props> = ({
     <div style={{ display: "block" }}>
       <CardWrapper>
         <IconButton
-          onClick={() => deleteLyric({ variables: { shortUrl } })}
+          onClick={() => deleteLyric({ variables: { id } })}
           style={{
             display: "inline",
             verticalAlign: "super",

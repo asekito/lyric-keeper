@@ -196,12 +196,10 @@ export const Homepage: React.FC<any> = ({ client }) => {
         <LyricCount>{`Lyrics: ${lyricData?.length}`}</LyricCount>
         {!loading ? (
           lyricData && lyricData?.length ? (
-            lyricData?.map(({ title, author, shortUrl }) => (
+            lyricData?.map(({ ...props }) => (
               <LyricCard
-                title={title}
-                author={author}
-                shortUrl={shortUrl}
                 getAndUpdateAllLyrics={getAndUpdateAllLyrics}
+                {...props}
               />
             ))
           ) : (

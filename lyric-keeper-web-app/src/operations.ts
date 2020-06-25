@@ -59,9 +59,9 @@ export const Mutation_Add_New_Lyric = gql`
   }
 `;
 
-export const Mutation_Delete_Lyric_Matching_Short_Url = gql`
-  mutation Delete_Lyric_Matching_Short_Url($shortUrl: String!) {
-    deleteLyricMatchingShortUrl(input: { shortUrl: $shortUrl })
+export const Mutation_Delete_Lyric_Matching_Id = gql`
+  mutation Delete_Lyric_Matching_Id($id: String!) {
+    deleteLyricMatchingId(input: { id: $id })
   }
 `;
 

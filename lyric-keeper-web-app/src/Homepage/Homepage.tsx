@@ -69,10 +69,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
   const { data, loading, refetch } = useQuery(Query_Get_All_Lyrics);
 
   const [addNewLyric] = useMutation<Add_New_Lyric, Add_New_LyricVariables>(
-    Mutation_Add_New_Lyric,
-    {
-      // onCompleted: ({ addNewLyric }) => console.log("addNewLyric: ", addNewLyric),
-    }
+    Mutation_Add_New_Lyric
   );
 
   const [addNewLyricToUserList] = useMutation<

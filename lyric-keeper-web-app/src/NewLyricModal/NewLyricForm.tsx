@@ -1,10 +1,10 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { TextFieldStyles } from "./elements";
+import { TextFieldStyles, StyledTextField } from "./elements";
 import { useFormik } from "formik";
 import { Lyric } from "Types";
 import Container from "@material-ui/core/Container";
+import { UseDarkMode } from "Hooks";
 
 interface Props {
   lyricData?: Lyric;
@@ -27,6 +27,8 @@ export const NewLyricForm: React.FC<Props> = ({
     },
     onSubmit: () => undefined,
   });
+
+  const { darkModeIsEnabled } = UseDarkMode();
 
   const formFields = [
     {
@@ -77,7 +79,8 @@ export const NewLyricForm: React.FC<Props> = ({
         }) => (
           <>
             <TextFieldStyles key={name}>
-              <TextField
+              <StyledTextField
+                darkMode={darkModeIsEnabled}
                 required
                 name={name}
                 multiline={multiline}

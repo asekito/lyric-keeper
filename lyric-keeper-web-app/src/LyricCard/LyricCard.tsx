@@ -19,6 +19,7 @@ interface Props {
   author: string;
   shortUrl: string;
   getAndUpdateAllLyrics(): void;
+  darkModeIsEnabled: boolean;
 }
 
 export const LyricCard: React.FC<Props> = ({
@@ -26,6 +27,7 @@ export const LyricCard: React.FC<Props> = ({
   author,
   shortUrl,
   getAndUpdateAllLyrics,
+  darkModeIsEnabled,
 }) => {
   const [deleteLyric, { loading }] = useMutation<{
     deleteLyric: Delete_Lyric_Matching_Short_UrlVariables;
@@ -41,7 +43,7 @@ export const LyricCard: React.FC<Props> = ({
 
   return (
     <div style={{ display: "block" }}>
-      <CardWrapper>
+      <CardWrapper darkMode={darkModeIsEnabled}>
         <IconButton
           onClick={() => deleteLyric({ variables: { shortUrl } })}
           style={{

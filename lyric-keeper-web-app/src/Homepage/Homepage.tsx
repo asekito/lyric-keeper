@@ -5,15 +5,18 @@ import {
   MainAreaWrapper,
   StyledSelect,
   LyricCount,
-  LoginOrCreateAccountText,
+  StyledSwitch,
+  StyledTextField,
+  StyledIconButton,
+  DarkIcon,
+  LightIcon,
   NoLyricsToDisplayText,
+  LoginOrCreateAccountText,
 } from "./elements";
 import { LyricCard } from "LyricCard";
 import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import {
   Query_Get_All_Lyrics,
@@ -35,6 +38,7 @@ import {
   MarketingModal,
 } from "GlobalComponents";
 import { UseCurrentUser } from "Hooks";
+import { UseDarkMode } from "Hooks";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -57,6 +61,8 @@ export const Homepage: React.FC<any> = ({ client }) => {
     currentUserIsLoading,
     logout,
   } = UseCurrentUser();
+
+  const { darkModeIsEnabled, setDarkMode } = UseDarkMode();
 
   const {
     handleChange,
@@ -145,7 +151,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
   if (loading) return <LoadingIndicator />;
 
   return (
-    <DefaultPageWrapper>
+    <DefaultPageWrapper darkMode={darkModeIsEnabled}>
       <LoginCreateAccountModal
         currentUserIsLoading={currentUserIsLoading}
         isOpen={loginModalIsOpen}
@@ -168,9 +174,17 @@ export const Homepage: React.FC<any> = ({ client }) => {
           Log out
         </LoginOrCreateAccountText>
       )}
-      <WelcomeText variant="h3">Lyric Keeper</WelcomeText>
+      <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
+        Lyric Keeper
+      </WelcomeText>
+      {darkModeIsEnabled ? <DarkIcon /> : <LightIcon />}
+      <StyledSwitch
+        checked={darkModeIsEnabled}
+        onChange={({ target: { checked } }) => setDarkMode(checked)}
+      />
       <MainAreaWrapper maxWidth="sm">
-        <TextField
+        <StyledTextField
+          darkMode={darkModeIsEnabled}
           label="Search"
           name="search"
           value={search}
@@ -180,27 +194,36 @@ export const Homepage: React.FC<any> = ({ client }) => {
             filter(e.target.value);
           }}
         />
-        <StyledSelect value={filterBy} name="filterBy" onChange={handleChange}>
+        <StyledSelect
+          darkMode={darkModeIsEnabled}
+          value={filterBy}
+          name="filterBy"
+          onChange={handleChange}
+        >
           <MenuItem value="title">Title</MenuItem>
           <MenuItem value="author">Artist</MenuItem>
         </StyledSelect>
-        <IconButton
+        <StyledIconButton
+          darkMode={darkModeIsEnabled}
           onClick={() => getAndUpdateAllLyrics({ refetchLyrics: true })}
           style={{ marginLeft: "26px" }}
         >
           <RefreshIcon />
-        </IconButton>
-        <LyricCount>{`Lyrics: ${lyricData?.length}`}</LyricCount>
+        </StyledIconButton>
+        <LyricCount
+          darkMode={darkModeIsEnabled}
+        >{`Lyrics: ${lyricData?.length}`}</LyricCount>
         {!loading ? (
           lyricData && lyricData?.length ? (
             lyricData?.map(({ ...props }) => (
               <LyricCard
+                darkModeIsEnabled={darkModeIsEnabled}
                 getAndUpdateAllLyrics={getAndUpdateAllLyrics}
                 {...props}
               />
             ))
           ) : (
-            <NoLyricsToDisplayText>
+            <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
               No Lyrics to display...
             </NoLyricsToDisplayText>
           )

@@ -1,25 +1,36 @@
 import styled from "styled-components";
-import { MainGreen, LighterPurple, SemiLightGreen } from "ColorVars";
+import {
+  MainGreen,
+  LighterPurple,
+  DarkModeLighterPurple,
+  SemiLightGreen,
+} from "ColorVars";
 import Select from "@material-ui/core/Select";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
+import Switch from "@material-ui/core/Switch";
+import TextField from "@material-ui/core/TextField";
+import IconButton from "@material-ui/core/IconButton";
+import NightsStayIcon from "@material-ui/icons/NightsStay";
+import WbSunnyIcon from "@material-ui/icons/WbSunny";
 
-export const WelcomeText = styled(Typography)`
+export const WelcomeText = styled(Typography)<{ darkMode: boolean }>`
   font-size: 2rem;
   letter-spacing: 7px;
   color: ${MainGreen};
-  border: #0000001c solid 1px;
+  border: ${({ darkMode }) => (darkMode ? `white` : `#0000001c`)} solid 1px;
   border-radius: 6px;
   width: fit-content;
   margin: auto;
   padding: 2px;
   padding-left: 7px;
-  margin-top: 50px;
   margin-bottom: 30px;
 `;
 
-export const DefaultPageWrapper = styled.div`
+export const DefaultPageWrapper = styled.div<{ darkMode: boolean }>`
   text-align: center;
+  background-color: ${({ darkMode }) => (darkMode ? `#1a1a1a` : `white`)};
+  padding-top: 50px;
 `;
 
 export const MainAreaWrapper = styled(Container)`
@@ -27,18 +38,79 @@ export const MainAreaWrapper = styled(Container)`
   padding-bottom: 70px;
 `;
 
-export const StyledSelect = styled(Select)`
+export const StyledSelect = styled(Select)<{ darkMode: boolean }>`
   width: 4.5rem;
   display: inline-block;
   margin-top: 16px;
   left: 13px;
+  color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
+  & {
+    .MuiSelect-icon {
+      color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
+    }
+  }
 `;
 
-export const LyricCount = styled.div`
+export const LyricCount = styled.div<{ darkMode: boolean }>`
   font-size: 1rem;
   text-align: left;
   letter-spacing: 2px;
-  color: ${LighterPurple};
+  color: ${({ darkMode }) =>
+    darkMode ? DarkModeLighterPurple : LighterPurple};
+`;
+
+export const StyledSwitch = styled(Switch)`
+  && {
+    .MuiSwitch-colorSecondary.Mui-checked {
+      color: ${MainGreen};
+    }
+    .MuiSwitch-track {
+      background-color: grey;
+    }
+  }
+`;
+
+export const StyledTextField = styled(TextField)<{ darkMode: boolean }>`
+  & {
+    .MuiInputBase-input {
+      color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
+    }
+    .MuiInputLabel-root {
+      color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
+    }
+  }
+`;
+
+export const StyledIconButton = styled(IconButton)<{ darkMode: boolean }>`
+  color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
+`;
+
+export const LightIcon = styled(WbSunnyIcon)`
+  && {
+    color: black;
+    height: 50px;
+    display: inline-block;
+    margin-bottom: -20px;
+    font-size: 40px;
+  }
+`;
+
+export const DarkIcon = styled(NightsStayIcon)`
+  && {
+    color: white;
+    height: 50px;
+    display: inline-block;
+    margin-bottom: -20px;
+    font-size: 40px;
+  }
+`;
+
+export const NoLyricsToDisplayText = styled.div<{ darkMode: boolean }>`
+  margin-top: 5vh;
+  font-size: 3vh;
+  display: block;
+  letter-spacing: 0.2vw;
+  color: ${({ darkMode }) => (darkMode ? "white" : "black")};
 `;
 
 export const LoginOrCreateAccountText = styled(Typography)`
@@ -46,11 +118,4 @@ export const LoginOrCreateAccountText = styled(Typography)`
   color: ${SemiLightGreen};
   cursor: pointer;
   margin-top: 30px;
-`;
-
-export const NoLyricsToDisplayText = styled.div`
-  margin-top: 5vh;
-  font-size: 3vh;
-  display: block;
-  letter-spacing: 0.2vw;
 `;

@@ -19,7 +19,10 @@ import { truncate } from "utilities";
 import { UseResponsiveCheck } from "Hooks";
 import { SettingsObj } from "Homepage";
 
-type Props = Lyric & { getAndUpdateAllLyrics(settings?: SettingsObj): void };
+type Props = Lyric & {
+  getAndUpdateAllLyrics(settings?: SettingsObj): void;
+  darkModeIsEnabled: boolean;
+};
 
 export const LyricCard: React.FC<Props> = ({
   title,
@@ -27,6 +30,7 @@ export const LyricCard: React.FC<Props> = ({
   shortUrl,
   id,
   getAndUpdateAllLyrics,
+  darkModeIsEnabled,
 }) => {
   const [deleteLyric, { loading: mutationLoading }] = useMutation<
     Delete_Lyric_Matching_Id,
@@ -43,7 +47,7 @@ export const LyricCard: React.FC<Props> = ({
 
   return (
     <div style={{ display: "block" }}>
-      <CardWrapper>
+      <CardWrapper darkMode={darkModeIsEnabled}>
         <IconButton
           onClick={() => deleteLyric({ variables: { id } })}
           style={{

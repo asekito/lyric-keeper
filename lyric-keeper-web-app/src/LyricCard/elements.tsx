@@ -4,9 +4,10 @@ import {
   SecondaryColor,
   MainGreen,
   SecondaryLightGrey,
+  DarkModeSecondaryLightGrey,
 } from "ColorVars";
 
-export const CardWrapper = styled.div`
+export const CardWrapper = styled.div<{ darkMode: boolean }>`
   min-height: 40px;
   margin: auto;
   padding: 8px;
@@ -15,7 +16,8 @@ export const CardWrapper = styled.div`
   div {
     text-decoration: none !important;
   }
-  background-color: ${SecondaryLightGrey};
+  background-color: ${({ darkMode }) =>
+    darkMode ? DarkModeSecondaryLightGrey : SecondaryLightGrey};
 `;
 
 export const CardTitle = styled.div`

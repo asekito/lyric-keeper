@@ -9,12 +9,15 @@ import { useQuery } from "react-apollo";
 import { Query_Find_Lyric_With_Short_Url } from "operations";
 import { LoadingIndicator, Link } from "GlobalComponents";
 import NoSleep from "nosleep.js";
+import { UseDarkMode } from "Hooks";
 
 const noSleep = new NoSleep();
 
 export const LyricPage: React.FC<any> = ({ client }) => {
   const [lyricData, setLyricData] = useState<Lyric | null>();
   const [edit, setEdit] = useState(false);
+
+  const { darkModeIsEnabled } = UseDarkMode();
 
   const shortUrl = window.location.pathname.slice(
     7,
@@ -67,11 +70,10 @@ export const LyricPage: React.FC<any> = ({ client }) => {
 
   if (error) console.log(error);
 
-  const { title, author, chorus, verses } = lyricData;
-
   return (
-    <PageWrapper>
+    <PageWrapper darkMode={darkModeIsEnabled}>
       <Snackbar
+        style={{ width: "30px" }}
         anchorOrigin={{
           vertical: "top",
           horizontal: "left",
@@ -81,12 +83,7 @@ export const LyricPage: React.FC<any> = ({ client }) => {
         <SnackbarButtons edit={edit} setEdit={setEdit} />
       </Snackbar>
       {!edit ? (
-        <LyricView
-          title={title}
-          author={author}
-          chorus={chorus}
-          verses={verses}
-        />
+        <LyricView darkModeIsEnabled={darkModeIsEnabled} {...lyricData} />
       ) : (
         <EditView setEdit={setEdit} lyricData={lyricData} refetch={refetch} />
       )}

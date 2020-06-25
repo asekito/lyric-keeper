@@ -1,5 +1,6 @@
-import styled from 'styled-components';
-import { MainGreen } from 'ColorVars';
+import styled from "styled-components";
+import { MainGreen } from "ColorVars";
+import TextField from "@material-ui/core/TextField";
 
 export const ModalContentWrapper = styled.div`
   text-align: center;
@@ -31,4 +32,15 @@ export const HeadingTitle = styled.div`
   font-size: 27px;
   padding: 14px;
   letter-spacing: 2px;
+`;
+
+export const StyledTextField = styled(TextField)<{ darkMode: boolean }>`
+  & {
+    .MuiInputBase-input {
+      color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
+    }
+    .MuiInputLabel-root {
+      color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
+    }
+  }
 `;

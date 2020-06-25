@@ -5,18 +5,17 @@ import {
   MainAreaWrapper,
   StyledSelect,
   LyricCount,
-  DarkModeSwitchText,
   StyledSwitch,
   StyledTextField,
   StyledIconButton,
   DarkIcon,
   LightIcon,
+  NoLyricsToDisplayText,
 } from "./elements";
 import { LyricCard } from "LyricCard";
 import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
-import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { Query_Get_All_Lyrics, Mutation_Add_New_Lyric } from "operations";
 import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
 import { useFormik } from "formik";
@@ -97,9 +96,6 @@ export const Homepage: React.FC<any> = ({ client }) => {
       <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
         Lyric Keeper
       </WelcomeText>
-      {/* <DarkModeSwitchText darkMode={darkModeIsEnabled} variant="h4">
-        Dark mode:{" "}
-      </DarkModeSwitchText> */}
       {darkModeIsEnabled ? <DarkIcon /> : <LightIcon />}
       <StyledSwitch
         checked={darkModeIsEnabled}
@@ -148,16 +144,9 @@ export const Homepage: React.FC<any> = ({ client }) => {
               />
             ))
           ) : (
-            <div
-              style={{
-                marginTop: "5vh",
-                fontSize: "3vh",
-                display: "block",
-                letterSpacing: "0.2vw",
-              }}
-            >
+            <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
               No Lyrics to display...
-            </div>
+            </NoLyricsToDisplayText>
           )
         ) : (
           <LoadingIndicator />

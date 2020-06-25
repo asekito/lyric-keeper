@@ -54,14 +54,6 @@ export const LyricCount = styled.div<{ darkMode: boolean }>`
     darkMode ? DarkModeLighterPurple : LighterPurple};
 `;
 
-export const DarkModeSwitchText = styled(Typography)<{ darkMode: boolean }>`
-  & {
-    font-size: 1.2rem;
-    display: inline;
-    color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
-  }
-`;
-
 export const StyledSwitch = styled(Switch)`
   && {
     .MuiSwitch-colorSecondary.Mui-checked {
@@ -106,4 +98,12 @@ export const DarkIcon = styled(NightsStayIcon)`
     margin-bottom: -20px;
     font-size: 40px;
   }
+`;
+
+export const NoLyricsToDisplayText = styled.div<{ darkMode: boolean }>`
+  margin-top: 5vh;
+  font-size: 3vh;
+  display: block;
+  letter-spacing: 0.2vw;
+  color: ${({ darkMode }) => (darkMode ? "white" : "black")};
 `;

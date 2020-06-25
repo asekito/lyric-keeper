@@ -54,9 +54,7 @@ export const Mutation_Add_New_Lyric = gql`
         verses: $verses
       }
     ) {
-      result {
-        error
-      }
+      id
     }
   }
 `;
@@ -99,9 +97,7 @@ export const Query_Get_Current_User = gql`
 export const Mutation_Add_New_Lyric_To_User_List = gql`
   mutation Add_New_Lyric_To_User_List($uid: String!, $lyricId: String!) {
     addNewLyricToUserList(input: { uid: $uid, lyricId: $lyricId }) {
-      result {
-        error
-      }
+      id
     }
   }
 `;

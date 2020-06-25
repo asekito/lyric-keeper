@@ -26,6 +26,7 @@ import {
   Add_New_LyricVariables,
   Add_New_Lyric_To_User_List_addNewLyricToUserList,
   Add_New_Lyric_To_User_ListVariables,
+  Add_New_Lyric,
 } from "Types";
 import { useFormik } from "formik";
 import {
@@ -36,6 +37,10 @@ import {
 import { UseCurrentUser } from "Hooks";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
+
+export interface SettingsObj {
+  refetchLyrics?: boolean;
+}
 
 export const Homepage: React.FC<any> = ({ client }) => {
   const [lyricDataSourceOfTruth, setLyricDataSourceOfTruth] = useState<
@@ -63,8 +68,11 @@ export const Homepage: React.FC<any> = ({ client }) => {
 
   const { data, loading, refetch } = useQuery(Query_Get_All_Lyrics);
 
-  const [addNewLyric] = useMutation<{ addNewLyric: Add_New_LyricVariables }>(
-    Mutation_Add_New_Lyric
+  const [addNewLyric] = useMutation<Add_New_Lyric, Add_New_LyricVariables>(
+    Mutation_Add_New_Lyric,
+    {
+      // onCompleted: ({ addNewLyric }) => console.log("addNewLyric: ", addNewLyric),
+    }
   );
 
   const [addNewLyricToUserList] = useMutation<
@@ -81,11 +89,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
     );
   };
 
-  interface settingsObj {
-    refetchLyrics?: boolean;
-  }
-
-  const getAndUpdateAllLyrics = (settings?: settingsObj) => {
+  const getAndUpdateAllLyrics = (settings?: SettingsObj) => {
     settings?.refetchLyrics && refetch();
     // Handled offline data
     if (!data && !loading) {
@@ -105,7 +109,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
   };
 
   useEffect(() => {
-    getAndUpdateAllLyrics();
+    getAndUpdateAllLyrics({ refetchLyrics: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, loading]);
 
@@ -121,27 +125,18 @@ export const Homepage: React.FC<any> = ({ client }) => {
     }
   }, [isLoggedIn]);
 
-  const addEntry = (lyric: Lyric) => {
+  const addEntry = async (lyric: Lyric) => {
     if (currentUser) {
-      addNewLyric({ variables: lyric });
-      getAndUpdateAllLyrics();
+      const lyricData = await addNewLyric({ variables: lyric });
+      getAndUpdateAllLyrics({ refetchLyrics: true });
 
-      // const newLyricId = () => {
-      //   let returnId = "";
-      //   lyricData?.forEach(({ id, title }) => {
-      //     if (title === lyric.title) {
-      //       returnId = id;
-      //     }
-      //   });
-      //   return returnId;
-      // };
+      const lyricId = lyricData.data?.addNewLyric?.id;
 
-      // const lyricId = newLyricId();
-
-      // addNewLyricToUserList({
-      //   variables: { uid: currentUser?.uid, lyricId },
-      // });
-      // console.log({ uid: currentUser?.uid, lyricId });
+      lyricId &&
+        addNewLyricToUserList({
+          variables: { uid: currentUser?.uid, lyricId },
+        });
+      console.log({ uid: currentUser?.uid, lyricId });
     }
   };
 
@@ -193,7 +188,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
           <MenuItem value="author">Artist</MenuItem>
         </StyledSelect>
         <IconButton
-          onClick={() => getAndUpdateAllLyrics()}
+          onClick={() => getAndUpdateAllLyrics({ refetchLyrics: true })}
           style={{ marginLeft: "26px" }}
         >
           <RefreshIcon />

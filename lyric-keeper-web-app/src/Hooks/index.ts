@@ -1,2 +1,2 @@
-export { UseResponsiveCheck } from "./UseResponsiveCheck";
-export { UseCurrentUser } from "./UseCurrentUser";
+export * from "./UseResponsiveCheck";
+export * from "./UseCurrentUser";

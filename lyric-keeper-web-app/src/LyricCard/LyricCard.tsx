@@ -13,12 +13,13 @@ import { Delete_Lyric_Matching_Short_UrlVariables } from "Types";
 import { Mutation_Delete_Lyric_Matching_Short_Url } from "operations";
 import { truncate } from "utilities";
 import { UseResponsiveCheck } from "Hooks";
+import { SettingsObj } from "Homepage";
 
 interface Props {
   title: string;
   author: string;
   shortUrl: string;
-  getAndUpdateAllLyrics(): void;
+  getAndUpdateAllLyrics(settings?: SettingsObj): void;
 }
 
 export const LyricCard: React.FC<Props> = ({
@@ -27,17 +28,17 @@ export const LyricCard: React.FC<Props> = ({
   shortUrl,
   getAndUpdateAllLyrics,
 }) => {
-  const [deleteLyric, { loading }] = useMutation<{
+  const [deleteLyric, { loading: mutationLoading }] = useMutation<{
     deleteLyric: Delete_Lyric_Matching_Short_UrlVariables;
   }>(Mutation_Delete_Lyric_Matching_Short_Url, {
-    onCompleted: () => getAndUpdateAllLyrics(),
+    onCompleted: () => getAndUpdateAllLyrics({ refetchLyrics: true }),
   });
 
   const { isMobile } = UseResponsiveCheck();
 
   const limit = isMobile ? 7 : 14;
 
-  if (loading) return <LoadingIndicator />;
+  if (mutationLoading) return <LoadingIndicator />;
 
   return (
     <div style={{ display: "block" }}>
@@ -51,7 +52,7 @@ export const LyricCard: React.FC<Props> = ({
           }}
         >
           <Delete />
-          {loading && <LoadingIndicator />}
+          {mutationLoading && <LoadingIndicator />}
         </IconButton>
         <Link to={`/lyric/${shortUrl}`} style={{ display: "inline-block" }}>
           <CardTitle>{truncate({ string: title, limit })}</CardTitle>

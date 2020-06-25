@@ -7,12 +7,8 @@
 // GraphQL mutation operation: Add_New_Lyric
 // ====================================================
 
-export interface Add_New_Lyric_addNewLyric_result {
-  error: string | null;
-}
-
 export interface Add_New_Lyric_addNewLyric {
-  result: Add_New_Lyric_addNewLyric_result | null;
+  id: string;
 }
 
 export interface Add_New_Lyric {

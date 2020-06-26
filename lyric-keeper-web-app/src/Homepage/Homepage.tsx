@@ -36,6 +36,7 @@ import {
   LoadingIndicator,
   LoginCreateAccountModal,
   MarketingModal,
+  MarketingBar,
 } from "GlobalComponents";
 import { UseCurrentUser } from "Hooks";
 import { UseDarkMode } from "Hooks";
@@ -151,87 +152,90 @@ export const Homepage: React.FC<any> = ({ client }) => {
   if (loading) return <LoadingIndicator />;
 
   return (
-    <DefaultPageWrapper darkMode={darkModeIsEnabled}>
-      <LoginCreateAccountModal
-        currentUserIsLoading={currentUserIsLoading}
-        isOpen={loginModalIsOpen}
-        setIsOpen={setLoginModalIsOpen}
-        setUser={setUser}
-      />
-      <MarketingModal
-        handleLoginButtonClick={handleMarketingLoginButtonClick}
-        isOpen={marketingModalIsOpen}
-        setIsOpen={setMarketingModalIsOpen}
-      />
-      {!isLoggedIn ? (
-        <LoginOrCreateAccountText onClick={() => setLoginModalIsOpen(true)}>
-          Login or Create Account
-        </LoginOrCreateAccountText>
-      ) : (
-        <LoginOrCreateAccountText onClick={() => logout()}>
-          Logged in as {currentUser?.email}
-          <br />
-          Log out
-        </LoginOrCreateAccountText>
-      )}
-      <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
-        Lyric Keeper
-      </WelcomeText>
-      {darkModeIsEnabled ? <DarkIcon /> : <LightIcon />}
-      <StyledSwitch
-        checked={darkModeIsEnabled}
-        onChange={({ target: { checked } }) => setDarkMode(checked)}
-      />
-      <MainAreaWrapper maxWidth="sm">
-        <StyledTextField
-          darkMode={darkModeIsEnabled}
-          label="Search"
-          name="search"
-          value={search}
-          variant="standard"
-          onChange={e => {
-            handleChange(e);
-            filter(e.target.value);
-          }}
+    <>
+      {!isLoggedIn && <MarketingBar />}
+      <DefaultPageWrapper darkMode={darkModeIsEnabled}>
+        <LoginCreateAccountModal
+          currentUserIsLoading={currentUserIsLoading}
+          isOpen={loginModalIsOpen}
+          setIsOpen={setLoginModalIsOpen}
+          setUser={setUser}
         />
-        <StyledSelect
-          darkMode={darkModeIsEnabled}
-          value={filterBy}
-          name="filterBy"
-          onChange={handleChange}
-        >
-          <MenuItem value="title">Title</MenuItem>
-          <MenuItem value="author">Artist</MenuItem>
-        </StyledSelect>
-        <StyledIconButton
-          darkMode={darkModeIsEnabled}
-          onClick={() => getAndUpdateAllLyrics({ refetchLyrics: true })}
-          style={{ marginLeft: "26px" }}
-        >
-          <RefreshIcon />
-        </StyledIconButton>
-        <LyricCount
-          darkMode={darkModeIsEnabled}
-        >{`Lyrics: ${lyricData?.length}`}</LyricCount>
-        {!loading ? (
-          lyricData && lyricData?.length ? (
-            lyricData?.map(({ ...props }) => (
-              <LyricCard
-                darkModeIsEnabled={darkModeIsEnabled}
-                getAndUpdateAllLyrics={getAndUpdateAllLyrics}
-                {...props}
-              />
-            ))
-          ) : (
-            <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
-              No Lyrics to display...
-            </NoLyricsToDisplayText>
-          )
+        <MarketingModal
+          handleLoginButtonClick={handleMarketingLoginButtonClick}
+          isOpen={marketingModalIsOpen}
+          setIsOpen={setMarketingModalIsOpen}
+        />
+        {!isLoggedIn ? (
+          <LoginOrCreateAccountText onClick={() => setLoginModalIsOpen(true)}>
+            Login or Create Account
+          </LoginOrCreateAccountText>
         ) : (
-          <LoadingIndicator />
+          <LoginOrCreateAccountText onClick={() => logout()}>
+            Logged in as {currentUser?.email}
+            <br />
+            Log out
+          </LoginOrCreateAccountText>
         )}
-        {isLoggedIn && <NewLyricModal addEntry={addEntry} />}
-      </MainAreaWrapper>
-    </DefaultPageWrapper>
+        <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
+          Lyric Keeper
+        </WelcomeText>
+        {darkModeIsEnabled ? <DarkIcon /> : <LightIcon />}
+        <StyledSwitch
+          checked={darkModeIsEnabled}
+          onChange={({ target: { checked } }) => setDarkMode(checked)}
+        />
+        <MainAreaWrapper maxWidth="sm">
+          <StyledTextField
+            darkMode={darkModeIsEnabled}
+            label="Search"
+            name="search"
+            value={search}
+            variant="standard"
+            onChange={e => {
+              handleChange(e);
+              filter(e.target.value);
+            }}
+          />
+          <StyledSelect
+            darkMode={darkModeIsEnabled}
+            value={filterBy}
+            name="filterBy"
+            onChange={handleChange}
+          >
+            <MenuItem value="title">Title</MenuItem>
+            <MenuItem value="author">Artist</MenuItem>
+          </StyledSelect>
+          <StyledIconButton
+            darkMode={darkModeIsEnabled}
+            onClick={() => getAndUpdateAllLyrics({ refetchLyrics: true })}
+            style={{ marginLeft: "26px" }}
+          >
+            <RefreshIcon />
+          </StyledIconButton>
+          <LyricCount
+            darkMode={darkModeIsEnabled}
+          >{`Lyrics: ${lyricData?.length}`}</LyricCount>
+          {!loading ? (
+            lyricData && lyricData?.length ? (
+              lyricData?.map(({ ...props }) => (
+                <LyricCard
+                  darkModeIsEnabled={darkModeIsEnabled}
+                  getAndUpdateAllLyrics={getAndUpdateAllLyrics}
+                  {...props}
+                />
+              ))
+            ) : (
+              <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
+                No Lyrics to display...
+              </NoLyricsToDisplayText>
+            )
+          ) : (
+            <LoadingIndicator />
+          )}
+          {isLoggedIn && <NewLyricModal addEntry={addEntry} />}
+        </MainAreaWrapper>
+      </DefaultPageWrapper>
+    </>
   );
 };

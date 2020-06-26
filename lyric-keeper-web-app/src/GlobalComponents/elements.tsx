@@ -8,6 +8,7 @@ import {
   SecondaryColor,
   PrimaryBlue,
   LighterPurple,
+  SecondaryLightGrey,
 } from "ColorVars";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
@@ -111,5 +112,29 @@ export const LoginOrCreateAccountButton = styled(Button)`
     margin-left: auto;
     margin-top: 15px;
     margin-bottom: 30px;
+  }
+`;
+
+export const MbarWrapper = styled.div`
+  background-color: ${SecondaryLightGrey};
+  width: auto;
+  height: fit-content;
+  padding: 10px;
+  padding-left: 4%;
+`;
+
+export const MbarText = styled.div`
+  color: ${SecondaryGreen};
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  display: inline;
+`;
+
+export const MbarButton = styled(Button)`
+  & {
+    font-size: 0.9rem;
+    margin-left: 10px;
+    color: ${SecondaryGreen};
+    display: inline;
   }
 `;

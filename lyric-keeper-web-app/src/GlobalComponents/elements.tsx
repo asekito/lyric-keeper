@@ -120,7 +120,7 @@ export const MbarWrapper = styled.div`
   width: auto;
   height: fit-content;
   padding: 10px;
-  padding-left: 4%;
+  text-align: center;
 `;
 
 export const MbarText = styled.div`

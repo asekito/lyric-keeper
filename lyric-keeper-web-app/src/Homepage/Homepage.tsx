@@ -153,7 +153,9 @@ export const Homepage: React.FC<any> = ({ client }) => {
 
   return (
     <>
-      {!isLoggedIn && <MarketingBar />}
+      {!isLoggedIn && (
+        <MarketingBar onLoginButtonClick={() => setLoginModalIsOpen(true)} />
+      )}
       <DefaultPageWrapper darkMode={darkModeIsEnabled}>
         <LoginCreateAccountModal
           currentUserIsLoading={currentUserIsLoading}

@@ -1,9 +1,15 @@
 import React from "react";
 import { MbarWrapper, MbarText, MbarButton } from "./elements";
 
-export const MarketingBar: React.FC = () => (
+interface Props {
+  onLoginButtonClick(): void;
+}
+
+export const MarketingBar: React.FC<Props> = ({ onLoginButtonClick }) => (
   <MbarWrapper>
     <MbarText>To create or edit lyrics, you must be logged in.</MbarText>
-    <MbarButton variant="outlined">Login</MbarButton>
+    <MbarButton variant="outlined" onClick={onLoginButtonClick}>
+      Login
+    </MbarButton>
   </MbarWrapper>
 );

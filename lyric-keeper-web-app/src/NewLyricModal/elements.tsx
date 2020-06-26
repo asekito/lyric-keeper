@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { MainGreen } from "ColorVars";
+import { MainGreen, DarkModePageBackground } from "ColorVars";
 import TextField from "@material-ui/core/TextField";
 
-export const ModalContentWrapper = styled.div`
+export const ModalContentWrapper = styled.div<{ darkMode: boolean }>`
   text-align: center;
-  background-color: white;
+  background-color: ${({ darkMode }) =>
+    darkMode ? DarkModePageBackground : "white"};
   min-width: 65%;
   height: 60vh;
   position: absolute;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CardWrapper,
   CardTitle,
@@ -13,6 +13,7 @@ import { Delete_Lyric_Matching_Short_UrlVariables } from "Types";
 import { Mutation_Delete_Lyric_Matching_Short_Url } from "operations";
 import { truncate } from "utilities";
 import { UseResponsiveCheck } from "Hooks";
+import { AreYouSureDialog } from "./AreYouSureDialog";
 
 interface Props {
   title: string;
@@ -29,6 +30,7 @@ export const LyricCard: React.FC<Props> = ({
   getAndUpdateAllLyrics,
   darkModeIsEnabled,
 }) => {
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [deleteLyric, { loading }] = useMutation<{
     deleteLyric: Delete_Lyric_Matching_Short_UrlVariables;
   }>(Mutation_Delete_Lyric_Matching_Short_Url, {
@@ -42,27 +44,35 @@ export const LyricCard: React.FC<Props> = ({
   if (loading) return <LoadingIndicator />;
 
   return (
-    <div style={{ display: "block" }}>
-      <CardWrapper darkMode={darkModeIsEnabled}>
-        <IconButton
-          onClick={() => deleteLyric({ variables: { shortUrl } })}
-          style={{
-            display: "inline",
-            verticalAlign: "super",
-            marginRight: "5px",
-          }}
-        >
-          <Delete />
-          {loading && <LoadingIndicator />}
-        </IconButton>
-        <Link to={`/lyric/${shortUrl}`} style={{ display: "inline-block" }}>
-          <CardTitle>{truncate({ string: title, limit })}</CardTitle>
-          <TitleAuthorDivider>{" | "}</TitleAuthorDivider>
-          {author && (
-            <CardAuthor>{truncate({ string: author, limit })}</CardAuthor>
-          )}
-        </Link>
-      </CardWrapper>
-    </div>
+    <>
+      <AreYouSureDialog
+        lyricTitle={title}
+        onClickDelete={() => deleteLyric({ variables: { shortUrl } })}
+        isOpen={dialogIsOpen}
+        setIsOpen={setDialogIsOpen}
+      />
+      <div style={{ display: "block" }}>
+        <CardWrapper darkMode={darkModeIsEnabled}>
+          <IconButton
+            onClick={() => setDialogIsOpen(true)}
+            style={{
+              display: "inline",
+              verticalAlign: "super",
+              marginRight: "5px",
+            }}
+          >
+            <Delete />
+            {loading && <LoadingIndicator />}
+          </IconButton>
+          <Link to={`/lyric/${shortUrl}`} style={{ display: "inline-block" }}>
+            <CardTitle>{truncate({ string: title, limit })}</CardTitle>
+            <TitleAuthorDivider>{" | "}</TitleAuthorDivider>
+            {author && (
+              <CardAuthor>{truncate({ string: author, limit })}</CardAuthor>
+            )}
+          </Link>
+        </CardWrapper>
+      </div>
+    </>
   );
 };

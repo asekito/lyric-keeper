@@ -6,6 +6,9 @@ import {
   SecondaryLightGrey,
   DarkModeSecondaryLightGrey,
 } from "ColorVars";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 export const CardWrapper = styled.div<{ darkMode: boolean }>`
   min-height: 40px;
@@ -43,4 +46,25 @@ export const TitleAuthorDivider = styled.div`
   color: ${SecondaryColor};
   display: inline;
   margin: auto 20px;
+`;
+
+export const StyledDialogTitle = styled(DialogTitle)`
+  color: ${MainGreen};
+`;
+
+export const DialogLyricTitle = styled(Typography)`
+  display: inline;
+  font-weight: 500;
+  font-size: inherit;
+  color: ${SecondaryColor};
+`;
+
+export const DialogButton = styled(Button)`
+  && {
+    display: inline;
+    margin: 10px;
+    margin-bottom: 20px; /* DO NOT REMOVE! IT IS NOT USELESS! VSCODE IS LYING!! */
+    border-color: red;
+    border-width: 1.5px;
+  }
 `;

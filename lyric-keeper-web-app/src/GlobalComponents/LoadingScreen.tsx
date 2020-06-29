@@ -1,13 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Link as OldLink } from "react-router-dom";
 import { LoadingScreenWrapper, StyledCircularProgress } from "./elements";
 import { MainGreen } from "ColorVars";
-
-export const Link = styled(OldLink)`
-  text-decoration: none;
-`;
 
 export const LoadingIndicator: React.FC<{ style?: any }> = ({ style }) => (
   <div style={{ textAlign: "center" }}>

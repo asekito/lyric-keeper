@@ -20,7 +20,7 @@ import { Query_Get_All_Lyrics, Mutation_Add_New_Lyric } from "operations";
 import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
 import { useFormik } from "formik";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { LoadingIndicator, LoadingScreen } from "GlobalComponents";
+import { LoadingScreen } from "GlobalComponents";
 import { UseDarkMode } from "Hooks";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];

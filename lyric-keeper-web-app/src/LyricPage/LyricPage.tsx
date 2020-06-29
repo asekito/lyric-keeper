@@ -7,7 +7,7 @@ import { EditView } from "./EditView";
 import { Lyric } from "Types";
 import { useQuery } from "react-apollo";
 import { Query_Find_Lyric_With_Short_Url } from "operations";
-import { LoadingIndicator, Link, LoadingScreen } from "GlobalComponents";
+import { Link, LoadingScreen } from "GlobalComponents";
 import NoSleep from "nosleep.js";
 import { UseDarkMode } from "Hooks";
 

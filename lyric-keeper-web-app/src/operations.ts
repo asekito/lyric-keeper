@@ -101,3 +101,9 @@ export const Mutation_Add_New_Lyric_To_User_List = gql`
     }
   }
 `;
+
+export const Mutation_Delete_Lyric_From_User_List = gql`
+  mutation Delete_Lyric_From_User_List($uid: String!, $lyricId: String!) {
+    deleteLyricFromUserList(input: { uid: $uid, lyricId: $lyricId })
+  }
+`;

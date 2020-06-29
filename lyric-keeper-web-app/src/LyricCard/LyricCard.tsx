@@ -13,16 +13,22 @@ import {
   Delete_Lyric_Matching_IdVariables,
   Lyric,
   Delete_Lyric_Matching_Id,
+  Delete_Lyric_From_User_ListVariables,
+  Delete_Lyric_From_User_List,
 } from "Types";
-import { Mutation_Delete_Lyric_Matching_Id } from "operations";
+import {
+  Mutation_Delete_Lyric_Matching_Id,
+  Mutation_Delete_Lyric_From_User_List,
+} from "operations";
 import { truncate } from "utilities";
-import { UseResponsiveCheck } from "Hooks";
+import { UseResponsiveCheck, UseCurrentUserReturnShape } from "Hooks";
 import { SettingsObj } from "Homepage";
 import { AreYouSureDialog } from "./AreYouSureDialog";
 
 type Props = Lyric & {
   getAndUpdateAllLyrics(settings?: SettingsObj): void;
   darkModeIsEnabled: boolean;
+  currentUser: UseCurrentUserReturnShape["currentUser"];
 };
 
 export const LyricCard: React.FC<Props> = ({
@@ -32,6 +38,7 @@ export const LyricCard: React.FC<Props> = ({
   id,
   getAndUpdateAllLyrics,
   darkModeIsEnabled,
+  currentUser,
 }) => {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [deleteLyric, { loading: mutationLoading }] = useMutation<
@@ -41,6 +48,11 @@ export const LyricCard: React.FC<Props> = ({
     onCompleted: () => getAndUpdateAllLyrics(),
   });
 
+  const [deleteLyricFromUserList] = useMutation<
+    Delete_Lyric_From_User_List,
+    Delete_Lyric_From_User_ListVariables
+  >(Mutation_Delete_Lyric_From_User_List);
+
   const { isMobile } = UseResponsiveCheck();
 
   const limit = isMobile ? 7 : 14;
@@ -49,26 +61,40 @@ export const LyricCard: React.FC<Props> = ({
 
   return (
     <>
-      <AreYouSureDialog
-        lyricTitle={title}
-        onClickDelete={() => deleteLyric({ variables: { id } })}
-        isOpen={dialogIsOpen}
-        setIsOpen={setDialogIsOpen}
-      />
+      {currentUser && (
+        <AreYouSureDialog
+          lyricTitle={title}
+          onClickDelete={() => {
+            deleteLyricFromUserList({
+              variables: { uid: currentUser.uid, lyricId: id },
+            });
+            deleteLyric({ variables: { id } });
+          }}
+          isOpen={dialogIsOpen}
+          setIsOpen={setDialogIsOpen}
+        />
+      )}
       <div style={{ display: "block" }}>
         <CardWrapper darkMode={darkModeIsEnabled}>
-          <IconButton
-            onClick={() => setDialogIsOpen(true)}
-            style={{
-              display: "inline",
-              verticalAlign: "super",
-              marginRight: "5px",
-            }}
+          {currentUser && (
+            <IconButton
+              onClick={() => setDialogIsOpen(true)}
+              style={{
+                display: "inline",
+                verticalAlign: "super",
+                marginRight: "15px",
+                padding: "0px",
+                top: "4px",
+              }}
+            >
+              <Delete />
+              {mutationLoading && <LoadingIndicator />}
+            </IconButton>
+          )}
+          <Link
+            to={`/lyric/${shortUrl}`}
+            style={{ display: "inline-block", paddingTop: "8px" }}
           >
-            <Delete />
-            {mutationLoading && <LoadingIndicator />}
-          </IconButton>
-          <Link to={`/lyric/${shortUrl}`} style={{ display: "inline-block" }}>
             <CardTitle>{truncate({ string: title, limit })}</CardTitle>
             <TitleAuthorDivider>{" | "}</TitleAuthorDivider>
             {author && (

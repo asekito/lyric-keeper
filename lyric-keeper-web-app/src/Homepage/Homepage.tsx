@@ -220,6 +220,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
           {lyricData && lyricData?.length ? (
             lyricData?.map(({ ...props }) => (
               <LyricCard
+                currentUser={currentUser}
                 darkModeIsEnabled={darkModeIsEnabled}
                 getAndUpdateAllLyrics={getAndUpdateAllLyrics}
                 {...props}

@@ -46,6 +46,7 @@ export const LyricCard: React.FC<Props> = ({
   return (
     <>
       <AreYouSureDialog
+        lyricTitle={title}
         onClickDelete={() => deleteLyric({ variables: { shortUrl } })}
         isOpen={dialogIsOpen}
         setIsOpen={setDialogIsOpen}

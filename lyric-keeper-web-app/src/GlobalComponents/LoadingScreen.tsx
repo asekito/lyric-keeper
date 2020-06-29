@@ -5,6 +5,7 @@ import { MainGreen } from "ColorVars";
 
 export const LoadingIndicator: React.FC<{ style?: any }> = ({ style }) => (
   <div style={{ textAlign: "center" }}>
+    {/* Temporary fix for strange loading bug */}
     <CircularProgress style={{ display: "none" }} />
     <StyledCircularProgress style={{ color: MainGreen, ...style }} />
   </div>

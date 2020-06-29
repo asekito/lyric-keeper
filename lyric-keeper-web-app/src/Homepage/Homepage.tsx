@@ -33,14 +33,12 @@ import {
 } from "Types";
 import { useFormik } from "formik";
 import {
-  LoadingIndicator,
   LoginCreateAccountModal,
   MarketingModal,
   MarketingBar,
   LoadingScreen,
 } from "GlobalComponents";
-import { UseCurrentUser } from "Hooks";
-import { UseDarkMode } from "Hooks";
+import { UseCurrentUser, UseDarkMode } from "Hooks";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 

@@ -20,7 +20,7 @@ import { Query_Get_All_Lyrics, Mutation_Add_New_Lyric } from "operations";
 import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
 import { useFormik } from "formik";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { LoadingIndicator } from "GlobalComponents";
+import { LoadingIndicator, LoadingScreen } from "GlobalComponents";
 import { UseDarkMode } from "Hooks";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
@@ -89,7 +89,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
     getAndUpdateAllLyrics();
   };
 
-  if (loading) return <LoadingIndicator />;
+  if (loading) return <LoadingScreen darkMode={darkModeIsEnabled} />;
 
   return (
     <DefaultPageWrapper darkMode={darkModeIsEnabled}>
@@ -132,24 +132,20 @@ export const Homepage: React.FC<any> = ({ client }) => {
         <LyricCount
           darkMode={darkModeIsEnabled}
         >{`Lyrics: ${lyricData?.length}`}</LyricCount>
-        {!loading ? (
-          lyricData && lyricData?.length ? (
-            lyricData?.map(({ title, author, shortUrl }) => (
-              <LyricCard
-                title={title}
-                author={author}
-                shortUrl={shortUrl}
-                getAndUpdateAllLyrics={getAndUpdateAllLyrics}
-                darkModeIsEnabled={darkModeIsEnabled}
-              />
-            ))
-          ) : (
-            <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
-              No Lyrics to display...
-            </NoLyricsToDisplayText>
-          )
+        {lyricData && lyricData?.length ? (
+          lyricData?.map(({ title, author, shortUrl }) => (
+            <LyricCard
+              title={title}
+              author={author}
+              shortUrl={shortUrl}
+              getAndUpdateAllLyrics={getAndUpdateAllLyrics}
+              darkModeIsEnabled={darkModeIsEnabled}
+            />
+          ))
         ) : (
-          <LoadingIndicator />
+          <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
+            No Lyrics to display...
+          </NoLyricsToDisplayText>
         )}
         <NewLyricModal addEntry={addEntry} />
       </MainAreaWrapper>

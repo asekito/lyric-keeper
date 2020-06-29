@@ -2,6 +2,7 @@ import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   MainGreen,
   SecondaryGreen,
@@ -12,6 +13,7 @@ import {
 } from "ColorVars";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
+import { DarkModePageBackground } from "ColorVars";
 
 export const StyledContainer = styled(Container)`
   background-color: white;
@@ -137,4 +139,17 @@ export const MbarButton = styled(Button)`
     color: ${SecondaryGreen};
     display: inline;
   }
+`;
+
+export const StyledCircularProgress = styled(CircularProgress)`
+  margin-right: auto;
+  margin-top: 20%;
+  margin-left: -10px;
+`;
+
+export const LoadingScreenWrapper = styled.div<{ darkMode: boolean }>`
+  height: 100vh;
+  width: 100%;
+  background-color: ${({ darkMode }) =>
+    darkMode ? DarkModePageBackground : "white"};
 `;

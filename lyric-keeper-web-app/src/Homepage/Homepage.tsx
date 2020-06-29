@@ -37,6 +37,7 @@ import {
   LoginCreateAccountModal,
   MarketingModal,
   MarketingBar,
+  LoadingScreen,
 } from "GlobalComponents";
 import { UseCurrentUser } from "Hooks";
 import { UseDarkMode } from "Hooks";
@@ -149,7 +150,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
     setLoginModalIsOpen(true);
   };
 
-  if (loading) return <LoadingIndicator />;
+  if (loading) return <LoadingScreen darkMode={darkModeIsEnabled} />;
 
   return (
     <>
@@ -218,22 +219,18 @@ export const Homepage: React.FC<any> = ({ client }) => {
           <LyricCount
             darkMode={darkModeIsEnabled}
           >{`Lyrics: ${lyricData?.length}`}</LyricCount>
-          {!loading ? (
-            lyricData && lyricData?.length ? (
-              lyricData?.map(({ ...props }) => (
-                <LyricCard
-                  darkModeIsEnabled={darkModeIsEnabled}
-                  getAndUpdateAllLyrics={getAndUpdateAllLyrics}
-                  {...props}
-                />
-              ))
-            ) : (
-              <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
-                No Lyrics to display...
-              </NoLyricsToDisplayText>
-            )
+          {lyricData && lyricData?.length ? (
+            lyricData?.map(({ ...props }) => (
+              <LyricCard
+                darkModeIsEnabled={darkModeIsEnabled}
+                getAndUpdateAllLyrics={getAndUpdateAllLyrics}
+                {...props}
+              />
+            ))
           ) : (
-            <LoadingIndicator />
+            <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
+              No Lyrics to display...
+            </NoLyricsToDisplayText>
           )}
           {isLoggedIn && <NewLyricModal addEntry={addEntry} />}
         </MainAreaWrapper>

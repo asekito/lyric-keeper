@@ -107,3 +107,12 @@ export const Mutation_Delete_Lyric_From_User_List = gql`
     deleteLyricFromUserList(input: { uid: $uid, lyricId: $lyricId })
   }
 `;
+
+export const Query_Get_Multiple_Lyrics_By_Id = gql`
+  query Get_Multiple_Lyrics_By_Id($ids: [InputIdObj]) {
+    getMultipleLyricsById(input: { ids: $ids }) {
+      ...Lyric
+    }
+  }
+  ${Lyric}
+`;

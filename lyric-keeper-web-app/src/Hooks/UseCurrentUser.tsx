@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "react-apollo";
 import { Query_Get_Current_User } from "operations";
-import {
-  Get_Current_UserVariables,
-  Get_Current_User,
-  Get_Current_User_getCurrentUser,
-} from "Types";
+import { Get_Current_UserVariables, Get_Current_User } from "Types";
 
 interface SetUserTypes {
   uid: string;
@@ -13,7 +9,7 @@ interface SetUserTypes {
 }
 
 interface CurrentUserShape extends SetUserTypes {
-  lyrics: Get_Current_User_getCurrentUser[] | [];
+  lyrics: Get_Current_User["getCurrentUser"];
 }
 
 export interface UseCurrentUserReturnShape {
@@ -30,12 +26,24 @@ const getFromLocalStorage = (item: string) =>
 const setToLocalStorage = (key: string, val: any) =>
   window.localStorage.setItem(key, JSON.stringify(val));
 
+const getValueFromPersistantUser = (val: string) => {
+  if (getFromLocalStorage("currentUser")) {
+    if (JSON.parse(getFromLocalStorage("currentUser") as any) !== null) {
+      return { ...JSON.parse(getFromLocalStorage("currentUser") as any) }[val];
+    } else {
+      return null;
+    }
+  }
+};
+
 export const UseCurrentUser = () => {
   // Use userConfigItems for adding new user items in the future
-  const [userConfigItems, setUserConfigItems] = useState<
-    Partial<SetUserTypes>
-  >();
-  const [currentUid, setCurrentUid] = useState<string | null>(null);
+  const [userConfigItems, setUserConfigItems] = useState<Partial<SetUserTypes>>(
+    { email: getValueFromPersistantUser("email") || "" }
+  );
+  const [currentUid, setCurrentUid] = useState<string | null>(
+    getValueFromPersistantUser("uid")
+  );
   const [currentUser, setCurrentUser] = useState<CurrentUserShape | null>(
     (getFromLocalStorage("currentUser") &&
       JSON.parse(getFromLocalStorage("currentUser") as any)) ||
@@ -45,7 +53,7 @@ export const UseCurrentUser = () => {
     getFromLocalStorage("isLoggedIn").includes("true")
   );
   // Skip the first query for Get_Current_User since currentUid will initially be null
-  const [skip, setSkip] = useState(true);
+  const [skip, setSkip] = useState(typeof currentUid !== "string");
 
   const { data, error, loading, refetch } = useQuery<
     Get_Current_User,
@@ -74,10 +82,15 @@ export const UseCurrentUser = () => {
         email: userConfigItems?.email || "",
         lyrics: data?.getCurrentUser ? data?.getCurrentUser : [],
       });
+      setToLocalStorage("currentUser", {
+        uid: currentUid,
+        email: userConfigItems?.email || "",
+        lyrics: data?.getCurrentUser ? data?.getCurrentUser : [],
+      });
       setIsLoggedIn(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [skip]);
+  }, [skip, currentUid, data]);
 
   const setUser = ({ uid, email }: SetUserTypes) => {
     setCurrentUid(() => {

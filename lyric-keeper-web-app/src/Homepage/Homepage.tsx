@@ -18,6 +18,7 @@ import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
 import RefreshIcon from "@material-ui/icons/Refresh";
+import ListIcon from "@material-ui/icons/List";
 import {
   Query_Get_All_Lyrics,
   Mutation_Add_New_Lyric,
@@ -37,8 +38,11 @@ import {
   MarketingModal,
   MarketingBar,
   LoadingScreen,
+  Link,
 } from "GlobalComponents";
 import { UseCurrentUser, UseDarkMode } from "Hooks";
+import { Button } from "@material-ui/core";
+import { LighterPurple } from "ColorVars";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -172,11 +176,18 @@ export const Homepage: React.FC<any> = ({ client }) => {
             Login or Create Account
           </LoginOrCreateAccountText>
         ) : (
-          <LoginOrCreateAccountText onClick={() => logout()}>
-            Logged in as {currentUser?.email}
-            <br />
-            Log out
-          </LoginOrCreateAccountText>
+          <div style={{ marginBottom: "40px" }}>
+            <LoginOrCreateAccountText onClick={() => logout()}>
+              Logged in as {currentUser?.email}
+              <br />
+              Log out
+            </LoginOrCreateAccountText>
+            <Link to="/my-lyrics">
+              <Button style={{ color: LighterPurple }}>
+                My Lyrics <ListIcon />
+              </Button>
+            </Link>
+          </div>
         )}
         <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
           Lyric Keeper

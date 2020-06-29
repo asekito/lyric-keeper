@@ -117,5 +117,5 @@ export const LoginOrCreateAccountText = styled(Typography)`
   font-size: 1rem;
   color: ${SemiLightGreen};
   cursor: pointer;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 `;

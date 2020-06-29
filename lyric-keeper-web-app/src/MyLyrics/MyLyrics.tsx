@@ -23,7 +23,7 @@ export const MyLyrics: React.FC = () => {
   const { darkModeIsEnabled } = UseDarkMode();
   const { currentUser, isLoggedIn } = UseCurrentUser();
 
-  const { data, loading } = useQuery<
+  const { data, loading, refetch } = useQuery<
     Get_Multiple_Lyrics_By_Id,
     Get_Multiple_Lyrics_By_IdVariables
   >(Query_Get_Multiple_Lyrics_By_Id, {
@@ -37,14 +37,14 @@ export const MyLyrics: React.FC = () => {
 
   if (!isLoggedIn)
     return (
-      <PageWrapper isDarkMode={darkModeIsEnabled}>
-        <PageHeader variant="h4">
-          You are currently not logged in! Please login to view this page!
-          <Link to="/">
-            <Button style={{ color: SecondaryColor }}>Home</Button>
-          </Link>
-        </PageHeader>
-      </PageWrapper>
+      <MainAreaWrapper maxWidth="sm">
+        <PageWrapper isDarkMode={darkModeIsEnabled}>
+          <NoLyricsFoundText>
+            It looks like you haven't created any lyrics yet. You can create new
+            lyrics from the <Link to="/">Homescreen</Link>
+          </NoLyricsFoundText>
+        </PageWrapper>
+      </MainAreaWrapper>
     );
 
   return (
@@ -62,18 +62,19 @@ export const MyLyrics: React.FC = () => {
       <PageHeader variant="h4">My Lyrics</PageHeader>
       <MainAreaWrapper maxWidth="sm">
         {loading && <LoadingIndicator />}
-        {data?.getMultipleLyricsById ? (
+        {data?.getMultipleLyricsById && data?.getMultipleLyricsById.length ? (
           data.getMultipleLyricsById.map(({ ...props }) => (
             <LyricCard
               currentUser={currentUser}
               darkModeIsEnabled={darkModeIsEnabled}
-              getAndUpdateAllLyrics={() => {}}
+              getAndUpdateAllLyrics={() => refetch()}
               {...props}
             />
           ))
         ) : (
           <NoLyricsFoundText>
-            It looks like you haven't created any lyrics yet.
+            It looks like you haven't created any lyrics yet. You can create new
+            lyrics from the <Link to="/">Homescreen</Link>
           </NoLyricsFoundText>
         )}
       </MainAreaWrapper>

@@ -7,6 +7,7 @@ import ApolloClient from "apollo-boost";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { persistCache } from "apollo-cache-persist";
 import localForage from "localforage";
+import { MyLyrics } from "MyLyrics";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -46,6 +47,7 @@ function App() {
             path="/lyric/:lyricUrl"
             component={() => <LyricPage client={client} />}
           />
+          <Route path="/my-lyrics" component={() => <MyLyrics />} />
         </Router>
       </ApolloProvider>
     );

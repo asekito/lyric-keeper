@@ -21,7 +21,7 @@ fs.readdir("./__types__", (err, files) => {
   let finalString = "";
   typeFiles.forEach(name => {
     console.log(`Adding type for ${name}`);
-    finalString += `export * from './${name}'\n`;
+    finalString += `export * from './${name}';\n`;
   });
   fs.writeFile("__types__/index.ts", finalString, err => {
     if (err) throw err;

@@ -8,6 +8,7 @@
 // ====================================================
 
 export interface Lyric {
+  id: string;
   title: string;
   shortUrl: string;
   author: string;

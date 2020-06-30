@@ -8,6 +8,7 @@
 // ====================================================
 
 export interface Update_Lyric_updateLyric {
+  id: string;
   title: string;
   author: string;
   chorus: string;

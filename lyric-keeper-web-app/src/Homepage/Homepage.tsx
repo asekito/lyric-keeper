@@ -16,20 +16,51 @@ import { LyricCard } from "LyricCard";
 import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Query_Get_All_Lyrics, Mutation_Add_New_Lyric } from "operations";
-import { Get_All_Lyrics, Lyric, Add_New_LyricVariables } from "Types";
-import { useFormik } from "formik";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { LoadingScreen } from "GlobalComponents";
-import { UseDarkMode } from "Hooks";
+import {
+  Query_Get_All_Lyrics,
+  Mutation_Add_New_Lyric,
+  Mutation_Add_New_Lyric_To_User_List,
+} from "operations";
+import {
+  Get_All_Lyrics,
+  Lyric,
+  Add_New_LyricVariables,
+  Add_New_Lyric_To_User_List_addNewLyricToUserList,
+  Add_New_Lyric_To_User_ListVariables,
+  Add_New_Lyric,
+} from "Types";
+import { useFormik } from "formik";
+import {
+  LoginCreateAccountModal,
+  MarketingModal,
+  MarketingBar,
+  LoadingScreen,
+  Navbar,
+} from "GlobalComponents";
+import { UseCurrentUser, UseDarkMode } from "Hooks";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
+
+export interface SettingsObj {
+  refetchLyrics?: boolean;
+}
 
 export const Homepage: React.FC<any> = ({ client }) => {
   const [lyricDataSourceOfTruth, setLyricDataSourceOfTruth] = useState<
     allLyrics | undefined
   >([]);
   const [lyricData, setLyricData] = useState<allLyrics | undefined>([]);
+  const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
+  const [marketingModalIsOpen, setMarketingModalIsOpen] = useState(true);
+
+  const {
+    isLoggedIn,
+    setUser,
+    currentUser,
+    currentUserIsLoading,
+    logout,
+  } = UseCurrentUser();
 
   const { darkModeIsEnabled, setDarkMode } = UseDarkMode();
 
@@ -43,9 +74,14 @@ export const Homepage: React.FC<any> = ({ client }) => {
 
   const { data, loading, refetch } = useQuery(Query_Get_All_Lyrics);
 
-  const [addNewLyric] = useMutation<{ addNewLyric: Add_New_LyricVariables }>(
+  const [addNewLyric] = useMutation<Add_New_Lyric, Add_New_LyricVariables>(
     Mutation_Add_New_Lyric
   );
+
+  const [addNewLyricToUserList] = useMutation<
+    Add_New_Lyric_To_User_List_addNewLyricToUserList,
+    Add_New_Lyric_To_User_ListVariables
+  >(Mutation_Add_New_Lyric_To_User_List);
 
   const filter = (searchTerm: string) => {
     setLyricData(
@@ -56,13 +92,9 @@ export const Homepage: React.FC<any> = ({ client }) => {
     );
   };
 
-  interface settingsObj {
-    refetchLyrics?: boolean;
-  }
-
-  const getAndUpdateAllLyrics = (settings?: settingsObj) => {
+  const getAndUpdateAllLyrics = (settings?: SettingsObj) => {
     settings?.refetchLyrics && refetch();
-
+    // Handled offline data
     if (!data && !loading) {
       try {
         const cachedData = client.readQuery({
@@ -80,75 +112,123 @@ export const Homepage: React.FC<any> = ({ client }) => {
   };
 
   useEffect(() => {
-    getAndUpdateAllLyrics();
+    getAndUpdateAllLyrics({ refetchLyrics: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, loading]);
 
-  const addEntry = (lyric: Lyric) => {
-    addNewLyric({ variables: lyric });
-    getAndUpdateAllLyrics();
+  useEffect(() => {
+    if (
+      isLoggedIn ||
+      window.localStorage.getItem("showMarketing") === "false"
+    ) {
+      setLoginModalIsOpen(false);
+      setMarketingModalIsOpen(false);
+    } else {
+      setMarketingModalIsOpen(true);
+    }
+  }, [isLoggedIn]);
+
+  const addEntry = async (lyric: Lyric) => {
+    if (currentUser) {
+      const lyricData = await addNewLyric({ variables: lyric });
+      getAndUpdateAllLyrics({ refetchLyrics: true });
+
+      const lyricId = lyricData.data?.addNewLyric?.id;
+
+      lyricId &&
+        addNewLyricToUserList({
+          variables: { uid: currentUser?.uid, lyricId },
+        });
+      console.log({ uid: currentUser?.uid, lyricId });
+    }
+  };
+
+  const handleMarketingLoginButtonClick = () => {
+    setMarketingModalIsOpen(false);
+    setLoginModalIsOpen(true);
   };
 
   if (loading) return <LoadingScreen darkMode={darkModeIsEnabled} />;
 
   return (
-    <DefaultPageWrapper darkMode={darkModeIsEnabled}>
-      <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
-        Lyric Keeper
-      </WelcomeText>
-      {darkModeIsEnabled ? <DarkIcon /> : <LightIcon />}
-      <StyledSwitch
-        checked={darkModeIsEnabled}
-        onChange={({ target: { checked } }) => setDarkMode(checked)}
+    <>
+      {!isLoggedIn && (
+        <MarketingBar onLoginButtonClick={() => setLoginModalIsOpen(true)} />
+      )}
+      <Navbar
+        currentUser={currentUser}
+        logout={logout}
+        isLoggedIn={isLoggedIn}
+        openLoginModal={() => setLoginModalIsOpen(true)}
       />
-      <MainAreaWrapper maxWidth="sm">
-        <StyledTextField
-          darkMode={darkModeIsEnabled}
-          label="Search"
-          name="search"
-          value={search}
-          variant="standard"
-          onChange={e => {
-            handleChange(e);
-            filter(e.target.value);
-          }}
+      <DefaultPageWrapper darkMode={darkModeIsEnabled}>
+        <LoginCreateAccountModal
+          currentUserIsLoading={currentUserIsLoading}
+          isOpen={loginModalIsOpen}
+          setIsOpen={setLoginModalIsOpen}
+          setUser={setUser}
         />
-        <StyledSelect
-          darkMode={darkModeIsEnabled}
-          value={filterBy}
-          name="filterBy"
-          onChange={handleChange}
-        >
-          <MenuItem value="title">Title</MenuItem>
-          <MenuItem value="author">Artist</MenuItem>
-        </StyledSelect>
-        <StyledIconButton
-          darkMode={darkModeIsEnabled}
-          onClick={() => getAndUpdateAllLyrics()}
-          style={{ marginLeft: "26px" }}
-        >
-          <RefreshIcon />
-        </StyledIconButton>
-        <LyricCount
-          darkMode={darkModeIsEnabled}
-        >{`Lyrics: ${lyricData?.length}`}</LyricCount>
-        {lyricData && lyricData?.length ? (
-          lyricData?.map(({ title, author, shortUrl }) => (
-            <LyricCard
-              title={title}
-              author={author}
-              shortUrl={shortUrl}
-              getAndUpdateAllLyrics={getAndUpdateAllLyrics}
-              darkModeIsEnabled={darkModeIsEnabled}
-            />
-          ))
-        ) : (
-          <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
-            No Lyrics to display...
-          </NoLyricsToDisplayText>
-        )}
-        <NewLyricModal addEntry={addEntry} />
-      </MainAreaWrapper>
-    </DefaultPageWrapper>
+        <MarketingModal
+          handleLoginButtonClick={handleMarketingLoginButtonClick}
+          isOpen={marketingModalIsOpen}
+          setIsOpen={setMarketingModalIsOpen}
+        />
+        <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
+          Lyric Keeper
+        </WelcomeText>
+        {darkModeIsEnabled ? <DarkIcon /> : <LightIcon />}
+        <StyledSwitch
+          checked={darkModeIsEnabled}
+          onChange={({ target: { checked } }) => setDarkMode(checked)}
+        />
+        <MainAreaWrapper maxWidth="sm">
+          <StyledTextField
+            darkMode={darkModeIsEnabled}
+            label="Search"
+            name="search"
+            value={search}
+            variant="standard"
+            onChange={e => {
+              handleChange(e);
+              filter(e.target.value);
+            }}
+          />
+          <StyledSelect
+            darkMode={darkModeIsEnabled}
+            value={filterBy}
+            name="filterBy"
+            onChange={handleChange}
+          >
+            <MenuItem value="title">Title</MenuItem>
+            <MenuItem value="author">Artist</MenuItem>
+          </StyledSelect>
+          <StyledIconButton
+            darkMode={darkModeIsEnabled}
+            onClick={() => getAndUpdateAllLyrics({ refetchLyrics: true })}
+            style={{ marginLeft: "26px" }}
+          >
+            <RefreshIcon />
+          </StyledIconButton>
+          <LyricCount
+            darkMode={darkModeIsEnabled}
+          >{`Lyrics: ${lyricData?.length}`}</LyricCount>
+          {lyricData && lyricData?.length ? (
+            lyricData?.map(({ ...props }) => (
+              <LyricCard
+                currentUser={currentUser}
+                darkModeIsEnabled={darkModeIsEnabled}
+                getAndUpdateAllLyrics={getAndUpdateAllLyrics}
+                {...props}
+              />
+            ))
+          ) : (
+            <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
+              No Lyrics to display...
+            </NoLyricsToDisplayText>
+          )}
+          {isLoggedIn && <NewLyricModal addEntry={addEntry} />}
+        </MainAreaWrapper>
+      </DefaultPageWrapper>
+    </>
   );
 };

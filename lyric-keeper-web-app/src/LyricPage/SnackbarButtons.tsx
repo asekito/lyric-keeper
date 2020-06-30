@@ -11,10 +11,11 @@ import PauseIcon from "@material-ui/icons/Pause";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { Link } from "GlobalComponents";
 import { SecondaryLightGrey } from "ColorVars";
-import { UseResponsiveCheck } from "Hooks";
+import { UseResponsiveCheck, UseCurrentUser } from "Hooks";
 import { UseScrollHandler } from "./UseScrollHandler";
 
 export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
+  const { isLoggedIn } = UseCurrentUser();
   const { isTablet } = UseResponsiveCheck();
   const {
     increaseTime,
@@ -34,6 +35,7 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
     {
       name: "EDIT",
       icon: () => <Edit />,
+      display: isLoggedIn ? "flex" : "none",
       onClick: () => setEdit(true),
     },
     {

@@ -3,7 +3,7 @@ import { Songtitle, SongAuthor, SongVerse, SongChorus } from "./elements";
 import { Lyric_Without_Short_Url } from "Types";
 
 export const LyricView: React.FC<
-  Lyric_Without_Short_Url & { darkModeIsEnabled: boolean }
+  Omit<Lyric_Without_Short_Url, "id"> & { darkModeIsEnabled: boolean }
 > = ({ title, author, verses, chorus, darkModeIsEnabled }) => (
   <>
     <Songtitle>{title}</Songtitle>

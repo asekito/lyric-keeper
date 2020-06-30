@@ -4,13 +4,13 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: Delete_Lyric_Matching_Short_Url
+// GraphQL mutation operation: Delete_Lyric_Matching_Id
 // ====================================================
 
-export interface Delete_Lyric_Matching_Short_Url {
-  deleteLyricMatchingShortUrl: number | null;
+export interface Delete_Lyric_Matching_Id {
+  deleteLyricMatchingId: number | null;
 }
 
-export interface Delete_Lyric_Matching_Short_UrlVariables {
-  shortUrl: string;
+export interface Delete_Lyric_Matching_IdVariables {
+  id: string;
 }

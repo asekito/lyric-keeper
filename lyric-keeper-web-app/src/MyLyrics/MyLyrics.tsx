@@ -11,6 +11,7 @@ import {
   LoadingIndicator,
   Navbar,
   LoginCreateAccountModal,
+  LoadingScreen,
 } from "GlobalComponents";
 import { useQuery } from "react-apollo";
 import { Query_Get_Multiple_Lyrics_By_Id } from "operations";
@@ -43,17 +44,7 @@ export const MyLyrics: React.FC = () => {
     },
   });
 
-  if (!isLoggedIn)
-    return (
-      <MainAreaWrapper maxWidth="sm">
-        <PageWrapper isDarkMode={darkModeIsEnabled}>
-          <NoLyricsFoundText>
-            It looks like you haven't created any lyrics yet. You can create new
-            lyrics from the <Link to="/">Homescreen</Link>
-          </NoLyricsFoundText>
-        </PageWrapper>
-      </MainAreaWrapper>
-    );
+  if (loading) return <LoadingScreen darkMode={darkModeIsEnabled} />;
 
   return (
     <>
@@ -61,21 +52,23 @@ export const MyLyrics: React.FC = () => {
         currentUser={currentUser}
         logout={logout}
         isLoggedIn={isLoggedIn}
-        openLoginModal={() => setLoginModalIsOpen(true)}
+        openLoginModal={() => setLoginModalIsOpen(!loginModalIsOpen)}
       />
       <LoginCreateAccountModal
         currentUserIsLoading={currentUserIsLoading}
         isOpen={loginModalIsOpen}
-        setIsOpen={setLoginModalIsOpen}
+        setIsOpen={() => setLoginModalIsOpen(!loginModalIsOpen)}
         setUser={setUser}
       />
       <PageWrapper isDarkMode={darkModeIsEnabled}>
         <PageHeader variant="h4">My Lyrics</PageHeader>
         <MainAreaWrapper maxWidth="sm">
-          {loading && <LoadingIndicator />}
-          {data?.getMultipleLyricsById && data?.getMultipleLyricsById.length ? (
+          {data?.getMultipleLyricsById &&
+          data?.getMultipleLyricsById.length &&
+          isLoggedIn ? (
             data.getMultipleLyricsById.map(({ ...props }) => (
               <LyricCard
+                showDeleteButton
                 currentUser={currentUser}
                 darkModeIsEnabled={darkModeIsEnabled}
                 getAndUpdateAllLyrics={() => refetch()}

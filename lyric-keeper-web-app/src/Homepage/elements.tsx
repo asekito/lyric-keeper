@@ -26,6 +26,7 @@ export const DefaultPageWrapper = styled.div<{ darkMode: boolean }>`
   text-align: center;
   background-color: ${({ darkMode }) => (darkMode ? `#1a1a1a` : `white`)};
   padding-top: 50px;
+  min-height: 88vh;
 `;
 
 export const MainAreaWrapper = styled(Container)`

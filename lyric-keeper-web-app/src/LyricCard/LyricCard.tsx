@@ -29,6 +29,7 @@ type Props = Lyric & {
   getAndUpdateAllLyrics(settings?: SettingsObj): void;
   darkModeIsEnabled: boolean;
   currentUser: UseCurrentUserReturnShape["currentUser"];
+  showDeleteButton?: boolean;
 };
 
 export const LyricCard: React.FC<Props> = ({
@@ -39,6 +40,7 @@ export const LyricCard: React.FC<Props> = ({
   getAndUpdateAllLyrics,
   darkModeIsEnabled,
   currentUser,
+  showDeleteButton = false,
 }) => {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [deleteLyric, { loading: mutationLoading }] = useMutation<
@@ -61,7 +63,7 @@ export const LyricCard: React.FC<Props> = ({
 
   return (
     <>
-      {currentUser && (
+      {currentUser && showDeleteButton && (
         <AreYouSureDialog
           lyricTitle={title}
           onClickDelete={() => {
@@ -76,7 +78,7 @@ export const LyricCard: React.FC<Props> = ({
       )}
       <div style={{ display: "block" }}>
         <CardWrapper darkMode={darkModeIsEnabled}>
-          {currentUser && (
+          {currentUser && showDeleteButton && (
             <IconButton
               onClick={() => setDialogIsOpen(true)}
               style={{

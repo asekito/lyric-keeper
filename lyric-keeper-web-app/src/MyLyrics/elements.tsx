@@ -13,8 +13,9 @@ export const PageHeader = styled(Typography)`
 `;
 
 export const PageWrapper = styled.div<{ isDarkMode: boolean }>`
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  min-height: 94vh;
   background-color: ${({ isDarkMode }) =>
     isDarkMode ? DarkModePageBackground : "white"};
   text-align: center;

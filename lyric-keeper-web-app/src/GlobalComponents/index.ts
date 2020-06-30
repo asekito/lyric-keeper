@@ -3,3 +3,4 @@ export * from "./LoginCreateAccountModal";
 export * from "./MarketingModal";
 export * from "./MarketingBar";
 export * from "./LoadingScreen";
+export * from "./Navbar";

@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  MainGreen,
-  LighterPurple,
-  DarkModeLighterPurple,
-  SemiLightGreen,
-} from "ColorVars";
+import { MainGreen, LighterPurple, DarkModeLighterPurple } from "ColorVars";
 import Select from "@material-ui/core/Select";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -111,11 +106,4 @@ export const NoLyricsToDisplayText = styled.div<{ darkMode: boolean }>`
   display: block;
   letter-spacing: 0.2vw;
   color: ${({ darkMode }) => (darkMode ? "white" : "black")};
-`;
-
-export const LoginOrCreateAccountText = styled(Typography)`
-  font-size: 1rem;
-  color: ${SemiLightGreen};
-  cursor: pointer;
-  margin-bottom: 10px;
 `;

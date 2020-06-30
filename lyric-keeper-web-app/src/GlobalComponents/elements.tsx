@@ -14,6 +14,8 @@ import {
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import { DarkModePageBackground } from "ColorVars";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
 export const StyledContainer = styled(Container)`
   background-color: white;
@@ -152,4 +154,19 @@ export const LoadingScreenWrapper = styled.div<{ darkMode: boolean }>`
   width: 100%;
   background-color: ${({ darkMode }) =>
     darkMode ? DarkModePageBackground : "white"};
+`;
+
+export const StyledMenuItem = styled(MenuItem)`
+  &&& {
+    text-align: center;
+  }
+`;
+
+export const StyledMenu = styled(Menu)`
+  && {
+    .MuiMenu-paper {
+      padding: 10px;
+      padding-top: 5px;
+    }
+  }
 `;

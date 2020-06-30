@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   PageHeader,
   PageWrapper,
@@ -6,11 +6,12 @@ import {
   NoLyricsFoundText,
 } from "./elements";
 import { UseDarkMode, UseCurrentUser } from "Hooks";
-import { Link, LoadingIndicator } from "GlobalComponents";
-import IconButton from "@material-ui/core/IconButton";
-import Home from "@material-ui/icons/Home";
-import { SecondaryLightGrey, SecondaryColor } from "ColorVars";
-import Button from "@material-ui/core/Button";
+import {
+  Link,
+  LoadingIndicator,
+  Navbar,
+  LoginCreateAccountModal,
+} from "GlobalComponents";
 import { useQuery } from "react-apollo";
 import { Query_Get_Multiple_Lyrics_By_Id } from "operations";
 import {
@@ -20,8 +21,15 @@ import {
 import { LyricCard } from "LyricCard";
 
 export const MyLyrics: React.FC = () => {
+  const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
   const { darkModeIsEnabled } = UseDarkMode();
-  const { currentUser, isLoggedIn } = UseCurrentUser();
+  const {
+    currentUser,
+    isLoggedIn,
+    logout,
+    currentUserIsLoading,
+    setUser,
+  } = UseCurrentUser();
 
   const { data, loading, refetch } = useQuery<
     Get_Multiple_Lyrics_By_Id,
@@ -48,36 +56,40 @@ export const MyLyrics: React.FC = () => {
     );
 
   return (
-    <PageWrapper isDarkMode={darkModeIsEnabled}>
-      <Link to="/">
-        <IconButton
-          style={{
-            marginTop: "50px",
-            backgroundColor: SecondaryLightGrey,
-          }}
-        >
-          <Home />
-        </IconButton>
-      </Link>
-      <PageHeader variant="h4">My Lyrics</PageHeader>
-      <MainAreaWrapper maxWidth="sm">
-        {loading && <LoadingIndicator />}
-        {data?.getMultipleLyricsById && data?.getMultipleLyricsById.length ? (
-          data.getMultipleLyricsById.map(({ ...props }) => (
-            <LyricCard
-              currentUser={currentUser}
-              darkModeIsEnabled={darkModeIsEnabled}
-              getAndUpdateAllLyrics={() => refetch()}
-              {...props}
-            />
-          ))
-        ) : (
-          <NoLyricsFoundText>
-            It looks like you haven't created any lyrics yet. You can create new
-            lyrics from the <Link to="/">Homescreen</Link>
-          </NoLyricsFoundText>
-        )}
-      </MainAreaWrapper>
-    </PageWrapper>
+    <>
+      <Navbar
+        currentUser={currentUser}
+        logout={logout}
+        isLoggedIn={isLoggedIn}
+        openLoginModal={() => setLoginModalIsOpen(true)}
+      />
+      <LoginCreateAccountModal
+        currentUserIsLoading={currentUserIsLoading}
+        isOpen={loginModalIsOpen}
+        setIsOpen={setLoginModalIsOpen}
+        setUser={setUser}
+      />
+      <PageWrapper isDarkMode={darkModeIsEnabled}>
+        <PageHeader variant="h4">My Lyrics</PageHeader>
+        <MainAreaWrapper maxWidth="sm">
+          {loading && <LoadingIndicator />}
+          {data?.getMultipleLyricsById && data?.getMultipleLyricsById.length ? (
+            data.getMultipleLyricsById.map(({ ...props }) => (
+              <LyricCard
+                currentUser={currentUser}
+                darkModeIsEnabled={darkModeIsEnabled}
+                getAndUpdateAllLyrics={() => refetch()}
+                {...props}
+              />
+            ))
+          ) : (
+            <NoLyricsFoundText>
+              It looks like you haven't created any lyrics yet. You can create
+              new lyrics from the <Link to="/">Homescreen</Link>
+            </NoLyricsFoundText>
+          )}
+        </MainAreaWrapper>
+      </PageWrapper>
+    </>
   );
 };

@@ -7,7 +7,8 @@ export const PageHeader = styled(Typography)`
   && {
     color: ${MainGreen};
     font-size: 2.3rem;
-    padding-top: 10px;
+    padding-top: 30px;
+    letter-spacing: 3px;
   }
 `;
 

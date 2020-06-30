@@ -11,14 +11,12 @@ import {
   DarkIcon,
   LightIcon,
   NoLyricsToDisplayText,
-  LoginOrCreateAccountText,
 } from "./elements";
 import { LyricCard } from "LyricCard";
 import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import ListIcon from "@material-ui/icons/List";
 import {
   Query_Get_All_Lyrics,
   Mutation_Add_New_Lyric,
@@ -38,11 +36,9 @@ import {
   MarketingModal,
   MarketingBar,
   LoadingScreen,
-  Link,
+  Navbar,
 } from "GlobalComponents";
 import { UseCurrentUser, UseDarkMode } from "Hooks";
-import { Button } from "@material-ui/core";
-import { LighterPurple } from "ColorVars";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -159,6 +155,12 @@ export const Homepage: React.FC<any> = ({ client }) => {
       {!isLoggedIn && (
         <MarketingBar onLoginButtonClick={() => setLoginModalIsOpen(true)} />
       )}
+      <Navbar
+        currentUser={currentUser}
+        logout={logout}
+        isLoggedIn={isLoggedIn}
+        openLoginModal={() => setLoginModalIsOpen(true)}
+      />
       <DefaultPageWrapper darkMode={darkModeIsEnabled}>
         <LoginCreateAccountModal
           currentUserIsLoading={currentUserIsLoading}
@@ -171,24 +173,6 @@ export const Homepage: React.FC<any> = ({ client }) => {
           isOpen={marketingModalIsOpen}
           setIsOpen={setMarketingModalIsOpen}
         />
-        {!isLoggedIn ? (
-          <LoginOrCreateAccountText onClick={() => setLoginModalIsOpen(true)}>
-            Login or Create Account
-          </LoginOrCreateAccountText>
-        ) : (
-          <div style={{ marginBottom: "40px" }}>
-            <LoginOrCreateAccountText onClick={() => logout()}>
-              Logged in as {currentUser?.email}
-              <br />
-              Log out
-            </LoginOrCreateAccountText>
-            <Link to="/my-lyrics">
-              <Button style={{ color: LighterPurple }}>
-                My Lyrics <ListIcon />
-              </Button>
-            </Link>
-          </div>
-        )}
         <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
           Lyric Keeper
         </WelcomeText>

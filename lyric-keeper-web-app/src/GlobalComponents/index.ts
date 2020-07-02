@@ -5,3 +5,4 @@ export * from "./MarketingBar";
 export * from "./LoadingScreen";
 export * from "./Navbar";
 export * from "./PageHeader";
+export * from "./PageWrapper";

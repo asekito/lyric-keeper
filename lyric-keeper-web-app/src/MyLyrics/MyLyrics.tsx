@@ -1,7 +1,13 @@
 import React from "react";
-import { PageWrapper, MainAreaWrapper, NoLyricsFoundText } from "./elements";
+import { MainAreaWrapper, NoLyricsFoundText } from "./elements";
 import { UseDarkMode, UseCurrentUser } from "Hooks";
-import { Link, Navbar, LoadingScreen, PageHeader } from "GlobalComponents";
+import {
+  Link,
+  Navbar,
+  LoadingScreen,
+  PageHeader,
+  PageWrapper,
+} from "GlobalComponents";
 import { useQuery } from "react-apollo";
 import { Query_Get_Multiple_Lyrics_By_Id } from "operations";
 import {

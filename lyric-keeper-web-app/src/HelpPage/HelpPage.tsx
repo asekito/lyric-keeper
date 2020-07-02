@@ -1,17 +1,20 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import { PageHeader, Navbar } from "GlobalComponents";
-import { UseCurrentUser } from "Hooks";
+import { PageHeader, Navbar, PageWrapper } from "GlobalComponents";
+import { UseCurrentUser, UseDarkMode } from "Hooks";
 
 export const HelpPage: React.FC = () => {
   const currenUserDetails = UseCurrentUser();
+  const { darkModeIsEnabled } = UseDarkMode();
 
   return (
     <>
       <Navbar {...currenUserDetails} />
-      <Container maxWidth="xs">
-        <PageHeader>Help</PageHeader>
-      </Container>
+      <PageWrapper isDarkMode={darkModeIsEnabled}>
+        <Container maxWidth="xs">
+          <PageHeader>Help</PageHeader>
+        </Container>
+      </PageWrapper>
     </>
   );
 };

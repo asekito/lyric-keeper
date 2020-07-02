@@ -1,16 +1,7 @@
 import styled from "styled-components";
 import Typography from "@material-ui/core/Typography";
-import { MainGreen, DarkModePageBackground, PrimaryBlue } from "ColorVars";
+import { PrimaryBlue } from "ColorVars";
 import Container from "@material-ui/core/Container";
-
-export const PageWrapper = styled.div<{ isDarkMode: boolean }>`
-  height: 100%;
-  width: 100%;
-  min-height: 94vh;
-  background-color: ${({ isDarkMode }) =>
-    isDarkMode ? DarkModePageBackground : "white"};
-  text-align: center;
-`;
 
 export const MainAreaWrapper = styled(Container)`
   margin: auto;

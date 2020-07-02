@@ -117,7 +117,14 @@ export const NoLyricsToDisplayText = styled.div<{ darkMode: boolean }>`
 `;
 
 export const StyledLink = styled(Link)`
+  align-items: center;
+  align-content: baseline;
+  justify-content: center;
+  display: flex;
   margin-bottom: 10px;
   color: ${PrimaryBlue};
   font-size: 1.2rem;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+  font-weight: bold;
 `;

@@ -7,29 +7,44 @@ import Button from "@material-ui/core/Button";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import ListIcon from "@material-ui/icons/List";
 import { FogGrey, LighterPurple, BrightGreen } from "ColorVars";
-import { UseCurrentUserReturnShape } from "Hooks";
+import { UseCurrentUserReturnShape, UseCurrentUser } from "Hooks";
 import { StyledMenuItem, StyledMenu } from "./elements";
 import { truncate } from "utilities";
 import { Link, LoginCreateAccountModal } from "GlobalComponents";
 
-interface Props {
-  isLoggedIn: boolean;
-  currentUser: UseCurrentUserReturnShape["currentUser"];
-  logout(): void;
-  currentUserIsLoading: boolean;
-  setUser: UseCurrentUserReturnShape["setUser"];
-}
-
-export const Navbar: React.FC<Props> = ({
-  isLoggedIn,
-  logout,
-  currentUser,
-  currentUserIsLoading,
-  setUser,
-}) => {
+export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
   const open = Boolean(anchorEl);
+
+  const getCurrentUser = () => {
+    if (
+      props.currentUser &&
+      props.currentUserIsLoading &&
+      props.isLoggedIn &&
+      props.logout &&
+      props.setUser
+    ) {
+      const {
+        currentUser,
+        currentUserIsLoading,
+        isLoggedIn,
+        logout,
+        setUser,
+      } = props;
+      return { currentUser, currentUserIsLoading, isLoggedIn, logout, setUser };
+    } else {
+      return { ...UseCurrentUser() };
+    }
+  };
+
+  const {
+    currentUserIsLoading,
+    setUser,
+    isLoggedIn,
+    currentUser,
+    logout,
+  } = getCurrentUser();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

@@ -63,7 +63,6 @@ export const Homepage: React.FC<any> = ({ client }) => {
     setUser,
     currentUser,
     currentUserIsLoading,
-    logout,
   } = currentUserDetails;
 
   const { darkModeIsEnabled, setDarkMode } = UseDarkMode();
@@ -174,7 +173,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
         />
         <StyledLink to="/help">
           <HelpOutlineIcon style={{ fontSize: "1.2rem" }} />
-          Help
+          <div style={{ display: "inline", marginLeft: '5px' }}>How to use this app</div>
         </StyledLink>
         <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
           Lyric Keeper

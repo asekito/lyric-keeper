@@ -10,22 +10,25 @@ import { FogGrey, LighterPurple, BrightGreen } from "ColorVars";
 import { UseCurrentUserReturnShape } from "Hooks";
 import { StyledMenuItem, StyledMenu } from "./elements";
 import { truncate } from "utilities";
-import { Link } from "GlobalComponents";
+import { Link, LoginCreateAccountModal } from "GlobalComponents";
 
 interface Props {
   isLoggedIn: boolean;
-  openLoginModal(): void;
   currentUser: UseCurrentUserReturnShape["currentUser"];
   logout(): void;
+  currentUserIsLoading: boolean;
+  setUser: UseCurrentUserReturnShape["setUser"];
 }
 
 export const Navbar: React.FC<Props> = ({
   isLoggedIn,
-  openLoginModal,
   logout,
   currentUser,
+  currentUserIsLoading,
+  setUser,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
   const open = Boolean(anchorEl);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -37,72 +40,80 @@ export const Navbar: React.FC<Props> = ({
   };
 
   return (
-    <AppBar position="static">
-      <Toolbar
-        style={{
-          backgroundColor: FogGrey,
-        }}
-      >
-        {/* <IconButton edge="start" color="inherit" aria-label="menu">
+    <>
+      <LoginCreateAccountModal
+        currentUserIsLoading={currentUserIsLoading}
+        isOpen={loginModalIsOpen}
+        setIsOpen={setLoginModalIsOpen}
+        setUser={setUser}
+      />
+      <AppBar position="static">
+        <Toolbar
+          style={{
+            backgroundColor: FogGrey,
+          }}
+        >
+          {/* <IconButton edge="start" color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton> */}
-        <Link to="/" style={{ color: "white" }}>
-          <Typography variant="h6">Lyric Keeper</Typography>
-        </Link>
-        {isLoggedIn && currentUser ? (
-          <>
-            <IconButton
-              onClick={handleMenu}
+          <Link to="/" style={{ color: "white" }}>
+            <Typography variant="h6">Lyric Keeper</Typography>
+          </Link>
+          {isLoggedIn && currentUser ? (
+            <>
+              <IconButton
+                onClick={handleMenu}
+                color="inherit"
+                size="medium"
+                style={{ textAlign: "right", marginLeft: "auto" }}
+              >
+                <AccountCircle style={{ fontSize: "2.5rem" }} />
+              </IconButton>
+              <StyledMenu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={open}
+                onClose={handleClose}
+                style={{ padding: "10px" }}
+              >
+                <Typography>
+                  {truncate({ string: currentUser?.email, limit: 20 })}
+                </Typography>
+                <Link to="/my-lyrics">
+                  <StyledMenuItem
+                    style={{ color: LighterPurple, textAlign: "center" }}
+                    onClick={handleClose}
+                  >
+                    My Lyrics <ListIcon />
+                  </StyledMenuItem>
+                </Link>
+                <StyledMenuItem onClick={logout}>Sign out</StyledMenuItem>
+              </StyledMenu>
+            </>
+          ) : (
+            <Button
+              style={{
+                textAlign: "right",
+                marginLeft: "auto",
+                color: BrightGreen,
+              }}
+              onClick={() => setLoginModalIsOpen(true)}
               color="inherit"
-              size="medium"
-              style={{ textAlign: "right", marginLeft: "auto" }}
             >
-              <AccountCircle style={{ fontSize: "2.5rem" }} />
-            </IconButton>
-            <StyledMenu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={open}
-              onClose={handleClose}
-              style={{ padding: "10px" }}
-            >
-              <Typography>
-                {truncate({ string: currentUser?.email, limit: 20 })}
-              </Typography>
-              <Link to="/my-lyrics">
-                <StyledMenuItem
-                  style={{ color: LighterPurple, textAlign: "center" }}
-                  onClick={handleClose}
-                >
-                  My Lyrics <ListIcon />
-                </StyledMenuItem>
-              </Link>
-              <StyledMenuItem onClick={logout}>Sign out</StyledMenuItem>
-            </StyledMenu>
-          </>
-        ) : (
-          <Button
-            style={{
-              textAlign: "right",
-              marginLeft: "auto",
-              color: BrightGreen,
-            }}
-            onClick={openLoginModal}
-            color="inherit"
-          >
-            Login or create account
-          </Button>
-        )}
-      </Toolbar>
-    </AppBar>
+              Login or create account
+            </Button>
+          )}
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };

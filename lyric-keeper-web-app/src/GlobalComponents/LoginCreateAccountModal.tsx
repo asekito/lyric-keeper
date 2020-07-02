@@ -61,6 +61,7 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
         setAuthIsLoading(false);
         if (r && r.user) {
           setUser({ uid: r.user.uid, email: r.user.email });
+          setIsOpen(false);
         }
       });
   };
@@ -84,6 +85,7 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
         if (r && r.user) {
           setAuthIsLoading(false);
           setUser({ uid: r.user.uid, email: r.user.email });
+          setIsOpen(false);
         }
       });
   };

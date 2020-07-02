@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { MainGreen, LighterPurple, DarkModeLighterPurple } from "ColorVars";
+import {
+  MainGreen,
+  LighterPurple,
+  DarkModeLighterPurple,
+  PrimaryBlue,
+} from "ColorVars";
 import Select from "@material-ui/core/Select";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
+import { Link } from "GlobalComponents";
 
 export const WelcomeText = styled(Typography)<{ darkMode: boolean }>`
   font-size: 2rem;
@@ -20,12 +26,13 @@ export const WelcomeText = styled(Typography)<{ darkMode: boolean }>`
   padding: 2px;
   padding-left: 7px;
   margin-bottom: 30px;
+  margin-top: 20px;
 `;
 
 export const DefaultPageWrapper = styled.div<{ darkMode: boolean }>`
   text-align: center;
   background-color: ${({ darkMode }) => (darkMode ? `#1a1a1a` : `white`)};
-  padding-top: 50px;
+  padding-top: 30px;
   min-height: 88vh;
 `;
 
@@ -107,4 +114,10 @@ export const NoLyricsToDisplayText = styled.div<{ darkMode: boolean }>`
   display: block;
   letter-spacing: 0.2vw;
   color: ${({ darkMode }) => (darkMode ? "white" : "black")};
+`;
+
+export const StyledLink = styled(Link)`
+  margin-bottom: 10px;
+  color: ${PrimaryBlue};
+  font-size: 1.2rem;
 `;

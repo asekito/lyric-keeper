@@ -8,6 +8,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { persistCache } from "apollo-cache-persist";
 import localForage from "localforage";
 import { MyLyrics } from "MyLyrics";
+import { HelpPage } from "HelpPage";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -48,6 +49,7 @@ function App() {
             component={() => <LyricPage client={client} />}
           />
           <Route path="/my-lyrics" component={() => <MyLyrics />} />
+          <Route path="/help" component={() => <HelpPage />} />
         </Router>
       </ApolloProvider>
     );

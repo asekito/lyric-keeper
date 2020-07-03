@@ -6,7 +6,12 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
-import { StyledSectionButton, StyledDetailsSection, Bold } from "./elements";
+import {
+  StyledSectionButton,
+  StyledDetailsSection,
+  Bold,
+  StyledIframe,
+} from "./elements";
 
 export const HelpPage: React.FC = () => {
   const { darkModeIsEnabled } = UseDarkMode();
@@ -35,12 +40,12 @@ export const HelpPage: React.FC = () => {
             </ExpansionPanelSummary>
             {dropDownStates.dd1 && (
               <StyledDetailsSection>
-                I want you to be able to enjoy what Lyric Keeper has to offer
-                for free! <br />
+                My goal is for you to be able to enjoy everything Lyric Keeper
+                has to offer for free! <br />
                 <br />
                 Because of this, I specifically built the app on a web based
-                platform which does not need to go through Apple or Android's
-                app stores.
+                platform which is not processed by the Apple or Android app
+                stores.
                 <br /> <br />
                 To make this app available offline, you'll need to{" "}
                 <Bold>open Safari</Bold> on your Apple device (detailed
@@ -49,8 +54,21 @@ export const HelpPage: React.FC = () => {
                 right-hand corner of the screen on an iPad (iPhone users can
                 find it at the bottom of their screen). Lastly,{" "}
                 <Bold>
-                  scroll down in the share menu and select "Add to homescreen".
+                  scroll down in the share menu and select "Add to homescreen"
+                  then "Add".
                 </Bold>
+                <br />
+                <br />
+                <StyledIframe
+                  src="https://giphy.com/embed/dxUTm3WzwSxP3x6C0z"
+                  width="360"
+                  height="480"
+                  frameBorder="0"
+                  allowFullScreen
+                />
+                <br />
+                And that's it! The Lyric Keeper app should now be on your
+                homescreen!
               </StyledDetailsSection>
             )}
           </ExpansionPanel>

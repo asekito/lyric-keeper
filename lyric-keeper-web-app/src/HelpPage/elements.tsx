@@ -19,3 +19,12 @@ export const Bold = styled.div`
   font-weight: bold;
   display: inline;
 `;
+
+export const StyledIframe = styled.iframe`
+  min-height: 420px;
+  max-height: 640px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+`;

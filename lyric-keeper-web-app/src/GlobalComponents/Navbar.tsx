@@ -15,6 +15,9 @@ import { Link, LoginCreateAccountModal } from "GlobalComponents";
 export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
+
+  const currentUserHookData = UseCurrentUser();
+
   const open = Boolean(anchorEl);
 
   const getCurrentUser = () => {
@@ -34,7 +37,7 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
       } = props;
       return { currentUser, currentUserIsLoading, isLoggedIn, logout, setUser };
     } else {
-      return { ...UseCurrentUser() };
+      return { ...currentUserHookData };
     }
   };
 

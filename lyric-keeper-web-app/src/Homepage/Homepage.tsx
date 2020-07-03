@@ -11,12 +11,14 @@ import {
   DarkIcon,
   LightIcon,
   NoLyricsToDisplayText,
+  StyledLink,
 } from "./elements";
 import { LyricCard } from "LyricCard";
 import { NewLyricModal } from "NewLyricModal";
 import { useQuery, useMutation } from "react-apollo";
 import MenuItem from "@material-ui/core/MenuItem";
 import RefreshIcon from "@material-ui/icons/Refresh";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import {
   Query_Get_All_Lyrics,
   Mutation_Add_New_Lyric,
@@ -54,13 +56,14 @@ export const Homepage: React.FC<any> = ({ client }) => {
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
   const [marketingModalIsOpen, setMarketingModalIsOpen] = useState(true);
 
+  const currentUserDetails = UseCurrentUser();
+
   const {
     isLoggedIn,
     setUser,
     currentUser,
     currentUserIsLoading,
-    logout,
-  } = UseCurrentUser();
+  } = currentUserDetails;
 
   const { darkModeIsEnabled, setDarkMode } = UseDarkMode();
 
@@ -155,12 +158,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
       {!isLoggedIn && (
         <MarketingBar onLoginButtonClick={() => setLoginModalIsOpen(true)} />
       )}
-      <Navbar
-        currentUser={currentUser}
-        logout={logout}
-        isLoggedIn={isLoggedIn}
-        openLoginModal={() => setLoginModalIsOpen(true)}
-      />
+      <Navbar {...currentUserDetails} />
       <DefaultPageWrapper darkMode={darkModeIsEnabled}>
         <LoginCreateAccountModal
           currentUserIsLoading={currentUserIsLoading}
@@ -173,6 +171,10 @@ export const Homepage: React.FC<any> = ({ client }) => {
           isOpen={marketingModalIsOpen}
           setIsOpen={setMarketingModalIsOpen}
         />
+        <StyledLink to="/help">
+          <HelpOutlineIcon style={{ fontSize: "1.2rem" }} />
+          <div style={{ display: "inline", marginLeft: '5px' }}>How to use this app</div>
+        </StyledLink>
         <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
           Lyric Keeper
         </WelcomeText>

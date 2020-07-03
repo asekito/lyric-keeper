@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import {
-  PageHeader,
-  PageWrapper,
-  MainAreaWrapper,
-  NoLyricsFoundText,
-} from "./elements";
+import React from "react";
+import { MainAreaWrapper, NoLyricsFoundText } from "./elements";
 import { UseDarkMode, UseCurrentUser } from "Hooks";
 import {
   Link,
   Navbar,
-  LoginCreateAccountModal,
   LoadingScreen,
+  PageHeader,
+  PageWrapper,
 } from "GlobalComponents";
 import { useQuery } from "react-apollo";
 import { Query_Get_Multiple_Lyrics_By_Id } from "operations";
@@ -21,15 +17,10 @@ import {
 import { LyricCard } from "LyricCard";
 
 export const MyLyrics: React.FC = () => {
-  const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
   const { darkModeIsEnabled } = UseDarkMode();
-  const {
-    currentUser,
-    isLoggedIn,
-    logout,
-    currentUserIsLoading,
-    setUser,
-  } = UseCurrentUser();
+  const currentUserDetails = UseCurrentUser();
+
+  const { isLoggedIn, currentUser } = currentUserDetails;
 
   const { data, loading, refetch } = useQuery<
     Get_Multiple_Lyrics_By_Id,
@@ -47,18 +38,7 @@ export const MyLyrics: React.FC = () => {
 
   return (
     <>
-      <Navbar
-        currentUser={currentUser}
-        logout={logout}
-        isLoggedIn={isLoggedIn}
-        openLoginModal={() => setLoginModalIsOpen(!loginModalIsOpen)}
-      />
-      <LoginCreateAccountModal
-        currentUserIsLoading={currentUserIsLoading}
-        isOpen={loginModalIsOpen}
-        setIsOpen={() => setLoginModalIsOpen(!loginModalIsOpen)}
-        setUser={setUser}
-      />
+      <Navbar {...currentUserDetails} />
       <PageWrapper isDarkMode={darkModeIsEnabled}>
         <PageHeader variant="h4">My Lyrics</PageHeader>
         <MainAreaWrapper maxWidth="sm">

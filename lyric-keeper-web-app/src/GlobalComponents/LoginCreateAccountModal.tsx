@@ -118,7 +118,7 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
   if (!currentUserIsLoading && !authIsLoading) {
     buttonText = isLoginType ? "Login" : "Create Account";
   } else if (currentUserIsLoading || authIsLoading) {
-    buttonText = <CircularProgress />;
+    buttonText = <CircularProgress size={25} />;
   }
 
   return (

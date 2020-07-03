@@ -21,13 +21,7 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
   const open = Boolean(anchorEl);
 
   const getCurrentUser = () => {
-    if (
-      props.currentUser &&
-      props.currentUserIsLoading &&
-      props.isLoggedIn &&
-      props.logout &&
-      props.setUser
-    ) {
+    if (props.logout && props.setUser) {
       const {
         currentUser,
         currentUserIsLoading,
@@ -35,7 +29,13 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
         logout,
         setUser,
       } = props;
-      return { currentUser, currentUserIsLoading, isLoggedIn, logout, setUser };
+      return {
+        currentUser: currentUser || null,
+        currentUserIsLoading: currentUserIsLoading || false,
+        isLoggedIn: isLoggedIn || false,
+        logout,
+        setUser,
+      };
     } else {
       return { ...currentUserHookData };
     }

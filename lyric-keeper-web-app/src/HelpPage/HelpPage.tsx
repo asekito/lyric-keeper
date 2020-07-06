@@ -15,7 +15,11 @@ import {
 
 export const HelpPage: React.FC = () => {
   const { darkModeIsEnabled } = UseDarkMode();
-  const [dropDownStates, setDropDownStates] = useState({ dd1: false });
+  const [dropDownStates, setDropDownStates] = useState({
+    dd1: false,
+    dd2: false,
+    dd3: false,
+  });
 
   return (
     <>
@@ -69,6 +73,101 @@ export const HelpPage: React.FC = () => {
                 <br />
                 And that's it! The Lyric Keeper app should now be on your
                 homescreen!
+              </StyledDetailsSection>
+            )}
+          </ExpansionPanel>
+          <ExpansionPanel
+            onChange={() =>
+              setDropDownStates(({ dd2, ...rest }) => ({ dd2: !dd2, ...rest }))
+            }
+          >
+            <ExpansionPanelSummary>
+              <StyledSectionButton variant="text">
+                Do I need an account to use Lyric Keeper?
+                {dropDownStates.dd1 ? (
+                  <ArrowDropUpIcon />
+                ) : (
+                  <ArrowDropDownIcon />
+                )}
+              </StyledSectionButton>
+            </ExpansionPanelSummary>
+            {dropDownStates.dd2 && (
+              <StyledDetailsSection>
+                To keep Lyric Keeper free and safe for its' users, I put the
+                following set of rules in place:
+                <br />
+                <br />
+                <Bold>
+                  1. Anyone who uses Lyric Keeper may view any lyrics created by
+                  other users of the app
+                </Bold>
+                <br />
+                <br />
+                <Bold>2. Only confirmed users may create lyrics</Bold>
+                <br />
+                <br />
+                <Bold>
+                  3. Lyrics may only be deleted by the user who created them
+                </Bold>
+              </StyledDetailsSection>
+            )}
+          </ExpansionPanel>
+          <ExpansionPanel
+            onChange={() =>
+              setDropDownStates(({ dd3, ...rest }) => ({ dd3: !dd3, ...rest }))
+            }
+          >
+            <ExpansionPanelSummary>
+              <StyledSectionButton variant="text">
+                How do I create a lyric?
+                {dropDownStates.dd1 ? (
+                  <ArrowDropUpIcon />
+                ) : (
+                  <ArrowDropDownIcon />
+                )}
+              </StyledSectionButton>
+            </ExpansionPanelSummary>
+            {dropDownStates.dd3 && (
+              <StyledDetailsSection>
+                <Bold>
+                  Please note: you must be logged in to create a lyric.
+                </Bold>
+                <br />
+                <br />
+                First, <Bold>go to the homescreen of the app</Bold> and{" "}
+                <Bold>click the "New Lyric" button</Bold> (found in the lower
+                right-hand corner of the screen).
+                <br />
+                <br />
+                <div
+                  style={{
+                    textAlign: "center",
+                    marginRight: "auto",
+                    marginLeft: "auto",
+                  }}
+                >
+                  <img
+                    alt="New Lyric button pic"
+                    src="https://lyric-keeper.s3.amazonaws.com/new-lyric-button.png"
+                  />
+                </div>
+                <br />
+                Once the New Lyric modal has opened, you can start filling out
+                the provided fields. <Bold>Note:</Bold> Lyric Keeper was built
+                to make your life easier as a musician! With Lyric Keeper, you
+                can easily avoid copying and re-pasting your chorus over and
+                over again. Simply paste your chorus into the{" "}
+                <Bold>Chorus</Bold> field, then type <Bold>(chorus)</Bold>{" "}
+                anywhere in the <Bold>Verses</Bold> section you'd like the
+                chorus to go.
+                <br />
+                <br />
+                <img
+                  width="100%"
+                  alt="New Lyric button pic"
+                  src="https://lyric-keeper.s3.amazonaws.com/new-lyric-modal.png"
+                />
+                <br />
               </StyledDetailsSection>
             )}
           </ExpansionPanel>

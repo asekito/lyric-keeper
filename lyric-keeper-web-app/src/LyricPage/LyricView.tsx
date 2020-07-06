@@ -8,7 +8,7 @@ export const LyricView: React.FC<
   <>
     <Songtitle>{title}</Songtitle>
     <SongAuthor>{author}</SongAuthor>
-    {verses && chorus && (
+    {verses && (
       <>
         {verses
           .split("(chorus)")

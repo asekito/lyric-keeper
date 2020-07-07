@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Container from "@material-ui/core/Container";
-import { PageHeader, Navbar, PageWrapper } from "GlobalComponents";
+import { PageHeader, Navbar, PageWrapper, Image } from "GlobalComponents";
 import { UseDarkMode } from "Hooks";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -146,7 +146,7 @@ export const HelpPage: React.FC = () => {
                     marginLeft: "auto",
                   }}
                 >
-                  <img
+                  <Image
                     alt="New Lyric button pic"
                     src="https://lyric-keeper.s3.amazonaws.com/new-lyric-button.png"
                   />
@@ -162,7 +162,7 @@ export const HelpPage: React.FC = () => {
                 chorus to go.
                 <br />
                 <br />
-                <img
+                <Image
                   width="100%"
                   alt="New Lyric button pic"
                   src="https://lyric-keeper.s3.amazonaws.com/new-lyric-modal.png"

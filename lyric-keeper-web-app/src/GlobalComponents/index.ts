@@ -6,3 +6,4 @@ export * from "./LoadingScreen";
 export * from "./Navbar";
 export * from "./PageHeader";
 export * from "./PageWrapper";
+export * from "./Image";

@@ -170,3 +170,7 @@ export const StyledMenu = styled(Menu)`
     }
   }
 `;
+
+export const StyledImg = styled.img<{ isHidden: boolean }>`
+  ${({ isHidden }) => isHidden && "display: hidden;"}
+`;

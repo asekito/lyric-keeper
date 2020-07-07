@@ -37,10 +37,12 @@ export const LoadingScreen: React.FC<{ darkMode: boolean }> = props => {
 
   useEffect(() => {
     startTimer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     startTimer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPhrase]);
 
   return (

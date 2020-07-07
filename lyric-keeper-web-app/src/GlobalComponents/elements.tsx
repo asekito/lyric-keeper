@@ -16,6 +16,7 @@ import Fab from "@material-ui/core/Fab";
 import { DarkModePageBackground } from "ColorVars";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 export const StyledContainer = styled(Container)`
   background-color: white;
@@ -173,4 +174,24 @@ export const StyledMenu = styled(Menu)`
 
 export const StyledImg = styled.img<{ isHidden: boolean }>`
   ${({ isHidden }) => isHidden && "display: hidden;"}
+`;
+
+export const StyledPlaceholder = styled(Skeleton)<{ darkMode: boolean }>`
+  && {
+    text-align: center;
+    font-size: 2rem;
+    position: absolute;
+    color: ${MainGreen};
+    font-family: sans-serif;
+    background-color: ${({ darkMode }) =>
+      darkMode ? DarkModePageBackground : "white"};
+    margin: auto;
+    top: -24%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: fit-content;
+    width: 330px;
+    white-space: pre-line;
+  }
 `;

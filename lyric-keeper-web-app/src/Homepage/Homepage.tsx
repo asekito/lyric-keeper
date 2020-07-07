@@ -173,7 +173,9 @@ export const Homepage: React.FC<any> = ({ client }) => {
         />
         <StyledLink to="/help">
           <HelpOutlineIcon style={{ fontSize: "1.2rem" }} />
-          <div style={{ display: "inline", marginLeft: '5px' }}>How to use this app</div>
+          <div style={{ display: "inline", marginLeft: "5px" }}>
+            How to use this app
+          </div>
         </StyledLink>
         <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
           Lyric Keeper

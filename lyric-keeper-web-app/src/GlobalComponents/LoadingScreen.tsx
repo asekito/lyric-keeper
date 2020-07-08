@@ -9,7 +9,7 @@ import { MainGreen } from "ColorVars";
 
 const phrases = [
   "Thanks for using Lyric Keeper!",
-  "Do you have the Lyric Keeper app installed?\n Check out our FAQ page for more info.",
+  "Will you be using Lyric Keeper while you're offline?\n\n Check out our FAQ page for more info on how to install our app.",
   `“If you have to ask what jazz is, you’ll never know.” \n– Louis Armstrong`,
   `“Do it again on the next verse and people think you meant it.” \n– Chet Atkins`,
 ];

@@ -96,14 +96,14 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
       {buttons.map(
         ({ name, icon, onClick = () => null, display = "flex", ...rest }) => (
           <Grid item xs={12} key={name} onClick={onClick}>
-            <InnerWrapper link={rest.link} to={rest.link && rest.link}>
+            <InnerWrapper link={rest.link} to={rest?.link}>
               <ButtonElement
                 onClick={onClick}
                 style={{ display, marginTop: "15px" }}
               >
                 {icon()}
                 {!isTablet && name}
-                {rest.numberText && rest.numberText}
+                {rest?.numberText}
               </ButtonElement>
             </InnerWrapper>
           </Grid>

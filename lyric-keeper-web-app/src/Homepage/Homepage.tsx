@@ -104,7 +104,6 @@ export const Homepage: React.FC<any> = ({ client }) => {
         const cachedData = client.readQuery({
           query: Query_Get_All_Lyrics,
         });
-        console.log(findNonPrivateLyrics(cachedData.allLyrics).length);
         setLyricData(cachedData.allLyrics as any);
         setLyricDataSourceOfTruth(cachedData.allLyrics);
       } catch (error) {

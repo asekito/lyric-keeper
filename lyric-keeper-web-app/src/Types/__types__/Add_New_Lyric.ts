@@ -20,4 +20,5 @@ export interface Add_New_LyricVariables {
   author: string;
   chorus: string;
   verses: string;
+  isPrivate?: boolean | null;
 }

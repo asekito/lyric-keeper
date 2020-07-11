@@ -1,6 +1,12 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import { TextFieldStyles, StyledTextField } from "./elements";
+import {
+  TextFieldStyles,
+  StyledTextField,
+  SwitchHelpText,
+  StyledSwitch,
+  SwitchLabel,
+} from "./elements";
 import { useFormik } from "formik";
 import { Lyric } from "Types";
 import Container from "@material-ui/core/Container";
@@ -17,13 +23,14 @@ export const NewLyricForm: React.FC<Props> = ({
 }) => {
   const {
     handleChange,
-    values: { title, chorus, verses, author },
+    values: { title, chorus, verses, author, isPrivate },
   } = useFormik({
     initialValues: {
-      title: (lyricData && lyricData.title) || "",
-      chorus: (lyricData && lyricData.chorus) || "",
-      verses: (lyricData && lyricData.verses) || "",
-      author: (lyricData && lyricData.author) || "",
+      title: lyricData?.title || "",
+      author: lyricData?.author || "",
+      isPrivate: lyricData?.isPrivate || false,
+      chorus: lyricData?.chorus || "",
+      verses: lyricData?.verses || "",
     },
     onSubmit: () => undefined,
   });
@@ -44,6 +51,15 @@ export const NewLyricForm: React.FC<Props> = ({
       name: "author",
       width: "60%",
       helpText: "Artist of song",
+    },
+    {
+      label: "Private",
+      value: isPrivate,
+      name: "isPrivate",
+      helpText: isPrivate
+        ? "This lyric is private and will not be seen on the shared homescreen"
+        : "This lyric is public and will be seen by anyone using this app",
+      isSwitch: true,
     },
     {
       label: "Chorus",
@@ -76,24 +92,40 @@ export const NewLyricForm: React.FC<Props> = ({
           helpText,
           name,
           width = "100%",
+          isSwitch = false,
         }) => (
           <>
-            <TextFieldStyles key={name}>
-              <StyledTextField
-                darkMode={darkModeIsEnabled}
-                required
-                name={name}
-                multiline={multiline}
-                rowsMax={100}
-                rows={rows}
-                style={{ width }}
-                margin="dense"
-                label={label}
-                value={value}
-                onChange={handleChange}
-                placeholder={helpText}
-              />
-            </TextFieldStyles>
+            {!isSwitch ? (
+              <TextFieldStyles key={name}>
+                <StyledTextField
+                  darkMode={darkModeIsEnabled}
+                  required
+                  name={name}
+                  multiline={multiline}
+                  rowsMax={100}
+                  rows={rows}
+                  style={{ width }}
+                  margin="dense"
+                  label={label}
+                  value={value}
+                  onChange={handleChange}
+                  placeholder={helpText}
+                />
+              </TextFieldStyles>
+            ) : (
+              <>
+                <SwitchHelpText darkMode={darkModeIsEnabled}>
+                  {helpText}
+                </SwitchHelpText>
+                <StyledSwitch
+                  checked={isPrivate}
+                  onChange={handleChange}
+                  name={name}
+                  value={true}
+                />
+                <SwitchLabel darkMode={darkModeIsEnabled}>Private</SwitchLabel>
+              </>
+            )}
           </>
         )
       )}
@@ -101,7 +133,7 @@ export const NewLyricForm: React.FC<Props> = ({
         style={{ margin: "20px" }}
         variant="contained"
         onClick={() => {
-          onClickFunction({ title, chorus, verses, author });
+          onClickFunction({ title, chorus, verses, author, isPrivate });
         }}
       >
         Save

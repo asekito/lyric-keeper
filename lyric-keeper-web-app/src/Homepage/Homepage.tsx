@@ -41,6 +41,7 @@ import {
   Navbar,
 } from "GlobalComponents";
 import { UseCurrentUser, UseDarkMode } from "Hooks";
+import { findNonPrivateLyrics } from "utilities";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -109,8 +110,9 @@ export const Homepage: React.FC<any> = ({ client }) => {
         console.log(error);
       }
     } else if (data && !loading) {
-      setLyricDataSourceOfTruth(data?.allLyrics);
-      setLyricData(data?.allLyrics);
+      const nonPrivateLyrics = findNonPrivateLyrics(data?.allLyrics);
+      setLyricDataSourceOfTruth(nonPrivateLyrics);
+      setLyricData(nonPrivateLyrics);
     }
   };
 
@@ -142,7 +144,6 @@ export const Homepage: React.FC<any> = ({ client }) => {
         addNewLyricToUserList({
           variables: { uid: currentUser?.uid, lyricId },
         });
-      console.log({ uid: currentUser?.uid, lyricId });
     }
   };
 

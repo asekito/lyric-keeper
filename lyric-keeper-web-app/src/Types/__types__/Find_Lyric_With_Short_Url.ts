@@ -14,6 +14,7 @@ export interface Find_Lyric_With_Short_Url_findLyricWithShortUrl {
   author: string;
   chorus: string;
   verses: string;
+  isPrivate: boolean | null;
 }
 
 export interface Find_Lyric_With_Short_Url {

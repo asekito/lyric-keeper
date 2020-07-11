@@ -13,4 +13,5 @@ export interface Lyric_Without_Short_Url {
   author: string;
   chorus: string;
   verses: string;
+  isPrivate: boolean | null;
 }

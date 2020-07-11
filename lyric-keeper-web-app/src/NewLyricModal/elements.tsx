@@ -1,6 +1,14 @@
 import styled from "styled-components";
-import { MainGreen, DarkModePageBackground } from "ColorVars";
+import {
+  MainGreen,
+  DarkModePageBackground,
+  SecondaryGreen,
+  LighterPurple,
+  DarkModeLighterPurple,
+} from "ColorVars";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import Switch from "@material-ui/core/Switch";
 
 export const ModalContentWrapper = styled.div<{ darkMode: boolean }>`
   text-align: center;
@@ -43,5 +51,38 @@ export const StyledTextField = styled(TextField)<{ darkMode: boolean }>`
     .MuiInputLabel-root {
       color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
     }
+  }
+`;
+
+export const SwitchHelpText = styled(Typography)<{ darkMode: boolean }>`
+  && {
+    font-size: 1rem;
+    /* color: ${({ darkMode }) =>
+      darkMode ? DarkModeLighterPurple : LighterPurple}; */
+    color: ${LighterPurple};
+    margin-top: 10px;
+  }
+`;
+
+export const StyledSwitch = styled(Switch)`
+  && {
+    .MuiSwitch-colorSecondary {
+      color: grey;
+    }
+    .MuiSwitch-colorSecondary.Mui-checked {
+      color: ${SecondaryGreen};
+    }
+
+    .MuiSwitch-track {
+      background-color: grey;
+    }
+  }
+`;
+
+export const SwitchLabel = styled(Typography)<{ darkMode: boolean }>`
+  && {
+    font-size: 1rem;
+    display: inline;
+    color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
   }
 `;

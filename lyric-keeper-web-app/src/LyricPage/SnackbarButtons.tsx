@@ -14,8 +14,18 @@ import { SecondaryLightGrey } from "ColorVars";
 import { UseResponsiveCheck, UseCurrentUser } from "Hooks";
 import { UseScrollHandler } from "./UseScrollHandler";
 
-export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
-  const { isLoggedIn } = UseCurrentUser();
+interface Props {
+  edit: boolean;
+  setEdit: React.Dispatch<boolean>;
+  lyricId: string;
+}
+
+export const SnackbarButtons: React.FC<Props> = ({
+  edit,
+  setEdit,
+  lyricId,
+}) => {
+  const { isLoggedIn, currentUser } = UseCurrentUser();
   const { isTablet } = UseResponsiveCheck();
   const {
     increaseTime,
@@ -26,6 +36,10 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
     timeoutDuration,
   } = UseScrollHandler();
 
+  const isLyricCreator = !!currentUser?.lyrics?.find(
+    id => id.lyricId === lyricId
+  );
+
   const buttons = [
     {
       name: "Home",
@@ -35,7 +49,7 @@ export const SnackbarButtons: React.FC<any> = ({ edit, setEdit }) => {
     {
       name: "EDIT",
       icon: () => <Edit />,
-      display: isLoggedIn ? "flex" : "none",
+      display: isLoggedIn && isLyricCreator ? "flex" : "none",
       onClick: () => setEdit(true),
     },
     {

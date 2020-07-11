@@ -80,7 +80,7 @@ export const LyricPage: React.FC<any> = ({ client }) => {
         }}
         open={true}
       >
-        <SnackbarButtons edit={edit} setEdit={setEdit} />
+        <SnackbarButtons lyricId={lyricData.id} edit={edit} setEdit={setEdit} />
       </Snackbar>
       {!edit ? (
         <LyricView darkModeIsEnabled={darkModeIsEnabled} {...lyricData} />

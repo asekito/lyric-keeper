@@ -15,12 +15,18 @@ export const Image: React.FC<Props> = ({ ...props }) => {
     <>
       {!imageHasLoaded && (
         <Skeleton
+          style={{
+            textAlign: "inherit",
+            margin: "inherit",
+            borderRadius: "8px",
+          }}
           variant="rect"
           width={props.width || 130}
           height={props.height || 118}
         />
       )}
       <StyledImg
+        style={{ borderRadius: "8px" }}
         isHidden={imageHasLoaded}
         onLoad={() => setImageHasLoaded(true)}
         {...props}

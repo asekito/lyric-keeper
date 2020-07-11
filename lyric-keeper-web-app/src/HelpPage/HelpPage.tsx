@@ -165,7 +165,7 @@ export const HelpPage: React.FC = () => {
                 <Image
                   width="100%"
                   alt="New Lyric button pic"
-                  src="https://lyric-keeper.s3.amazonaws.com/new-lyric-modal.png"
+                  src="https://lyric-keeper.s3.amazonaws.com/new-lyric-form.png"
                 />
                 <br />
               </StyledDetailsSection>

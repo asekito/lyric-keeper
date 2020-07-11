@@ -112,7 +112,6 @@ export const Homepage: React.FC<any> = ({ client }) => {
       }
     } else if (data && !loading) {
       const nonPrivateLyrics = findNonPrivateLyrics(data?.allLyrics);
-      console.log(nonPrivateLyrics.length);
       setLyricDataSourceOfTruth(nonPrivateLyrics);
       setLyricData(nonPrivateLyrics);
     }

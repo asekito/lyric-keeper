@@ -4,7 +4,6 @@ import {
   DarkModePageBackground,
   SecondaryGreen,
   LighterPurple,
-  DarkModeLighterPurple,
 } from "ColorVars";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";

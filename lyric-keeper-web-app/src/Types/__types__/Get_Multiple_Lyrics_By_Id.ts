@@ -16,6 +16,7 @@ export interface Get_Multiple_Lyrics_By_Id_getMultipleLyricsById {
   author: string;
   chorus: string;
   verses: string;
+  isPrivate: boolean | null;
 }
 
 export interface Get_Multiple_Lyrics_By_Id {

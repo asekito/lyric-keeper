@@ -13,6 +13,7 @@ export interface Update_Lyric_updateLyric {
   author: string;
   chorus: string;
   verses: string;
+  isPrivate: boolean | null;
 }
 
 export interface Update_Lyric {

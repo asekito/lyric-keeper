@@ -8,6 +8,7 @@ export const Lyric = gql`
     author
     chorus
     verses
+    isPrivate
   }
 `;
 
@@ -18,6 +19,7 @@ export const Lyric_Without_Short_Url = gql`
     author
     chorus
     verses
+    isPrivate
   }
 `;
 

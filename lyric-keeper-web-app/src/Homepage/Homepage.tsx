@@ -41,6 +41,7 @@ import {
   Navbar,
 } from "GlobalComponents";
 import { UseCurrentUser, UseDarkMode } from "Hooks";
+import { findNonPrivateLyrics } from "utilities";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -103,14 +104,17 @@ export const Homepage: React.FC<any> = ({ client }) => {
         const cachedData = client.readQuery({
           query: Query_Get_All_Lyrics,
         });
+        console.log(findNonPrivateLyrics(cachedData.allLyrics).length);
         setLyricData(cachedData.allLyrics as any);
         setLyricDataSourceOfTruth(cachedData.allLyrics);
       } catch (error) {
         console.log(error);
       }
     } else if (data && !loading) {
-      setLyricDataSourceOfTruth(data?.allLyrics);
-      setLyricData(data?.allLyrics);
+      const nonPrivateLyrics = findNonPrivateLyrics(data?.allLyrics);
+      console.log(nonPrivateLyrics.length);
+      setLyricDataSourceOfTruth(nonPrivateLyrics);
+      setLyricData(nonPrivateLyrics);
     }
   };
 

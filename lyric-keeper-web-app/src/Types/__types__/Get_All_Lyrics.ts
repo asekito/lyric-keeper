@@ -14,6 +14,7 @@ export interface Get_All_Lyrics_allLyrics {
   author: string;
   chorus: string;
   verses: string;
+  isPrivate: boolean | null;
 }
 
 export interface Get_All_Lyrics {

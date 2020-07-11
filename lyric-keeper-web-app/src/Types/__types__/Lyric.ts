@@ -14,4 +14,5 @@ export interface Lyric {
   author: string;
   chorus: string;
   verses: string;
+  isPrivate: boolean | null;
 }

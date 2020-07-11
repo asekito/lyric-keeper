@@ -146,7 +146,6 @@ export const Homepage: React.FC<any> = ({ client }) => {
         addNewLyricToUserList({
           variables: { uid: currentUser?.uid, lyricId },
         });
-      console.log({ uid: currentUser?.uid, lyricId });
     }
   };
 

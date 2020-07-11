@@ -47,6 +47,7 @@ export const Mutation_Add_New_Lyric = gql`
     $author: String!
     $chorus: String!
     $verses: String!
+    $isPrivate: Boolean
   ) {
     addNewLyric(
       input: {
@@ -54,6 +55,7 @@ export const Mutation_Add_New_Lyric = gql`
         author: $author
         chorus: $chorus
         verses: $verses
+        isPrivate: $isPrivate
       }
     ) {
       id
@@ -73,6 +75,7 @@ export const Mutation_Update_Lyric = gql`
     $author: String!
     $chorus: String!
     $verses: String!
+    $isPrivate: Boolean
   ) {
     updateLyric(
       input: {
@@ -80,6 +83,7 @@ export const Mutation_Update_Lyric = gql`
         author: $author
         chorus: $chorus
         verses: $verses
+        isPrivate: $isPrivate
       }
     ) {
       ...Lyric_Without_Short_Url

@@ -26,11 +26,11 @@ export const NewLyricForm: React.FC<Props> = ({
     values: { title, chorus, verses, author, isPrivate },
   } = useFormik({
     initialValues: {
-      title: (lyricData && lyricData.title) || "",
-      author: (lyricData && lyricData.author) || "",
-      isPrivate: (lyricData && lyricData.isPrivate) || false,
-      chorus: (lyricData && lyricData.chorus) || "",
-      verses: (lyricData && lyricData.verses) || "",
+      title: lyricData?.title || "",
+      author: lyricData?.author || "",
+      isPrivate: lyricData?.isPrivate || false,
+      chorus: lyricData?.chorus || "",
+      verses: lyricData?.verses || "",
     },
     onSubmit: () => undefined,
   });
@@ -58,7 +58,7 @@ export const NewLyricForm: React.FC<Props> = ({
       name: "isPrivate",
       helpText: isPrivate
         ? "This lyric is private and will not be seen on the shared homescreen"
-        : "This lyric is public and will be seen by anyone",
+        : "This lyric is public and will be seen by anyone using this app",
       isSwitch: true,
     },
     {
@@ -118,9 +118,10 @@ export const NewLyricForm: React.FC<Props> = ({
                   {helpText}
                 </SwitchHelpText>
                 <StyledSwitch
+                  checked={isPrivate}
                   onChange={handleChange}
                   name={name}
-                  value={isPrivate}
+                  value={true}
                 />
                 <SwitchLabel darkMode={darkModeIsEnabled}>Private</SwitchLabel>
               </>
@@ -132,7 +133,7 @@ export const NewLyricForm: React.FC<Props> = ({
         style={{ margin: "20px" }}
         variant="contained"
         onClick={() => {
-          onClickFunction({ title, chorus, verses, author });
+          onClickFunction({ title, chorus, verses, author, isPrivate });
         }}
       >
         Save

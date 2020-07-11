@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { MainGreen, DarkModePageBackground, SecondaryGreen } from "ColorVars";
+import {
+  MainGreen,
+  DarkModePageBackground,
+  SecondaryGreen,
+  LighterPurple,
+  DarkModeLighterPurple,
+} from "ColorVars";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Switch from "@material-ui/core/Switch";
@@ -51,13 +57,18 @@ export const StyledTextField = styled(TextField)<{ darkMode: boolean }>`
 export const SwitchHelpText = styled(Typography)<{ darkMode: boolean }>`
   && {
     font-size: 1rem;
-    color: ${({ darkMode }) => (darkMode ? `white` : `black`)};
+    /* color: ${({ darkMode }) =>
+      darkMode ? DarkModeLighterPurple : LighterPurple}; */
+    color: ${LighterPurple};
     margin-top: 10px;
   }
 `;
 
 export const StyledSwitch = styled(Switch)`
   && {
+    .MuiSwitch-colorSecondary {
+      color: grey;
+    }
     .MuiSwitch-colorSecondary.Mui-checked {
       color: ${SecondaryGreen};
     }

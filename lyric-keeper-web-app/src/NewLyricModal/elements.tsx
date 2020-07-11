@@ -57,8 +57,6 @@ export const StyledTextField = styled(TextField)<{ darkMode: boolean }>`
 export const SwitchHelpText = styled(Typography)<{ darkMode: boolean }>`
   && {
     font-size: 1rem;
-    /* color: ${({ darkMode }) =>
-      darkMode ? DarkModeLighterPurple : LighterPurple}; */
     color: ${LighterPurple};
     margin-top: 10px;
   }

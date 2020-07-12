@@ -23,6 +23,7 @@ export const LoadingIndicator: React.FC<{ style?: any }> = ({ style }) => (
 );
 
 export const LoadingScreen: React.FC<{ darkMode: boolean }> = props => {
+  const [timeoutId, setTimeoutId] = useState(0);
   const [currentPhrase, setCurrentPhrase] = useState(
     phrases[Math.floor(Math.random() * (phrases.length - 0) + 0)]
   );
@@ -33,7 +34,11 @@ export const LoadingScreen: React.FC<{ darkMode: boolean }> = props => {
     );
   };
 
-  const startTimer = () => window.setTimeout(getNewPhrase, 5000);
+  const startTimer = () => {
+    timeoutId !== 0 && window.clearTimeout(timeoutId);
+    const id = window.setTimeout(getNewPhrase, 5000);
+    setTimeoutId(id);
+  };
 
   useEffect(() => {
     startTimer();

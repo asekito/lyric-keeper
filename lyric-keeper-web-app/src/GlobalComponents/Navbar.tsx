@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import ListIcon from "@material-ui/icons/List";
+import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import { FogGrey, LighterPurple, BrightGreen } from "ColorVars";
 import { UseCurrentUserReturnShape, UseCurrentUser } from "Hooks";
 import { StyledMenuItem, StyledMenu } from "./elements";
@@ -112,6 +113,14 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
                     onClick={handleClose}
                   >
                     My Lyrics <ListIcon />
+                  </StyledMenuItem>
+                </Link>
+                <Link to="/my-playlists">
+                  <StyledMenuItem
+                    style={{ color: LighterPurple, textAlign: "center" }}
+                    onClick={handleClose}
+                  >
+                    My Playlists <QueueMusicIcon />
                   </StyledMenuItem>
                 </Link>
                 <StyledMenuItem onClick={logout}>Sign out</StyledMenuItem>

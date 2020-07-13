@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  MainGreen,
-  LighterPurple,
-  DarkModeLighterPurple,
-  PrimaryBlue,
-} from "ColorVars";
+import { MainGreen, PrimaryBlue } from "ColorVars";
 import Select from "@material-ui/core/Select";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";

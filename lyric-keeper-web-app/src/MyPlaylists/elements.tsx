@@ -6,6 +6,8 @@ import {
   SecondaryLightGrey,
   SecondaryColor,
   SemiLightGreen,
+  SecondaryGreen,
+  LighterBlue,
 } from "ColorVars";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -81,4 +83,12 @@ export const TitleAuthorDivider = styled.div`
 export const MainAreaWrapper = styled(Container)`
   margin: auto;
   padding-bottom: 70px;
+`;
+
+export const NewPlaylistDescriptiveText = styled(Typography)`
+  && {
+    font-size: 1.3rem;
+    color: ${LighterBlue};
+    margin-top: 30px;
+  }
 `;

@@ -6,6 +6,7 @@ export const BrightGreen = "#62c262";
 
 // Blues
 export const PrimaryBlue = "#175797";
+export const LighterBlue = "#207ce6";
 
 // Brownish
 export const SecondaryColor = "#971758";

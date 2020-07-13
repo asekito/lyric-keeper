@@ -6,12 +6,14 @@ import {
   Link,
   LoadingScreen,
   LyricCountWrapper,
+  StyledTextField,
 } from "GlobalComponents";
 import { UseDarkMode, UseIsOffline } from "Hooks";
 import {
   NewLyricControlButton,
   NoPlaylistsText,
   MainAreaWrapper,
+  NewPlaylistDescriptiveText,
 } from "./elements";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useQuery } from "react-apollo";
@@ -24,6 +26,7 @@ import { findNonPrivateLyrics } from "utilities";
 import { DraggableLyricCard } from "./DraggableLyricCard";
 
 export const NewPlaylistScreen: React.FC = () => {
+  const [textFieldText, setTextFieldText] = useState("");
   const [selectedLyrics, setSelectedLyrics] = useState([]);
   const [clearAll, setClearAll] = useState(false);
   const [allLyrics, setAllLyrics] = useState<
@@ -57,6 +60,18 @@ export const NewPlaylistScreen: React.FC = () => {
       <Navbar />
       <PageWrapper isDarkMode={darkModeIsEnabled}>
         <PageHeader variant="h4">New Playlist</PageHeader>
+        <StyledTextField
+          style={{ marginTop: "30px", width: "300px" }}
+          label="Enter the playlist name here"
+          name="playlist-name"
+          variant="outlined"
+          darkMode={darkModeIsEnabled}
+          value={textFieldText}
+          onChange={({ target: { value } }) => setTextFieldText(value)}
+        />
+        <NewPlaylistDescriptiveText>
+          Select the lyrics you'd like to add to your new playlist.
+        </NewPlaylistDescriptiveText>
         <Link to="/my-playlists">
           <NewLyricControlButton variant="contained">
             <ArrowBackIosIcon /> Back

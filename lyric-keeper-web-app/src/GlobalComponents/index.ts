@@ -8,3 +8,4 @@ export * from "./PageHeader";
 export * from "./PageWrapper";
 export * from "./Image";
 export { LyricCountWrapper } from "./elements";
+export * from "./StyledTextField";

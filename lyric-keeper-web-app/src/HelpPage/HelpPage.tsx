@@ -6,6 +6,7 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import Delete from "@material-ui/icons/Delete";
 import {
   StyledSectionButton,
   StyledDetailsSection,
@@ -13,12 +14,20 @@ import {
   StyledIframe,
 } from "./elements";
 
+const Spacer = () => (
+  <>
+    <br />
+    <br />
+  </>
+);
+
 export const HelpPage: React.FC = () => {
   const { darkModeIsEnabled } = UseDarkMode();
   const [dropDownStates, setDropDownStates] = useState({
     dd1: false,
     dd2: false,
     dd3: false,
+    dd4: false,
   });
 
   return (
@@ -45,12 +54,11 @@ export const HelpPage: React.FC = () => {
             {dropDownStates.dd1 && (
               <StyledDetailsSection>
                 My goal is for you to be able to enjoy everything Lyric Keeper
-                has to offer for free! <br />
-                <br />
+                has to offer for free! <Spacer />
                 Because of this, I specifically built the app on a web based
                 platform which is not processed by the Apple or Android app
                 stores.
-                <br /> <br />
+                <Spacer />
                 To make this app available offline, you'll need to{" "}
                 <Bold>open Safari</Bold> on your Apple device (detailed
                 instructions for Android are not yet available). Then,{" "}
@@ -61,8 +69,7 @@ export const HelpPage: React.FC = () => {
                   scroll down in the share menu and select "Add to homescreen"
                   then "Add".
                 </Bold>
-                <br />
-                <br />
+                <Spacer />
                 <StyledIframe
                   src="https://giphy.com/embed/dxUTm3WzwSxP3x6C0z"
                   width="360"
@@ -84,7 +91,7 @@ export const HelpPage: React.FC = () => {
             <ExpansionPanelSummary>
               <StyledSectionButton variant="text">
                 Do I need an account to use Lyric Keeper?
-                {dropDownStates.dd1 ? (
+                {dropDownStates.dd2 ? (
                   <ArrowDropUpIcon />
                 ) : (
                   <ArrowDropDownIcon />
@@ -95,22 +102,18 @@ export const HelpPage: React.FC = () => {
               <StyledDetailsSection>
                 To keep Lyric Keeper free and safe for its' users, I put the
                 following set of rules in place:
-                <br />
-                <br />
+                <Spacer />
                 <Bold>
                   1. Anyone who uses Lyric Keeper may view any lyrics created by
                   other users of the app (except for lyrics marked as private)
                 </Bold>
-                <br />
-                <br />
+                <Spacer />
                 <Bold>2. Only confirmed users may create lyrics</Bold>
-                <br />
-                <br />
+                <Spacer />
                 <Bold>
                   3. Lyrics may only be deleted by the user who created them
                 </Bold>
-                <br />
-                <br />
+                <Spacer />
                 <Bold>
                   4. Lyrics may only be edited by the user who created them
                 </Bold>
@@ -125,7 +128,7 @@ export const HelpPage: React.FC = () => {
             <ExpansionPanelSummary>
               <StyledSectionButton variant="text">
                 How do I create a lyric?
-                {dropDownStates.dd1 ? (
+                {dropDownStates.dd2 ? (
                   <ArrowDropUpIcon />
                 ) : (
                   <ArrowDropDownIcon />
@@ -137,13 +140,11 @@ export const HelpPage: React.FC = () => {
                 <Bold>
                   Please note: you must be logged in to create a lyric.
                 </Bold>
-                <br />
-                <br />
+                <Spacer />
                 First, <Bold>go to the homescreen of the app</Bold> and{" "}
                 <Bold>click the "New Lyric" button</Bold> (found in the lower
                 right-hand corner of the screen).
-                <br />
-                <br />
+                <Spacer />
                 <div
                   style={{
                     textAlign: "center",
@@ -165,14 +166,60 @@ export const HelpPage: React.FC = () => {
                 <Bold>Chorus</Bold> field, then type <Bold>(chorus)</Bold>{" "}
                 anywhere in the <Bold>Verses</Bold> section you'd like the
                 chorus to go.
-                <br />
-                <br />
+                <Spacer />
                 <Image
                   width="100%"
                   alt="New Lyric button pic"
                   src="https://lyric-keeper.s3.amazonaws.com/new-lyric-form.png"
                 />
                 <br />
+              </StyledDetailsSection>
+            )}
+          </ExpansionPanel>
+          <ExpansionPanel
+            onChange={() =>
+              setDropDownStates(({ dd4, ...rest }) => ({ dd4: !dd4, ...rest }))
+            }
+          >
+            <ExpansionPanelSummary>
+              <StyledSectionButton variant="text">
+                How do I edit or delete a lyric?
+                {dropDownStates.dd4 ? (
+                  <ArrowDropUpIcon />
+                ) : (
+                  <ArrowDropDownIcon />
+                )}
+              </StyledSectionButton>
+            </ExpansionPanelSummary>
+            {dropDownStates.dd4 && (
+              <StyledDetailsSection>
+                <Bold>
+                  Note: You may only edit/delete lyrics that you have created
+                </Bold>
+                <Spacer />
+                <Bold>EDITING LYRICS:</Bold>
+                <Spacer />
+                To edit a lyric, simply open the lyric by clicking on its' name.
+                You can find a list of all the lyrics you've created by
+                <Bold>navigating to "/my-lyrics"</Bold> or by{" "}
+                <Bold>
+                  clicking the user icon found in the top-right corner of your
+                  screen, then clicking "My Lyrics"
+                </Bold>
+                .
+                <Spacer />
+                <Bold>DELETING LYRICS:</Bold>
+                <Spacer />
+                To delete a lyric, first <Bold>
+                  navigate to "/my-lyrics"
+                </Bold>{" "}
+                or{" "}
+                <Bold>
+                  click the user icon found in the top-right corner of your
+                  screen, then click "My Lyrics".
+                </Bold>
+                Next, simply click the trash can icon (<Delete />) on the lyric
+                you wish to delete
               </StyledDetailsSection>
             )}
           </ExpansionPanel>

@@ -32,6 +32,17 @@ export const Query_Get_All_Lyrics = gql`
   ${Lyric}
 `;
 
+export const Query_Get_All_Lyrics_Title_And_Author = gql`
+  query Get_All_Lyrics_Title_And_Author {
+    allLyrics {
+      id
+      title
+      author
+      isPrivate
+    }
+  }
+`;
+
 export const Query_Find_Lyric_With_Short_Url = gql`
   query Find_Lyric_With_Short_Url($shortUrl: String!) {
     findLyricWithShortUrl(input: { shortUrl: $shortUrl }) {

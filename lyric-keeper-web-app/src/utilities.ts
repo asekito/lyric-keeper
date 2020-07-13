@@ -8,8 +8,8 @@ export const truncate = ({
   limit: number;
 }) => `${string.slice(0, limit)}${string.length > limit ? "..." : ""}`;
 
-type findNonPrivateLyricsType = (lyrics: Lyric[]) => Lyric[];
-
-export const findNonPrivateLyrics: findNonPrivateLyricsType = (
-  lyrics: Lyric[]
-) => lyrics.filter(({ isPrivate }) => isPrivate === null || false);
+export const findNonPrivateLyrics = <I>(lyrics: I[]): I[] | undefined => {
+  if (lyrics)
+    return lyrics.filter((item: any) => item?.isPrivate === null || false);
+  return undefined;
+};

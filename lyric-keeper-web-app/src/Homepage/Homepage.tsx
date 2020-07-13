@@ -30,6 +30,7 @@ import {
   Add_New_Lyric_To_User_List_addNewLyricToUserList,
   Add_New_Lyric_To_User_ListVariables,
   Add_New_Lyric,
+  Get_All_Lyrics_allLyrics,
 } from "Types";
 import { useFormik } from "formik";
 import {
@@ -104,14 +105,18 @@ export const Homepage: React.FC<any> = ({ client }) => {
         const cachedData = client.readQuery({
           query: Query_Get_All_Lyrics,
         });
-        const nonPrivateLyrics = findNonPrivateLyrics(cachedData.allLyrics);
+        const nonPrivateLyrics = findNonPrivateLyrics<Get_All_Lyrics_allLyrics>(
+          cachedData.allLyrics
+        );
         setLyricData(nonPrivateLyrics);
         setLyricDataSourceOfTruth(nonPrivateLyrics);
       } catch (error) {
         console.log(error);
       }
     } else if (data && !loading) {
-      const nonPrivateLyrics = findNonPrivateLyrics(data?.allLyrics);
+      const nonPrivateLyrics = findNonPrivateLyrics<Get_All_Lyrics_allLyrics>(
+        data?.allLyrics
+      );
       setLyricDataSourceOfTruth(nonPrivateLyrics);
       setLyricData(nonPrivateLyrics);
     }

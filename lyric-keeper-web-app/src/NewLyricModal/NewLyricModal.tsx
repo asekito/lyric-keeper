@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Snackbar } from "@material-ui/core";
+import { Button, Snackbar } from "@material-ui/core";
 import {
   ModalContentWrapper,
   HeadingWrapper,

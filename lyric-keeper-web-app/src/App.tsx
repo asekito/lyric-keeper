@@ -9,7 +9,7 @@ import { persistCache } from "apollo-cache-persist";
 import localForage from "localforage";
 import { MyLyrics } from "MyLyrics";
 import { HelpPage } from "HelpPage";
-import { MyPlaylists } from "MyPlaylists";
+import { MyPlaylists, NewPlaylistScreen } from "MyPlaylists";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -49,9 +49,13 @@ function App() {
             path="/lyric/:lyricUrl"
             component={() => <LyricPage client={client} />}
           />
-          <Route path="/my-lyrics" component={() => <MyLyrics />} />
+          <Route
+            path="/my-lyrics"
+            component={() => <MyLyrics client={client} />}
+          />
           <Route path="/help" component={() => <HelpPage />} />
           <Route path="/my-playlists" component={() => <MyPlaylists />} />
+          <Route path="/new-playlist" component={() => <NewPlaylistScreen />} />
         </Router>
       </ApolloProvider>
     );

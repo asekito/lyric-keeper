@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MainAreaWrapper, NoLyricsFoundText } from "./elements";
 import { UseDarkMode, UseCurrentUser } from "Hooks";
 import {
@@ -14,10 +14,12 @@ import { Query_Get_Multiple_Lyrics_By_Id } from "operations";
 import {
   Get_Multiple_Lyrics_By_Id,
   Get_Multiple_Lyrics_By_IdVariables,
+  Lyric,
 } from "Types";
 import { LyricCard } from "LyricCard";
 
-export const MyLyrics: React.FC = () => {
+export const MyLyrics: React.FC<any> = ({ client }) => {
+  const [lyrics, setLyrics] = useState<Lyric[]>([]);
   const { darkModeIsEnabled } = UseDarkMode();
   const currentUserDetails = UseCurrentUser();
 
@@ -35,6 +37,28 @@ export const MyLyrics: React.FC = () => {
     },
   });
 
+  useEffect(() => {
+    // Handle fetching cached data if offline
+    if (!data && !loading) {
+      try {
+        const cachedData = client.readQuery({
+          query: Query_Get_Multiple_Lyrics_By_Id,
+          skip: !isLoggedIn || !currentUser?.lyrics?.length,
+          variables: {
+            ids: currentUser?.lyrics?.map(({ lyricId }) => ({
+              lyricId,
+            })),
+          },
+        });
+        setLyrics(cachedData.getMultipleLyricsById as any);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (data) setLyrics(data.getMultipleLyricsById as any);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, loading]);
+
   if (loading) return <LoadingScreen darkMode={darkModeIsEnabled} />;
 
   return (
@@ -43,14 +67,12 @@ export const MyLyrics: React.FC = () => {
       <PageWrapper isDarkMode={darkModeIsEnabled}>
         <PageHeader variant="h4">My Lyrics</PageHeader>
         <MainAreaWrapper maxWidth="sm">
-          {data?.getMultipleLyricsById &&
-          data?.getMultipleLyricsById.length &&
-          isLoggedIn ? (
+          {lyrics && lyrics.length && isLoggedIn ? (
             <>
               <LyricCountWrapper
                 darkMode={darkModeIsEnabled}
-              >{`Lyrics: ${data.getMultipleLyricsById.length}`}</LyricCountWrapper>
-              {data.getMultipleLyricsById.map(({ ...props }) => (
+              >{`Lyrics: ${lyrics.length}`}</LyricCountWrapper>
+              {lyrics.map(({ ...props }) => (
                 <LyricCard
                   showDeleteButton
                   currentUser={currentUser}

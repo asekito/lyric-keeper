@@ -122,3 +122,19 @@ export const Query_Get_Multiple_Lyrics_By_Id = gql`
   }
   ${Lyric}
 `;
+
+export const Mutation_Create_New_Playlist = gql`
+  mutation Create_New_Playlist(
+    $uid: String!
+    $playlistName: String!
+    $lyricList: [String]!
+  ) {
+    createNewPlaylist(
+      input: { uid: $uid, playlistName: $playlistName, lyricList: $lyricList }
+    ) {
+      result {
+        error
+      }
+    }
+  }
+`;

@@ -99,7 +99,7 @@ export const HelpPage: React.FC = () => {
                 <br />
                 <Bold>
                   1. Anyone who uses Lyric Keeper may view any lyrics created by
-                  other users of the app
+                  other users of the app (except for lyrics marked as private)
                 </Bold>
                 <br />
                 <br />
@@ -108,6 +108,11 @@ export const HelpPage: React.FC = () => {
                 <br />
                 <Bold>
                   3. Lyrics may only be deleted by the user who created them
+                </Bold>
+                <br />
+                <br />
+                <Bold>
+                  4. Lyrics may only be edited by the user who created them
                 </Bold>
               </StyledDetailsSection>
             )}

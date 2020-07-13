@@ -8,6 +8,8 @@ import {
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Switch from "@material-ui/core/Switch";
+import Modal from "@material-ui/core/Modal";
+import Fab from "@material-ui/core/Fab";
 
 export const ModalContentWrapper = styled.div<{ darkMode: boolean }>`
   text-align: center;
@@ -33,13 +35,28 @@ export const HeadingWrapper = styled.div`
   background-color: ${MainGreen};
 `;
 
-export const HeadingTitle = styled.div`
-  font-weight: 700;
-  text-align: left;
+export const HeadingTitle = styled(Typography)`
+  text-align: center;
   color: white;
-  font-size: 27px;
-  padding: 14px;
-  letter-spacing: 2px;
+  font-size: 28px;
+  padding: 2px;
+  letter-spacing: 3px;
+`;
+
+export const StyledModal = styled(Modal)`
+  && {
+    .sc-fznzOf {
+      height: 100vh;
+    }
+  }
+`;
+
+export const StyledFab = styled(Fab)`
+  height: 40px;
+  width: 42px;
+  right: 0.12vw;
+  top: 2px;
+  position: absolute;
 `;
 
 export const StyledTextField = styled(TextField)<{ darkMode: boolean }>`
@@ -58,6 +75,7 @@ export const SwitchHelpText = styled(Typography)<{ darkMode: boolean }>`
     font-size: 1rem;
     color: ${LighterPurple};
     margin-top: 10px;
+    white-space: pre-wrap;
   }
 `;
 

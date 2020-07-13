@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { Modal, Button, Snackbar } from "@material-ui/core";
-import { ModalContentWrapper, HeadingWrapper, HeadingTitle } from "./elements";
+import {
+  ModalContentWrapper,
+  HeadingWrapper,
+  HeadingTitle,
+  StyledModal,
+  StyledFab,
+} from "./elements";
 import { NewLyricForm } from "./NewLyricForm";
 import AddIcon from "@material-ui/icons/Add";
 import { Lyric } from "Types";
 import { UseDarkMode } from "Hooks";
+import CloseIcon from "@material-ui/icons/Close";
 
 interface Props {
   addEntry(item: Lyric): void;
@@ -39,7 +46,16 @@ export const NewLyricModal = ({ addEntry }: Props) => {
           <AddIcon /> New Lyric
         </Button>
       </Snackbar>
-      <Modal
+      <StyledModal
+        style={{
+          position: "fixed",
+          zIndex: 99999,
+          right: "0px",
+          bottom: "0px",
+          top: "0%",
+          left: "-95px",
+          height: "0px",
+        }}
         disableAutoFocus
         open={open}
         onClose={() => setOpen(false)}
@@ -47,11 +63,16 @@ export const NewLyricModal = ({ addEntry }: Props) => {
       >
         <ModalContentWrapper darkMode={darkModeIsEnabled}>
           <HeadingWrapper>
-            <HeadingTitle>New Lyric</HeadingTitle>
+            <HeadingTitle>
+              New Lyric
+              <StyledFab onClick={() => setOpen(false)}>
+                <CloseIcon />
+              </StyledFab>
+            </HeadingTitle>
           </HeadingWrapper>
           <NewLyricForm onClickFunction={onClickFunction} />
         </ModalContentWrapper>
-      </Modal>
+      </StyledModal>
     </>
   );
 };

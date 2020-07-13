@@ -24,6 +24,9 @@ import {
 } from "Types";
 import { findNonPrivateLyrics } from "utilities";
 import { DraggableLyricCard } from "./DraggableLyricCard";
+import SaveIcon from "@material-ui/icons/Save";
+import ClearAllIcon from "@material-ui/icons/ClearAll";
+import { useHistory } from "react-router-dom";
 
 export const NewPlaylistScreen: React.FC = () => {
   const [textFieldText, setTextFieldText] = useState("");
@@ -32,6 +35,7 @@ export const NewPlaylistScreen: React.FC = () => {
   const [allLyrics, setAllLyrics] = useState<
     Get_All_Lyrics_Title_And_Author["allLyrics"]
   >([]);
+  const history = useHistory();
   const { darkModeIsEnabled } = UseDarkMode();
 
   const { isOffline } = UseIsOffline();
@@ -40,6 +44,10 @@ export const NewPlaylistScreen: React.FC = () => {
     Query_Get_All_Lyrics_Title_And_Author,
     { skip: isOffline }
   );
+
+  const submitNewPlaylist = () => {
+    history.push("/my-playlists");
+  };
 
   useEffect(() => {
     if (data && data.allLyrics && !loading) {
@@ -84,7 +92,10 @@ export const NewPlaylistScreen: React.FC = () => {
             setClearAll(!clearAll);
           }}
         >
-          Clear selection
+          Clear selection <ClearAllIcon />
+        </NewLyricControlButton>
+        <NewLyricControlButton onClick={submitNewPlaylist} variant="contained">
+          Save <SaveIcon style={{ height: "20px" }} />
         </NewLyricControlButton>
         {isOffline ? (
           <NoPlaylistsText

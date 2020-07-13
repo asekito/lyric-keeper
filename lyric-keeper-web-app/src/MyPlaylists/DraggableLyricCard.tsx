@@ -39,10 +39,13 @@ export const DraggableLyricCard: React.FC<Props> = ({
         onClick={() => {
           setSelectedLyrics(({ ...selectedLyricsObj }) => {
             const returnObj = { ...selectedLyricsObj };
-            setSelected(!returnObj[id]);
-            if (returnObj[id] === (true || false))
-              returnObj[id] = !returnObj[id];
-            else returnObj[id] = true;
+            if (returnObj[id] === true) {
+              setSelected(false);
+              delete returnObj[id];
+            } else {
+              returnObj[id] = true;
+              setSelected(true);
+            }
             return returnObj;
           });
         }}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UseResponsiveCheck, UseDarkMode } from "Hooks";
 import { truncate } from "utilities";
 import {
@@ -13,17 +13,23 @@ interface Props {
   author?: string;
   id: string;
   setSelectedLyrics: React.Dispatch<any>;
+  clearAll: boolean;
 }
 
 export const DraggableLyricCard: React.FC<Props> = ({
   title,
   author,
   id,
+  clearAll,
   setSelectedLyrics,
 }) => {
   const [selected, setSelected] = useState(false);
   const { isMobile } = UseResponsiveCheck();
   const { darkModeIsEnabled } = UseDarkMode();
+
+  useEffect(() => {
+    setSelected(false);
+  }, [clearAll]);
 
   const limit = isMobile ? 7 : 14;
 

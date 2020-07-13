@@ -5,10 +5,11 @@ import {
   PageHeader,
   Link,
   LoadingScreen,
+  LyricCountWrapper,
 } from "GlobalComponents";
 import { UseDarkMode, UseIsOffline } from "Hooks";
 import {
-  NewPlaylistButton,
+  NewLyricControlButton,
   NoPlaylistsText,
   MainAreaWrapper,
 } from "./elements";
@@ -24,6 +25,7 @@ import { DraggableLyricCard } from "./DraggableLyricCard";
 
 export const NewPlaylistScreen: React.FC = () => {
   const [selectedLyrics, setSelectedLyrics] = useState([]);
+  const [clearAll, setClearAll] = useState(false);
   const [allLyrics, setAllLyrics] = useState<
     Get_All_Lyrics_Title_And_Author["allLyrics"]
   >([]);
@@ -56,10 +58,19 @@ export const NewPlaylistScreen: React.FC = () => {
       <PageWrapper isDarkMode={darkModeIsEnabled}>
         <PageHeader variant="h4">New Playlist</PageHeader>
         <Link to="/my-playlists">
-          <NewPlaylistButton variant="contained">
+          <NewLyricControlButton variant="contained">
             <ArrowBackIosIcon /> Back
-          </NewPlaylistButton>
+          </NewLyricControlButton>
         </Link>
+        <NewLyricControlButton
+          variant="contained"
+          onClick={() => {
+            setSelectedLyrics([]);
+            setClearAll(!clearAll);
+          }}
+        >
+          Clear selection
+        </NewLyricControlButton>
         {isOffline ? (
           <NoPlaylistsText
             style={{
@@ -73,9 +84,15 @@ export const NewPlaylistScreen: React.FC = () => {
           </NoPlaylistsText>
         ) : (
           <MainAreaWrapper maxWidth="sm">
+            <LyricCountWrapper
+              darkMode={darkModeIsEnabled}
+            >{`Lyrics selected: ${
+              Object.keys(selectedLyrics).length
+            }`}</LyricCountWrapper>
             <>
               {allLyrics?.map(({ title, author, id }) => (
                 <DraggableLyricCard
+                  clearAll={clearAll}
                   setSelectedLyrics={setSelectedLyrics}
                   id={id}
                   title={title}

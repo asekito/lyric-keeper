@@ -1,5 +1,3 @@
-import { Lyric } from "Types";
-
 export const truncate = ({
   string,
   limit,

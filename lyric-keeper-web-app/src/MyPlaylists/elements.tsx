@@ -25,6 +25,15 @@ export const NewPlaylistButton = styled(Button)`
   }
 `;
 
+export const NewLyricControlButton = styled(Button)`
+  && {
+    display: inline-flex;
+    margin: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+`;
+
 export const CardWrapper = styled.div<{
   darkMode: boolean;
   isSelected: boolean;

@@ -14,6 +14,7 @@ import {
   NoPlaylistsText,
   MainAreaWrapper,
   NewPlaylistDescriptiveText,
+  ErrorText,
 } from "./elements";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useQuery } from "react-apollo";
@@ -30,6 +31,7 @@ import { useHistory } from "react-router-dom";
 
 export const NewPlaylistScreen: React.FC = () => {
   const [textFieldText, setTextFieldText] = useState("");
+  const [errors, setErrors] = useState<string[]>([]);
   const [selectedLyrics, setSelectedLyrics] = useState([]);
   const [clearAll, setClearAll] = useState(false);
   const [allLyrics, setAllLyrics] = useState<
@@ -46,7 +48,19 @@ export const NewPlaylistScreen: React.FC = () => {
   );
 
   const submitNewPlaylist = () => {
-    history.push("/my-playlists");
+    setErrors([]);
+    const selectedLyricsLength = Object.keys(selectedLyrics).length;
+    if (!textFieldText.length || !selectedLyricsLength) {
+      if (!textFieldText.length)
+        setErrors(["Uh oh! It looks like you forgot to name your playlist!"]);
+      if (!selectedLyricsLength)
+        setErrors(allErrors => [
+          ...allErrors,
+          "Oh no! You need to add at least ONE lyric to your playlist!",
+        ]);
+    } else {
+      history.push("/my-playlists");
+    }
   };
 
   useEffect(() => {
@@ -97,6 +111,8 @@ export const NewPlaylistScreen: React.FC = () => {
         <NewLyricControlButton onClick={submitNewPlaylist} variant="contained">
           Save <SaveIcon style={{ height: "20px" }} />
         </NewLyricControlButton>
+        {errors &&
+          errors.map(e => <ErrorText key={e.slice(0, 4)}>{e}</ErrorText>)}
         {isOffline ? (
           <NoPlaylistsText
             style={{

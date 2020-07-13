@@ -6,7 +6,6 @@ import {
   SecondaryLightGrey,
   SecondaryColor,
   SemiLightGreen,
-  SecondaryGreen,
   LighterBlue,
 } from "ColorVars";
 import Typography from "@material-ui/core/Typography";
@@ -90,5 +89,15 @@ export const NewPlaylistDescriptiveText = styled(Typography)`
     font-size: 1.3rem;
     color: ${LighterBlue};
     margin-top: 30px;
+  }
+`;
+
+export const ErrorText = styled(Typography)`
+  && {
+    color: red;
+    font-size: 1.4rem;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 `;

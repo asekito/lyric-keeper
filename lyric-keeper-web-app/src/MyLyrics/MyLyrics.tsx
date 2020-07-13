@@ -7,6 +7,7 @@ import {
   LoadingScreen,
   PageHeader,
   PageWrapper,
+  LyricCountWrapper,
 } from "GlobalComponents";
 import { useQuery } from "react-apollo";
 import { Query_Get_Multiple_Lyrics_By_Id } from "operations";
@@ -45,15 +46,20 @@ export const MyLyrics: React.FC = () => {
           {data?.getMultipleLyricsById &&
           data?.getMultipleLyricsById.length &&
           isLoggedIn ? (
-            data.getMultipleLyricsById.map(({ ...props }) => (
-              <LyricCard
-                showDeleteButton
-                currentUser={currentUser}
-                darkModeIsEnabled={darkModeIsEnabled}
-                getAndUpdateAllLyrics={() => refetch()}
-                {...props}
-              />
-            ))
+            <>
+              <LyricCountWrapper
+                darkMode={darkModeIsEnabled}
+              >{`Lyrics: ${data.getMultipleLyricsById.length}`}</LyricCountWrapper>
+              {data.getMultipleLyricsById.map(({ ...props }) => (
+                <LyricCard
+                  showDeleteButton
+                  currentUser={currentUser}
+                  darkModeIsEnabled={darkModeIsEnabled}
+                  getAndUpdateAllLyrics={() => refetch()}
+                  {...props}
+                />
+              ))}
+            </>
           ) : (
             <NoLyricsFoundText>
               It looks like you haven't created any lyrics yet. You can create

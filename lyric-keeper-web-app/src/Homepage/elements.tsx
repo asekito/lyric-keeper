@@ -54,14 +54,6 @@ export const StyledSelect = styled(Select)<{ darkMode: boolean }>`
   }
 `;
 
-export const LyricCount = styled.div<{ darkMode: boolean }>`
-  font-size: 1rem;
-  text-align: left;
-  letter-spacing: 2px;
-  color: ${({ darkMode }) =>
-    darkMode ? DarkModeLighterPurple : LighterPurple};
-`;
-
 export const StyledSwitch = styled(Switch)`
   && {
     .MuiSwitch-colorSecondary.Mui-checked {

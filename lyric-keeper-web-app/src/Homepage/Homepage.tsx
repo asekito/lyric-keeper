@@ -4,7 +4,6 @@ import {
   DefaultPageWrapper,
   MainAreaWrapper,
   StyledSelect,
-  LyricCount,
   StyledSwitch,
   StyledTextField,
   StyledIconButton,
@@ -39,6 +38,7 @@ import {
   MarketingBar,
   LoadingScreen,
   Navbar,
+  LyricCountWrapper,
 } from "GlobalComponents";
 import { UseCurrentUser, UseDarkMode } from "Hooks";
 import { findNonPrivateLyrics } from "utilities";
@@ -215,9 +215,9 @@ export const Homepage: React.FC<any> = ({ client }) => {
           >
             <RefreshIcon />
           </StyledIconButton>
-          <LyricCount
+          <LyricCountWrapper
             darkMode={darkModeIsEnabled}
-          >{`Lyrics: ${lyricData?.length}`}</LyricCount>
+          >{`Lyrics: ${lyricData?.length}`}</LyricCountWrapper>
           {lyricData && lyricData?.length ? (
             lyricData?.map(({ ...props }) => (
               <LyricCard

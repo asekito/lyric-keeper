@@ -10,6 +10,7 @@ import {
   PrimaryBlue,
   LighterPurple,
   SecondaryLightGrey,
+  DarkModeLighterPurple,
 } from "ColorVars";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
@@ -194,4 +195,12 @@ export const StyledPlaceholder = styled(Skeleton)<{ darkMode: boolean }>`
     width: 330px;
     white-space: pre-line;
   }
+`;
+
+export const LyricCountWrapper = styled.div<{ darkMode: boolean }>`
+  font-size: 1rem;
+  text-align: left;
+  letter-spacing: 2px;
+  color: ${({ darkMode }) =>
+    darkMode ? DarkModeLighterPurple : LighterPurple};
 `;

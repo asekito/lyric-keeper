@@ -8,6 +8,8 @@ export const truncate = ({
 
 export const findNonPrivateLyrics = <I>(lyrics: I[]): I[] | undefined => {
   if (lyrics)
-    return lyrics.filter((item: any) => item?.isPrivate === (null || false));
+    return lyrics.filter(
+      (item: any) => item?.isPrivate === null || item?.isPrivate === false
+    );
   return undefined;
 };

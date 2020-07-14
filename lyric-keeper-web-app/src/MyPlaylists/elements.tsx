@@ -14,7 +14,7 @@ import Container from "@material-ui/core/Container";
 
 export const NoPlaylistsText = styled(Typography)`
   && {
-    margin-top: 30px;
+    padding-top: 30px;
     font-size: 2rem;
     color: ${PrimaryBlue};
   }

@@ -8,7 +8,7 @@ import {
   LyricCountWrapper,
   StyledTextField,
 } from "GlobalComponents";
-import { UseDarkMode, UseIsOffline } from "Hooks";
+import { UseDarkMode, UseIsOffline, UseCurrentUser } from "Hooks";
 import {
   NewLyricControlButton,
   NoPlaylistsText,
@@ -47,14 +47,19 @@ export const NewPlaylistScreen: React.FC = () => {
 
   const { isOffline } = UseIsOffline();
 
+  const currentUserDetails = UseCurrentUser();
+
+  const { isLoggedIn } = currentUserDetails;
+
   const { data, loading } = useQuery<Get_All_Lyrics_Title_And_Author>(
     Query_Get_All_Lyrics_Title_And_Author,
     { skip: isOffline }
   );
 
-  const [createNewplaylist] = useMutation<Create_New_Playlist, Create_New_PlaylistVariables>(
-    Mutation_Create_New_Playlist
-  );
+  const [createNewplaylist] = useMutation<
+    Create_New_Playlist,
+    Create_New_PlaylistVariables
+  >(Mutation_Create_New_Playlist);
 
   const submitNewPlaylist = () => {
     setErrors([]);
@@ -68,6 +73,7 @@ export const NewPlaylistScreen: React.FC = () => {
           "Oh no! You need to add at least ONE lyric to your playlist!",
         ]);
     } else {
+      // createNewplaylist({ variables: {uid: } });
       history.push("/my-playlists");
     }
   };
@@ -84,11 +90,23 @@ export const NewPlaylistScreen: React.FC = () => {
     }
   }, [data, loading]);
 
+  if (!isLoggedIn)
+    return (
+      <>
+        <Navbar {...currentUserDetails} />
+        <PageWrapper isDarkMode={darkModeIsEnabled}>
+          <NoPlaylistsText>
+            You must be logged in to create a playlist
+          </NoPlaylistsText>
+        </PageWrapper>
+      </>
+    );
+
   if (loading) return <LoadingScreen darkMode={darkModeIsEnabled} />;
 
   return (
     <>
-      <Navbar />
+      <Navbar {...currentUserDetails} />
       <PageWrapper isDarkMode={darkModeIsEnabled}>
         <PageHeader variant="h4">New Playlist</PageHeader>
         <StyledTextField

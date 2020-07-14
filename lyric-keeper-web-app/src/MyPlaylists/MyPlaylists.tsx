@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UseDarkMode, UseCurrentUser } from "Hooks";
 import { Navbar, PageWrapper, PageHeader, Link } from "GlobalComponents";
 import { NoPlaylistsText, NewPlaylistButton } from "./elements";
 import AddIcon from "@material-ui/icons/Add";
+import { Get_Current_User_getCurrentUser } from "Types";
 
 export const MyPlaylists: React.FC = () => {
-  const [playLists, setPlayLists] = useState([]);
+  const [playLists, setPlayLists] = useState<
+    Get_Current_User_getCurrentUser["playlists"] | []
+  >([]);
   const { darkModeIsEnabled } = UseDarkMode();
   const currentUserDetails = UseCurrentUser();
 
-  const { isLoggedIn } = currentUserDetails;
+  const { isLoggedIn, currentUser } = currentUserDetails;
+
+  useEffect(() => {
+    if (currentUser?.playlists) setPlayLists(currentUser?.playlists);
+  }, [currentUser]);
 
   return (
     <>
@@ -23,7 +30,7 @@ export const MyPlaylists: React.FC = () => {
         </Link>
         {isLoggedIn ? (
           <>
-            {playLists.length ? (
+            {playLists && playLists.length ? (
               <></>
             ) : (
               <NoPlaylistsText>

@@ -76,17 +76,17 @@ export const NewPlaylistScreen: React.FC = () => {
         ]);
     } else {
       currentUser &&
-        allLyrics &&
+        selectedLyrics &&
         createNewplaylist({
           variables: {
             uid: currentUser.uid,
             playlistName: textFieldText,
-            lyricList: allLyrics?.map(({ id }) => ({
+            lyricList: Object.keys(selectedLyrics)?.map(id => ({
               lyricId: id,
             })) as any,
           },
         });
-      // !mutationLoading && !mutationError && history.push("/my-playlists");
+      !mutationLoading && !mutationError && history.push("/my-playlists");
     }
   };
 

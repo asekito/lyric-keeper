@@ -180,3 +180,9 @@ export const Query_Find_Playlist_With_Id = gql`
     }
   }
 `;
+
+export const Mutation_Delete_Playlist = gql`
+  mutation Delete_Playlist($uid: String!, $playlistId: String!) {
+    deletePlaylist(input: { uid: $uid, playlistId: $playlistId })
+  }
+`;

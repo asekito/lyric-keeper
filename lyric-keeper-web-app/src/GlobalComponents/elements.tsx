@@ -18,6 +18,7 @@ import { DarkModePageBackground } from "ColorVars";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Skeleton from "@material-ui/lab/Skeleton";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 export const StyledContainer = styled(Container)`
   background-color: white;
@@ -203,4 +204,25 @@ export const LyricCountWrapper = styled.div<{ darkMode: boolean }>`
   letter-spacing: 2px;
   color: ${({ darkMode }) =>
     darkMode ? DarkModeLighterPurple : LighterPurple};
+`;
+
+export const StyledDialogTitle = styled(DialogTitle)`
+  color: ${MainGreen};
+`;
+
+export const DialogLyricTitle = styled(Typography)`
+  display: inline;
+  font-weight: 500;
+  font-size: inherit;
+  color: ${SecondaryColor};
+`;
+
+export const DialogButton = styled(Button)`
+  && {
+    display: inline;
+    margin: 10px;
+    margin-bottom: 20px; /* DO NOT REMOVE! IT IS NOT USELESS! VSCODE IS LYING!! */
+    border-color: red;
+    border-width: 1.5px;
+  }
 `;

@@ -9,3 +9,4 @@ export * from "./PageWrapper";
 export * from "./Image";
 export { LyricCountWrapper } from "./elements";
 export * from "./StyledTextField";
+export * from "./AreYouSureDialog";

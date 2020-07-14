@@ -13,7 +13,7 @@ interface Props {
 export const EditView: React.FC<Props> = ({ lyricList, playlistName }) => {
   const [textFieldText, setTextFieldText] = useState(playlistName);
   const { darkModeIsEnabled } = UseDarkMode();
-  //   console.log(lyricList);
+
   return (
     <>
       <div>

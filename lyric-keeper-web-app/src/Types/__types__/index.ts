@@ -4,6 +4,7 @@ export * from './Create_New_Playlist';
 export * from './Create_New_User';
 export * from './Delete_Lyric_From_User_List';
 export * from './Delete_Lyric_Matching_Id';
+export * from './Delete_Playlist';
 export * from './Find_Lyric_With_Short_Url';
 export * from './Find_Playlist_With_Id';
 export * from './Get_All_Lyrics';

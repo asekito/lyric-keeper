@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import {
   Query_Find_Playlist_With_Id,
   Query_Get_Multiple_Lyrics_By_Id,
+  Mutation_Delete_Playlist,
 } from "operations";
 import { UseCurrentUser, UseDarkMode } from "Hooks";
 import {
@@ -12,6 +13,8 @@ import {
   Get_Multiple_Lyrics_By_Id,
   Get_Multiple_Lyrics_By_IdVariables,
   Lyric,
+  Delete_Playlist,
+  Delete_PlaylistVariables,
 } from "Types";
 import {
   LoadingScreen,
@@ -20,6 +23,7 @@ import {
   PageHeader,
   LyricCountWrapper,
   Link,
+  AreYouSureDialog,
 } from "GlobalComponents";
 import { LyricCard } from "LyricCard";
 import Container from "@material-ui/core/Container";
@@ -27,9 +31,12 @@ import { NewLyricControlButton, NoPlaylistsText } from "./elements";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import Edit from "@material-ui/icons/Edit";
 import Cancel from "@material-ui/icons/Cancel";
+import Delete from "@material-ui/icons/Delete";
 import { EditView } from "./EditView";
+import { useHistory } from "react-router-dom";
 
 export const PlaylistPage: React.FC<any> = ({ client }) => {
+  const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState(false);
   const [lyrics, setLyrics] = useState<Lyric[]>([]);
   const [editView, setEditView] = useState(false);
   const [playlistData, setPlaylistData] = useState<
@@ -38,10 +45,18 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
   const currentUserDetails = UseCurrentUser();
   const { isLoggedIn, currentUser } = currentUserDetails;
   const { darkModeIsEnabled } = UseDarkMode();
+  const history = useHistory();
 
   const playlistId = window.location.pathname.slice(
     10,
     window.location.pathname.length
+  );
+
+  const [
+    deletePlaylist,
+    { loading: mutationLoading, error: mutationError },
+  ] = useMutation<Delete_Playlist, Delete_PlaylistVariables>(
+    Mutation_Delete_Playlist
   );
 
   const { data, loading } = useQuery<
@@ -125,6 +140,20 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
   return (
     <>
       <Navbar {...currentUserDetails} />
+      {currentUser && (
+        <AreYouSureDialog
+          entryTitle={playlistData?.playlistName}
+          onClickDelete={() => {
+            deletePlaylist({
+              variables: { uid: currentUser.uid, playlistId: playlistData.id },
+            });
+            if (!mutationLoading && !mutationError)
+              history.push("/my-playlists");
+          }}
+          isOpen={deleteDialogIsOpen}
+          setIsOpen={setDeleteDialogIsOpen}
+        />
+      )}
       <PageWrapper isDarkMode={darkModeIsEnabled}>
         <Link to="/my-playlists">
           <NewLyricControlButton
@@ -150,6 +179,15 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
             onClick={() => setEditView(false)}
           >
             <Cancel /> Cancel
+          </NewLyricControlButton>
+        )}
+        {editView && (
+          <NewLyricControlButton
+            style={{ marginBottom: "10px" }}
+            variant="contained"
+            onClick={() => setDeleteDialogIsOpen(true)}
+          >
+            <Delete /> Delete Playlist
           </NewLyricControlButton>
         )}
         {!editView ? (

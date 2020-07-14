@@ -122,6 +122,7 @@ export const PlaylistCardCounter = styled(Typography)`
     color: ${SecondaryColor};
     display: inline;
     text-align: right;
+    vertical-align: middle;
   }
 `;
 
@@ -141,5 +142,14 @@ export const PlaylistCardDescriptiveText = styled(Typography)`
     text-align: left;
     margin-top: 15px;
     color: ${PrimaryBlue};
+  }
+`;
+
+export const SmallPlaylistCardText = styled(Typography)`
+  && {
+    font-size: 1rem;
+    color: ${PrimaryBlue};
+    display: inline;
+    margin-left: 10px;
   }
 `;

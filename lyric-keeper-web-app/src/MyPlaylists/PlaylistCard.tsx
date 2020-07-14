@@ -5,6 +5,7 @@ import {
   PlaylistCardCounter,
   PlaylistCardTitle,
   PlaylistCardDescriptiveText,
+  SmallPlaylistCardText,
 } from "./elements";
 import { UseDarkMode } from "Hooks";
 import { Grid } from "@material-ui/core";
@@ -29,7 +30,7 @@ export const PlaylistCard: React.FC<Get_Current_User_getCurrentUser_playlists> =
       <Grid
         container
         style={{
-          width: "60%",
+          width: "80%",
           textAlign: "center",
           marginRight: "auto",
           marginLeft: "auto",
@@ -41,6 +42,7 @@ export const PlaylistCard: React.FC<Get_Current_User_getCurrentUser_playlists> =
         </Grid>
         <Grid item xs={4} style={{ textAlign: "end" }}>
           <PlaylistCardCounter>{lyricList.length}</PlaylistCardCounter>
+          <SmallPlaylistCardText>Lyrics</SmallPlaylistCardText>
         </Grid>
       </Grid>
     </PlaylistCardWrapper>

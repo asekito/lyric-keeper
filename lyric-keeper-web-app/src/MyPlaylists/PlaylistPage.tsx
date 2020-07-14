@@ -23,7 +23,7 @@ import {
 } from "GlobalComponents";
 import { LyricCard } from "LyricCard";
 import Container from "@material-ui/core/Container";
-import { NewLyricControlButton } from "./elements";
+import { NewLyricControlButton, NoPlaylistsText } from "./elements";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 export const PlaylistPage: React.FC<any> = ({ client }) => {
@@ -101,6 +101,19 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
       setLyrics(lyricListData.data.getMultipleLyricsById as any);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lyricListData.data, lyricListData.loading]);
+
+  if (!isLoggedIn)
+    return (
+      <>
+        <Navbar {...currentUserDetails} />
+        <PageWrapper isDarkMode={darkModeIsEnabled}>
+          <NoPlaylistsText>
+            You may only view this playlist if you are logged in and are the one
+            who created it.
+          </NoPlaylistsText>
+        </PageWrapper>
+      </>
+    );
 
   if (loading || lyricListData.loading)
     return <LoadingScreen darkMode={darkModeIsEnabled} />;

@@ -25,9 +25,13 @@ import { LyricCard } from "LyricCard";
 import Container from "@material-ui/core/Container";
 import { NewLyricControlButton, NoPlaylistsText } from "./elements";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import Edit from "@material-ui/icons/Edit";
+import Cancel from "@material-ui/icons/Cancel";
+import { EditView } from "./EditView";
 
 export const PlaylistPage: React.FC<any> = ({ client }) => {
   const [lyrics, setLyrics] = useState<Lyric[]>([]);
+  const [editView, setEditView] = useState(false);
   const [playlistData, setPlaylistData] = useState<
     Find_Playlist_With_Id_findPlaylistWithId
   >();
@@ -40,7 +44,7 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
     window.location.pathname.length
   );
 
-  const { data, loading, error, refetch } = useQuery<
+  const { data, loading } = useQuery<
     Find_Playlist_With_Id,
     Find_Playlist_With_IdVariables
   >(Query_Find_Playlist_With_Id, {
@@ -115,7 +119,7 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
       </>
     );
 
-  if (loading || lyricListData.loading)
+  if (loading || lyricListData.loading || !playlistData)
     return <LoadingScreen darkMode={darkModeIsEnabled} />;
 
   return (
@@ -130,23 +134,50 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
             <ArrowBackIosIcon /> Back
           </NewLyricControlButton>
         </Link>
-        <PageHeader variant="h4">{playlistData?.playlistName}</PageHeader>
-        <Container maxWidth="sm" style={{ marginTop: "40px" }}>
-          {
-            <>
-              <LyricCountWrapper
-                darkMode={darkModeIsEnabled}
-              >{`Lyrics: ${lyrics.length}`}</LyricCountWrapper>
-              {lyrics.map(({ ...props }) => (
-                <LyricCard
-                  currentUser={currentUser}
-                  darkModeIsEnabled={darkModeIsEnabled}
-                  {...props}
-                />
-              ))}
-            </>
-          }
-        </Container>
+        {!editView && (
+          <NewLyricControlButton
+            style={{ marginBottom: "10px" }}
+            variant="contained"
+            onClick={() => setEditView(true)}
+          >
+            <Edit /> Edit
+          </NewLyricControlButton>
+        )}
+        {editView && (
+          <NewLyricControlButton
+            style={{ marginBottom: "10px" }}
+            variant="contained"
+            onClick={() => setEditView(false)}
+          >
+            <Cancel /> Cancel
+          </NewLyricControlButton>
+        )}
+        {!editView ? (
+          <>
+            <PageHeader variant="h4">{playlistData?.playlistName}</PageHeader>
+            <Container maxWidth="sm" style={{ marginTop: "40px" }}>
+              {
+                <>
+                  <LyricCountWrapper
+                    darkMode={darkModeIsEnabled}
+                  >{`Lyrics: ${lyrics.length}`}</LyricCountWrapper>
+                  {lyrics.map(({ ...props }) => (
+                    <LyricCard
+                      currentUser={currentUser}
+                      darkModeIsEnabled={darkModeIsEnabled}
+                      {...props}
+                    />
+                  ))}
+                </>
+              }
+            </Container>
+          </>
+        ) : (
+          <EditView
+            playlistName={playlistData?.playlistName}
+            lyricList={lyrics}
+          />
+        )}
       </PageWrapper>
     </>
   );

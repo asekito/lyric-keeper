@@ -12,8 +12,9 @@ interface Props {
   title: string;
   author?: string;
   id: string;
-  setSelectedLyrics: React.Dispatch<any>;
-  clearAll: boolean;
+  setSelectedLyrics?: React.Dispatch<any>;
+  clearAll?: boolean;
+  selectable?: boolean;
 }
 
 export const DraggableLyricCard: React.FC<Props> = ({
@@ -22,6 +23,7 @@ export const DraggableLyricCard: React.FC<Props> = ({
   id,
   clearAll,
   setSelectedLyrics,
+  selectable = true,
 }) => {
   const [selected, setSelected] = useState(false);
   const { isMobile } = UseResponsiveCheck();
@@ -36,19 +38,23 @@ export const DraggableLyricCard: React.FC<Props> = ({
   return (
     <div style={{ display: "block" }}>
       <CardWrapper
-        onClick={() => {
-          setSelectedLyrics(({ ...selectedLyricsObj }) => {
-            const returnObj = { ...selectedLyricsObj };
-            if (returnObj[id] === true) {
-              setSelected(false);
-              delete returnObj[id];
-            } else {
-              returnObj[id] = true;
-              setSelected(true);
-            }
-            return returnObj;
-          });
-        }}
+        onClick={
+          selectable && setSelectedLyrics
+            ? () => {
+                setSelectedLyrics(({ ...selectedLyricsObj }) => {
+                  const returnObj = { ...selectedLyricsObj };
+                  if (returnObj[id] === true) {
+                    setSelected(false);
+                    delete returnObj[id];
+                  } else {
+                    returnObj[id] = true;
+                    setSelected(true);
+                  }
+                  return returnObj;
+                });
+              }
+            : () => null
+        }
         darkMode={darkModeIsEnabled}
         isSelected={selected}
       >

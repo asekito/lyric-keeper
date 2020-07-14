@@ -26,7 +26,7 @@ import { SettingsObj } from "Homepage";
 import { AreYouSureDialog } from "./AreYouSureDialog";
 
 type Props = Lyric & {
-  getAndUpdateAllLyrics(settings?: SettingsObj): void;
+  getAndUpdateAllLyrics?(settings?: SettingsObj): void;
   darkModeIsEnabled: boolean;
   currentUser: UseCurrentUserReturnShape["currentUser"];
   showDeleteButton?: boolean;
@@ -47,7 +47,7 @@ export const LyricCard: React.FC<Props> = ({
     Delete_Lyric_Matching_Id,
     Delete_Lyric_Matching_IdVariables
   >(Mutation_Delete_Lyric_Matching_Id, {
-    onCompleted: () => getAndUpdateAllLyrics(),
+    onCompleted: () => getAndUpdateAllLyrics && getAndUpdateAllLyrics(),
   });
 
   const [deleteLyricFromUserList] = useMutation<

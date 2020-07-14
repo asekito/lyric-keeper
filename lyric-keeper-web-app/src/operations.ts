@@ -168,3 +168,15 @@ export const Mutation_Create_New_Playlist = gql`
     }
   }
 `;
+
+export const Query_Find_Playlist_With_Id = gql`
+  query Find_Playlist_With_Id($uid: String!, $playlistId: String!) {
+    findPlaylistWithId(input: { uid: $uid, playlistId: $playlistId }) {
+      id
+      playlistName
+      lyricList {
+        lyricId
+      }
+    }
+  }
+`;

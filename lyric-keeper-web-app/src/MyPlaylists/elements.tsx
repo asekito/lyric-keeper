@@ -139,8 +139,9 @@ export const PlaylistCardTitle = styled(Typography)`
 export const PlaylistCardDescriptiveText = styled(Typography)`
   && {
     font-size: 1.2rem;
-    text-align: left;
     margin-top: 15px;
+    text-align: left;
+    margin-left: auto;
     color: ${PrimaryBlue};
   }
 `;
@@ -150,6 +151,8 @@ export const SmallPlaylistCardText = styled(Typography)`
     font-size: 1rem;
     color: ${PrimaryBlue};
     display: inline;
-    margin-left: 10px;
+    margin-left: 5px;
+    text-align: left;
+    margin-left: auto;
   }
 `;

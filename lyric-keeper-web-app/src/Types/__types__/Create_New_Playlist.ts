@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { IdObjInput } from "./globalTypes";
+
 // ====================================================
 // GraphQL mutation operation: Create_New_Playlist
 // ====================================================
@@ -12,7 +14,7 @@ export interface Create_New_Playlist_createNewPlaylist_result {
 }
 
 export interface Create_New_Playlist_createNewPlaylist {
-  result: Create_New_Playlist_createNewPlaylist_result;
+  result: Create_New_Playlist_createNewPlaylist_result | null;
 }
 
 export interface Create_New_Playlist {
@@ -22,5 +24,5 @@ export interface Create_New_Playlist {
 export interface Create_New_PlaylistVariables {
   uid: string;
   playlistName: string;
-  lyricList: (string | null)[];
+  lyricList: (IdObjInput | null)[];
 }

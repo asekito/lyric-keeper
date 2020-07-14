@@ -110,6 +110,7 @@ export const Query_Get_Current_User = gql`
         lyricId
       }
       playlists {
+        id
         playlistName
         lyricList {
           lyricId
@@ -156,7 +157,7 @@ export const Mutation_Create_New_Playlist = gql`
   mutation Create_New_Playlist(
     $uid: String!
     $playlistName: String!
-    $lyricList: [String]!
+    $lyricList: [IdObjInput]!
   ) {
     createNewPlaylist(
       input: { uid: $uid, playlistName: $playlistName, lyricList: $lyricList }

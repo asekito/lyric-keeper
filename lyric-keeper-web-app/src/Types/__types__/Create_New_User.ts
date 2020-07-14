@@ -12,7 +12,7 @@ export interface Create_New_User_createNewUser_result {
 }
 
 export interface Create_New_User_createNewUser {
-  result: Create_New_User_createNewUser_result;
+  result: Create_New_User_createNewUser_result | null;
 }
 
 export interface Create_New_User {

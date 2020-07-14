@@ -16,6 +16,7 @@ export interface Get_Current_User_getCurrentUser_playlists_lyricList {
 }
 
 export interface Get_Current_User_getCurrentUser_playlists {
+  id: string;
   playlistName: string;
   lyricList: (Get_Current_User_getCurrentUser_playlists_lyricList | null)[];
 }

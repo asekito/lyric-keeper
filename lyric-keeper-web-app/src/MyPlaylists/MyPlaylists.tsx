@@ -4,10 +4,12 @@ import { Navbar, PageWrapper, PageHeader, Link } from "GlobalComponents";
 import { NoPlaylistsText, NewPlaylistButton } from "./elements";
 import AddIcon from "@material-ui/icons/Add";
 import { Get_Current_User_getCurrentUser } from "Types";
+import { PlaylistCard } from "./PlaylistCard";
+import Container from "@material-ui/core/Container";
 
 export const MyPlaylists: React.FC = () => {
   const [playLists, setPlayLists] = useState<
-    Get_Current_User_getCurrentUser["playlists"] | []
+    Get_Current_User_getCurrentUser["playlists"]
   >([]);
   const { darkModeIsEnabled } = UseDarkMode();
   const currentUserDetails = UseCurrentUser();
@@ -31,7 +33,11 @@ export const MyPlaylists: React.FC = () => {
         {isLoggedIn ? (
           <>
             {playLists && playLists.length ? (
-              <></>
+              <Container maxWidth="sm">
+                {playLists.map(({ ...props }) => (
+                  <PlaylistCard {...props} />
+                ))}
+              </Container>
             ) : (
               <NoPlaylistsText>
                 It looks like you haven't created any playlists yet.

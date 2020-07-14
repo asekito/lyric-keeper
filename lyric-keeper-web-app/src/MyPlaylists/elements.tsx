@@ -101,3 +101,45 @@ export const ErrorText = styled(Typography)`
     margin-bottom: 10px;
   }
 `;
+
+export const PlaylistCardWrapper = styled.div<{ darkMode: boolean }>`
+  min-height: 40px;
+  margin: auto;
+  padding: 8px;
+  margin-top: 15px;
+  border-radius: 6px;
+  div {
+    text-decoration: none !important;
+  }
+  cursor: pointer;
+  background-color: ${({ darkMode }) =>
+    darkMode ? DarkModeSecondaryLightGrey : SecondaryLightGrey};
+`;
+
+export const PlaylistCardCounter = styled(Typography)`
+  && {
+    font-size: 4rem;
+    color: ${SecondaryColor};
+    display: inline;
+    text-align: right;
+  }
+`;
+
+export const PlaylistCardTitle = styled(Typography)`
+  && {
+    font-size: 1.5rem;
+    color: ${MainGreen};
+    vertical-align: super;
+    margin-right: 40px;
+    text-align: left;
+  }
+`;
+
+export const PlaylistCardDescriptiveText = styled(Typography)`
+  && {
+    font-size: 1.2rem;
+    text-align: left;
+    margin-top: 15px;
+    color: ${PrimaryBlue};
+  }
+`;

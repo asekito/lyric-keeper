@@ -37,7 +37,7 @@ export const SnackbarButtons: React.FC<Props> = ({
   } = UseScrollHandler();
 
   const isLyricCreator = !!currentUser?.lyrics?.find(
-    id => id.lyricId === lyricId
+    id => id?.lyricId === lyricId
   );
 
   const buttons = [

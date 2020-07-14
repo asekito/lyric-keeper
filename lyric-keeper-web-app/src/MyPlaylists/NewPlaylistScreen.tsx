@@ -17,11 +17,16 @@ import {
   ErrorText,
 } from "./elements";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { useQuery } from "react-apollo";
-import { Query_Get_All_Lyrics_Title_And_Author } from "operations";
+import { useQuery, useMutation } from "react-apollo";
+import {
+  Query_Get_All_Lyrics_Title_And_Author,
+  Mutation_Create_New_Playlist,
+} from "operations";
 import {
   Get_All_Lyrics_Title_And_Author,
   Get_All_Lyrics_Title_And_Author_allLyrics,
+  Create_New_Playlist,
+  Create_New_PlaylistVariables,
 } from "Types";
 import { findNonPrivateLyrics } from "utilities";
 import { DraggableLyricCard } from "./DraggableLyricCard";
@@ -45,6 +50,10 @@ export const NewPlaylistScreen: React.FC = () => {
   const { data, loading } = useQuery<Get_All_Lyrics_Title_And_Author>(
     Query_Get_All_Lyrics_Title_And_Author,
     { skip: isOffline }
+  );
+
+  const [createNewplaylist] = useMutation<Create_New_Playlist, Create_New_PlaylistVariables>(
+    Mutation_Create_New_Playlist
   );
 
   const submitNewPlaylist = () => {

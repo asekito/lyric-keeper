@@ -106,7 +106,25 @@ export const Mutation_Update_Lyric = gql`
 export const Query_Get_Current_User = gql`
   query Get_Current_User($uid: String!) {
     getCurrentUser(input: { uid: $uid }) {
-      lyricId
+      lyrics {
+        lyricId
+      }
+      playlists {
+        playlistName
+        lyricList {
+          lyricId
+        }
+      }
+    }
+  }
+`;
+
+export const Mutation_Create_New_User = gql`
+  mutation Create_New_User($uid: String!) {
+    createNewUser(input: { uid: $uid }) {
+      result {
+        error
+      }
     }
   }
 `;

@@ -31,8 +31,8 @@ export const MyLyrics: React.FC<any> = ({ client }) => {
   >(Query_Get_Multiple_Lyrics_By_Id, {
     skip: !isLoggedIn || !currentUser?.lyrics?.length,
     variables: {
-      ids: currentUser?.lyrics?.map(({ lyricId }) => ({
-        lyricId,
+      ids: currentUser?.lyrics?.map(item => ({
+        lyricId: item ? item.lyricId : "",
       })),
     },
   });
@@ -45,8 +45,8 @@ export const MyLyrics: React.FC<any> = ({ client }) => {
           query: Query_Get_Multiple_Lyrics_By_Id,
           skip: !isLoggedIn || !currentUser?.lyrics?.length,
           variables: {
-            ids: currentUser?.lyrics?.map(({ lyricId }) => ({
-              lyricId,
+            ids: currentUser?.lyrics?.map(item => ({
+              lyricId: item?.lyricId,
             })),
           },
         });

@@ -59,13 +59,15 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
     Mutation_Delete_Playlist
   );
 
-  const { data, loading } = useQuery<
+  const findPlaylistWithId = useQuery<
     Find_Playlist_With_Id,
     Find_Playlist_With_IdVariables
   >(Query_Find_Playlist_With_Id, {
     skip: !isLoggedIn,
     variables: { uid: currentUser?.uid, playlistId } as any,
   });
+
+  const { data, loading } = findPlaylistWithId;
 
   useEffect(() => {
     // Handle fetching cached data if offline
@@ -111,7 +113,7 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
             })),
           },
         });
-        setLyrics(cachedData.getMultipleLyricsById as any);
+        setLyrics(cachedData.data.getMultipleLyricsById as any);
       } catch (error) {
         console.log(error);
       }
@@ -176,7 +178,11 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
           <NewLyricControlButton
             style={{ marginBottom: "10px" }}
             variant="contained"
-            onClick={() => setEditView(false)}
+            onClick={() => {
+              setEditView(false);
+              findPlaylistWithId.refetch();
+              lyricListData.refetch();
+            }}
           >
             <Cancel /> Cancel
           </NewLyricControlButton>
@@ -214,6 +220,7 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
           <EditView
             playlistName={playlistData?.playlistName}
             lyricList={lyrics}
+            playlistId={playlistData.id}
           />
         )}
       </PageWrapper>

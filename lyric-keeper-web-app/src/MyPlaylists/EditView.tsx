@@ -1,21 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { Lyric } from "Types";
+import { Lyric, Edit_Playlist, Edit_PlaylistVariables } from "Types";
 import { StyledTextField } from "GlobalComponents";
-import { UseDarkMode } from "Hooks";
+import { UseDarkMode, UseCurrentUser } from "Hooks";
 import { DraggableLyricCard } from "./DraggableLyricCard";
 import Container from "@material-ui/core/Container";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { NewLyricControlButton } from "./elements";
+import Save from "@material-ui/icons/Save";
+import { useMutation } from "react-apollo";
+import { Mutation_Edit_Playlist } from "operations";
 
 interface Props {
   lyricList: Lyric[];
   playlistName: string;
+  playlistId: string;
 }
 
-export const EditView: React.FC<Props> = ({ lyricList, playlistName }) => {
+export const EditView: React.FC<Props> = ({
+  lyricList,
+  playlistName,
+  playlistId,
+}) => {
   const [lyricsIndex, setLyricsIndex] = useState<{ [key: string]: Lyric }>({});
   const [lyricIdList, setLyricIdList] = useState<string[]>([]);
   const [textFieldText, setTextFieldText] = useState(playlistName);
   const { darkModeIsEnabled } = UseDarkMode();
+  const { currentUser } = UseCurrentUser();
+
+  const [editPlaylist] = useMutation<Edit_Playlist, Edit_PlaylistVariables>(
+    Mutation_Edit_Playlist
+  );
 
   useEffect(() => {
     const index: any = {};
@@ -27,6 +41,7 @@ export const EditView: React.FC<Props> = ({ lyricList, playlistName }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Handle persistance of drag 'n drop data
   const onDragEnd = (result: any) => {
     const { destination, source, draggableId } = result;
 
@@ -47,6 +62,24 @@ export const EditView: React.FC<Props> = ({ lyricList, playlistName }) => {
 
   return (
     <>
+      {currentUser && lyricIdList && (
+        <NewLyricControlButton
+          style={{ marginBottom: "10px" }}
+          variant="contained"
+          onClick={() =>
+            editPlaylist({
+              variables: {
+                uid: currentUser?.uid,
+                playlistName: textFieldText,
+                lyricList: lyricIdList.map(id => ({ lyricId: id })),
+                playlistId,
+              },
+            })
+          }
+        >
+          <Save /> Save
+        </NewLyricControlButton>
+      )}
       <div>
         <StyledTextField
           style={{ marginTop: "30px", width: "300px", marginBottom: "30px" }}

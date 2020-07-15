@@ -186,3 +186,21 @@ export const Mutation_Delete_Playlist = gql`
     deletePlaylist(input: { uid: $uid, playlistId: $playlistId })
   }
 `;
+
+export const Mutation_Edit_Playlist = gql`
+  mutation Edit_Playlist(
+    $playlistId: String!
+    $playlistName: String!
+    $lyricList: [InputIdObj]!
+    $uid: String!
+  ) {
+    editPlaylist(
+      input: {
+        uid: $uid
+        playlistId: $playlistId
+        playlistName: $playlistName
+        lyricList: $lyricList
+      }
+    )
+  }
+`;

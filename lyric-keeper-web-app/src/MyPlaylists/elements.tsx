@@ -153,6 +153,5 @@ export const SmallPlaylistCardText = styled(Typography)`
     display: inline;
     margin-left: 5px;
     text-align: left;
-    margin-left: auto;
   }
 `;

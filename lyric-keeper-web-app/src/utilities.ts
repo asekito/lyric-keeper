@@ -1,3 +1,5 @@
+import { Lyric } from "Types";
+
 export const truncate = ({
   string,
   limit,
@@ -12,4 +14,23 @@ export const findNonPrivateLyrics = <I>(lyrics: I[]): I[] | undefined => {
       (item: any) => item?.isPrivate === null || item?.isPrivate === false
     );
   return undefined;
+};
+
+interface OrderLyricsArgShape<I> {
+  fullLyricData: I[];
+  lyricIdList: { lyricId: string }[];
+}
+
+// Using generics to allow for possible type expansion in the future
+export const orderLyricsBasedOnIdList = <I extends Lyric>({
+  fullLyricData,
+  lyricIdList,
+}: OrderLyricsArgShape<I>): I[] => {
+  const index: { [key: string]: I } = {};
+
+  fullLyricData.forEach(({ ...lyricData }) => {
+    index[lyricData.id] = { ...lyricData };
+  });
+
+  return lyricIdList.map(({ lyricId }) => ({ ...index[lyricId] }));
 };

@@ -34,6 +34,7 @@ import Cancel from "@material-ui/icons/Cancel";
 import Delete from "@material-ui/icons/Delete";
 import { EditView } from "./EditView";
 import { useHistory } from "react-router-dom";
+import { orderLyricsBasedOnIdList } from "utilities";
 
 export const PlaylistPage: React.FC<any> = ({ client }) => {
   const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState(false);
@@ -118,8 +119,14 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
         console.log(error);
       }
     }
-    if (lyricListData.data)
-      setLyrics(lyricListData.data.getMultipleLyricsById as any);
+    if (lyricListData.data) {
+      setLyrics(
+        orderLyricsBasedOnIdList<Lyric>({
+          fullLyricData: lyricListData.data.getMultipleLyricsById as any,
+          lyricIdList: playlistData?.lyricList as any,
+        })
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lyricListData.data, lyricListData.loading]);
 

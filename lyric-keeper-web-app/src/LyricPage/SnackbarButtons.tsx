@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import Home from "@material-ui/icons/Home";
 import Edit from "@material-ui/icons/Edit";
 import Cancel from "@material-ui/icons/Cancel";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,10 +8,11 @@ import AddIcon from "@material-ui/icons/Add";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import RemoveIcon from "@material-ui/icons/Remove";
-import { Link } from "GlobalComponents";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { SecondaryLightGrey } from "ColorVars";
 import { UseResponsiveCheck, UseCurrentUser } from "Hooks";
 import { UseScrollHandler } from "./UseScrollHandler";
+import { useHistory } from "react-router-dom";
 
 interface Props {
   edit: boolean;
@@ -35,6 +35,7 @@ export const SnackbarButtons: React.FC<Props> = ({
     decreaseTime,
     timeoutDuration,
   } = UseScrollHandler();
+  const history = useHistory();
 
   const isLyricCreator = !!currentUser?.lyrics?.find(
     id => id?.lyricId === lyricId
@@ -42,9 +43,9 @@ export const SnackbarButtons: React.FC<Props> = ({
 
   const buttons = [
     {
-      name: "Home",
-      icon: () => <Home />,
-      link: "/",
+      name: "Back",
+      icon: () => <ArrowBackIosIcon />,
+      onClick: () => history.goBack(),
     },
     {
       name: "EDIT",
@@ -99,27 +100,19 @@ export const SnackbarButtons: React.FC<Props> = ({
       </Button>
     );
 
-  const InnerWrapper: React.FC<{ to?: string; link?: any }> = ({
-    children,
-    to = "",
-    link,
-  }) => <>{link ? <Link to={to}>{children}</Link> : <>{children}</>}</>;
-
   return (
     <Grid container>
       {buttons.map(
         ({ name, icon, onClick = () => null, display = "flex", ...rest }) => (
           <Grid item xs={12} key={name} onClick={onClick}>
-            <InnerWrapper link={rest.link} to={rest?.link}>
-              <ButtonElement
-                onClick={onClick}
-                style={{ display, marginTop: "15px" }}
-              >
-                {icon()}
-                {!isTablet && name}
-                {rest?.numberText}
-              </ButtonElement>
-            </InnerWrapper>
+            <ButtonElement
+              onClick={onClick}
+              style={{ display, marginTop: "15px" }}
+            >
+              {icon()}
+              {!isTablet && name}
+              {rest?.numberText}
+            </ButtonElement>
           </Grid>
         )
       )}

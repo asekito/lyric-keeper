@@ -14,12 +14,14 @@ interface Props {
   lyricList: Lyric[];
   playlistName: string;
   playlistId: string;
+  refetchAllData(cb?: any): void;
 }
 
 export const EditView: React.FC<Props> = ({
   lyricList,
   playlistName,
   playlistId,
+  refetchAllData,
 }) => {
   const [lyricsIndex, setLyricsIndex] = useState<{ [key: string]: Lyric }>({});
   const [lyricIdList, setLyricIdList] = useState<string[]>([]);
@@ -66,16 +68,17 @@ export const EditView: React.FC<Props> = ({
         <NewLyricControlButton
           style={{ marginBottom: "10px" }}
           variant="contained"
-          onClick={() =>
-            editPlaylist({
+          onClick={async () => {
+            await editPlaylist({
               variables: {
                 uid: currentUser?.uid,
                 playlistName: textFieldText,
                 lyricList: lyricIdList.map(id => ({ lyricId: id })),
                 playlistId,
               },
-            })
-          }
+            });
+            refetchAllData();
+          }}
         >
           <Save /> Save
         </NewLyricControlButton>

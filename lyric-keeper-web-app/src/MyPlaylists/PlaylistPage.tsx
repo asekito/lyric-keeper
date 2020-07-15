@@ -5,7 +5,7 @@ import {
   Query_Get_Multiple_Lyrics_By_Id,
   Mutation_Delete_Playlist,
 } from "operations";
-import { UseCurrentUser, UseDarkMode } from "Hooks";
+import { UseCurrentUser, UseDarkMode, UseIsOffline } from "Hooks";
 import {
   Find_Playlist_With_Id_findPlaylistWithId,
   Find_Playlist_With_Id,
@@ -47,6 +47,7 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
   const { isLoggedIn, currentUser } = currentUserDetails;
   const { darkModeIsEnabled } = UseDarkMode();
   const history = useHistory();
+  const { isOffline } = UseIsOffline();
 
   const playlistId = window.location.pathname.slice(
     10,
@@ -68,7 +69,7 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
     variables: { uid: currentUser?.uid, playlistId } as any,
   });
 
-  const { data, loading } = findPlaylistWithId;
+  const { data, loading, refetch: refetchPlaylistData } = findPlaylistWithId;
 
   useEffect(() => {
     // Handle fetching cached data if offline
@@ -85,7 +86,7 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
     }
     if (data) setPlaylistData(data.findPlaylistWithId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, loading]);
+  }, [data, loading, playlistData]);
 
   // ////// GET DATA FOR LYRICS \\\\\\
 
@@ -128,7 +129,11 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lyricListData.data, lyricListData.loading]);
+  }, [lyricListData.data, lyricListData.loading, playlistData]);
+
+  useEffect(() => {
+    setEditView(false);
+  }, [data]);
 
   if (!isLoggedIn)
     return (
@@ -145,6 +150,10 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
 
   if (loading || lyricListData.loading || !playlistData)
     return <LoadingScreen darkMode={darkModeIsEnabled} />;
+
+  const refetchAllData = () => {
+    refetchPlaylistData();
+  };
 
   return (
     <>
@@ -164,15 +173,17 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
         />
       )}
       <PageWrapper isDarkMode={darkModeIsEnabled}>
-        <Link to="/my-playlists">
-          <NewLyricControlButton
-            style={{ marginBottom: "10px" }}
-            variant="contained"
-          >
-            <ArrowBackIosIcon /> Back
-          </NewLyricControlButton>
-        </Link>
         {!editView && (
+          <Link to="/my-playlists">
+            <NewLyricControlButton
+              style={{ marginBottom: "10px" }}
+              variant="contained"
+            >
+              <ArrowBackIosIcon /> Back
+            </NewLyricControlButton>
+          </Link>
+        )}
+        {!editView && !isOffline && (
           <NewLyricControlButton
             style={{ marginBottom: "10px" }}
             variant="contained"
@@ -187,8 +198,7 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
             variant="contained"
             onClick={() => {
               setEditView(false);
-              findPlaylistWithId.refetch();
-              lyricListData.refetch();
+              refetchAllData();
             }}
           >
             <Cancel /> Cancel
@@ -228,6 +238,7 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
             playlistName={playlistData?.playlistName}
             lyricList={lyrics}
             playlistId={playlistData.id}
+            refetchAllData={refetchAllData}
           />
         )}
       </PageWrapper>

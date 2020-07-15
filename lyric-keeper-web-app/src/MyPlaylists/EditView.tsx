@@ -75,6 +75,10 @@ export const EditView: React.FC<Props> = ({
     refetchAllData();
   };
 
+  const deleteIdFromList = ({ id }: { id: string }) => {
+    setLyricIdList(data => data.filter(lyricId => lyricId !== id));
+  };
+
   return (
     <>
       {currentUser && lyricIdList && (
@@ -115,6 +119,8 @@ export const EditView: React.FC<Props> = ({
                           ref={draggableProvided.innerRef}
                         >
                           <DraggableLyricCard
+                            showDeleteIcon
+                            onClickDelete={deleteIdFromList}
                             selectable={false}
                             key={lyricsIndex[id].id}
                             {...lyricsIndex[id]}

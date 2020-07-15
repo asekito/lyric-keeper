@@ -7,6 +7,8 @@ import {
   TitleAuthorDivider,
   CardAuthor,
 } from "./elements";
+import Delete from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
 
 interface Props {
   title: string;
@@ -15,6 +17,8 @@ interface Props {
   setSelectedLyrics?: React.Dispatch<any>;
   clearAll?: boolean;
   selectable?: boolean;
+  showDeleteIcon?: boolean;
+  onClickDelete?({}: { id: string }): void;
 }
 
 export const DraggableLyricCard: React.FC<Props> = ({
@@ -24,6 +28,8 @@ export const DraggableLyricCard: React.FC<Props> = ({
   clearAll,
   setSelectedLyrics,
   selectable = true,
+  showDeleteIcon = false,
+  onClickDelete,
 }) => {
   const [selected, setSelected] = useState(false);
   const { isMobile } = UseResponsiveCheck();
@@ -59,6 +65,20 @@ export const DraggableLyricCard: React.FC<Props> = ({
         isSelected={selected}
       >
         <div style={{ display: "inline-block", paddingTop: "8px" }}>
+          {showDeleteIcon && onClickDelete && (
+            <IconButton
+              onClick={() => onClickDelete({ id })}
+              style={{
+                display: "inline",
+                verticalAlign: "super",
+                marginRight: "15px",
+                padding: "0px",
+                top: "4px",
+              }}
+            >
+              <Delete />
+            </IconButton>
+          )}
           <CardTitle>{truncate({ string: title, limit })}</CardTitle>
           <TitleAuthorDivider>{" | "}</TitleAuthorDivider>
           {author && (

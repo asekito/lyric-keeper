@@ -27,10 +27,15 @@ export const orderLyricsBasedOnIdList = <I extends Lyric>({
   lyricIdList,
 }: OrderLyricsArgShape<I>): I[] => {
   const index: { [key: string]: I } = {};
+  const returnArr: I[] = [];
 
   fullLyricData.forEach(({ ...lyricData }) => {
     index[lyricData.id] = { ...lyricData };
   });
 
-  return lyricIdList.map(({ lyricId }) => ({ ...index[lyricId] }));
+  lyricIdList.forEach(({ lyricId }) => {
+    if (index[lyricId]) returnArr.push({ ...index[lyricId] });
+  });
+
+  return returnArr;
 };

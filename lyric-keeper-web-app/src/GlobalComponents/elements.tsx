@@ -226,3 +226,17 @@ export const DialogButton = styled(Button)`
     border-width: 1.5px;
   }
 `;
+
+export const ModalContentWrapper = styled.div<{ darkMode: boolean }>`
+  text-align: center;
+  background-color: ${({ darkMode }) =>
+    darkMode ? DarkModePageBackground : "white"};
+  min-width: 65%;
+  height: 60vh;
+  position: absolute;
+  margin: auto;
+  border-radius: 6px;
+  top: 16%;
+  left: 20%;
+  overflow: scroll;
+`;

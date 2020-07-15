@@ -11,20 +11,6 @@ import Switch from "@material-ui/core/Switch";
 import Modal from "@material-ui/core/Modal";
 import Fab from "@material-ui/core/Fab";
 
-export const ModalContentWrapper = styled.div<{ darkMode: boolean }>`
-  text-align: center;
-  background-color: ${({ darkMode }) =>
-    darkMode ? DarkModePageBackground : "white"};
-  min-width: 65%;
-  height: 60vh;
-  position: absolute;
-  margin: auto;
-  border-radius: 6px;
-  top: 16%;
-  left: 20%;
-  overflow: scroll;
-`;
-
 export const TextFieldStyles = styled.div`
   display: block;
 `;

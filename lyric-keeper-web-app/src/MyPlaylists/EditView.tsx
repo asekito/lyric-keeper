@@ -9,6 +9,8 @@ import { NewLyricControlButton } from "./elements";
 import Save from "@material-ui/icons/Save";
 import { useMutation } from "react-apollo";
 import { Mutation_Edit_Playlist } from "operations";
+import AddBoxIcon from "@material-ui/icons/AddBox";
+import { NewLyricsSelectorModal } from "./NewLyricsSelectorModal";
 
 interface Props {
   lyricList: Lyric[];
@@ -23,6 +25,8 @@ export const EditView: React.FC<Props> = ({
   playlistId,
   refetchAllData,
 }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [newSelectedLyrics, setNewSelectedLyrics] = useState<any[]>([]);
   const [lyricsIndex, setLyricsIndex] = useState<{ [key: string]: Lyric }>({});
   const [lyricIdList, setLyricIdList] = useState<string[]>([]);
   const [textFieldText, setTextFieldText] = useState(playlistName);
@@ -81,6 +85,14 @@ export const EditView: React.FC<Props> = ({
 
   return (
     <>
+      <NewLyricsSelectorModal
+        lyricIdList={lyricIdList}
+        setLyricIdList={setLyricIdList}
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        selectedLyrics={newSelectedLyrics}
+        setSelectedLyrics={setNewSelectedLyrics}
+      />
       {currentUser && lyricIdList && (
         <NewLyricControlButton
           style={{ marginBottom: "10px" }}
@@ -93,6 +105,13 @@ export const EditView: React.FC<Props> = ({
           <Save /> Save
         </NewLyricControlButton>
       )}
+      <NewLyricControlButton
+        style={{ marginBottom: "10px" }}
+        variant="contained"
+        onClick={() => setModalIsOpen(true)}
+      >
+        <AddBoxIcon /> Add Lyrics to List
+      </NewLyricControlButton>
       <div>
         <StyledTextField
           style={{ marginTop: "30px", width: "300px", marginBottom: "30px" }}

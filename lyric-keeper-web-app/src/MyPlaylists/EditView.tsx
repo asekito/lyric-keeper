@@ -62,6 +62,19 @@ export const EditView: React.FC<Props> = ({
     setLyricIdList(newLyricIdList);
   };
 
+  const updatePlaylistAndRefetchData = async () => {
+    currentUser &&
+      (await editPlaylist({
+        variables: {
+          uid: currentUser?.uid,
+          playlistName: textFieldText,
+          lyricList: lyricIdList.map(id => ({ lyricId: id })),
+          playlistId,
+        },
+      }));
+    refetchAllData();
+  };
+
   return (
     <>
       {currentUser && lyricIdList && (
@@ -69,15 +82,8 @@ export const EditView: React.FC<Props> = ({
           style={{ marginBottom: "10px" }}
           variant="contained"
           onClick={async () => {
-            await editPlaylist({
-              variables: {
-                uid: currentUser?.uid,
-                playlistName: textFieldText,
-                lyricList: lyricIdList.map(id => ({ lyricId: id })),
-                playlistId,
-              },
-            });
-            refetchAllData();
+            await updatePlaylistAndRefetchData();
+            updatePlaylistAndRefetchData();
           }}
         >
           <Save /> Save

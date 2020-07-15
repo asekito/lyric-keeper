@@ -7,6 +7,7 @@ import {
   TitleAuthorDivider,
   CardAuthor,
 } from "./elements";
+import { AreYouSureDialog } from "GlobalComponents";
 import Delete from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -31,6 +32,7 @@ export const DraggableLyricCard: React.FC<Props> = ({
   showDeleteIcon = false,
   onClickDelete,
 }) => {
+  const [showAreYouSureDialog, setShowAreYouSureDialog] = useState(false);
   const [selected, setSelected] = useState(false);
   const { isMobile } = UseResponsiveCheck();
   const { darkModeIsEnabled } = UseDarkMode();
@@ -43,6 +45,15 @@ export const DraggableLyricCard: React.FC<Props> = ({
 
   return (
     <div style={{ display: "block" }}>
+      {showAreYouSureDialog && onClickDelete && (
+        <AreYouSureDialog
+          entryTitle={title}
+          onClickDelete={() => onClickDelete({ id })}
+          isOpen={showAreYouSureDialog}
+          setIsOpen={setShowAreYouSureDialog}
+          confirmationText="Do you want to delete this lyric from your playlist: "
+        />
+      )}
       <CardWrapper
         onClick={
           selectable && setSelectedLyrics
@@ -67,7 +78,7 @@ export const DraggableLyricCard: React.FC<Props> = ({
         <div style={{ display: "inline-block", paddingTop: "8px" }}>
           {showDeleteIcon && onClickDelete && (
             <IconButton
-              onClick={() => onClickDelete({ id })}
+              onClick={() => setShowAreYouSureDialog(true)}
               style={{
                 display: "inline",
                 verticalAlign: "super",

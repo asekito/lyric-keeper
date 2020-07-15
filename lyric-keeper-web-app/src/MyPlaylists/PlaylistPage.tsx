@@ -170,6 +170,7 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
           }}
           isOpen={deleteDialogIsOpen}
           setIsOpen={setDeleteDialogIsOpen}
+          confirmationText="Are you sure you want to delete your playlist: "
         />
       )}
       <PageWrapper isDarkMode={darkModeIsEnabled}>

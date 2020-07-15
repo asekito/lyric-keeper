@@ -7,6 +7,7 @@ interface Props {
   setIsOpen: React.Dispatch<boolean>;
   onClickDelete(): void;
   entryTitle: string;
+  confirmationText?: string;
 }
 
 export const AreYouSureDialog: React.FC<Props> = ({
@@ -14,10 +15,13 @@ export const AreYouSureDialog: React.FC<Props> = ({
   setIsOpen,
   onClickDelete,
   entryTitle,
+  confirmationText,
 }) => (
   <Dialog open={isOpen}>
     <StyledDialogTitle>
-      Are you sure you want to delete:{" "}
+      {confirmationText
+        ? confirmationText
+        : "Are you sure you want to delete: "}
       <DialogLyricTitle>{entryTitle}</DialogLyricTitle>
     </StyledDialogTitle>
     <div style={{ textAlign: "center" }}>

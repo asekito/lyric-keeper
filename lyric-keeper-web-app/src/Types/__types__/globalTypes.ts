@@ -7,6 +7,10 @@
 // START Enums and Input Objects
 //==============================================================
 
+export interface IdObjInput {
+  lyricId: string;
+}
+
 export interface InputIdObj {
   lyricId: string;
 }

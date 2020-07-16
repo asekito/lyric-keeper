@@ -8,4 +8,5 @@ export const PageWrapper = styled.div<{ isDarkMode: boolean }>`
   background-color: ${({ isDarkMode }) =>
     isDarkMode ? DarkModePageBackground : "white"};
   text-align: center;
+  padding-bottom: 20px;
 `;

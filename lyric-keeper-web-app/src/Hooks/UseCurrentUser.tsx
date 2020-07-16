@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "react-apollo";
 import { Query_Get_Current_User } from "operations";
-import { Get_Current_UserVariables, Get_Current_User } from "Types";
+import {
+  Get_Current_UserVariables,
+  Get_Current_User,
+  Get_Current_User_getCurrentUser,
+} from "Types";
 
 interface SetUserTypes {
   uid: string;
@@ -9,7 +13,8 @@ interface SetUserTypes {
 }
 
 interface CurrentUserShape extends SetUserTypes {
-  lyrics: Get_Current_User["getCurrentUser"];
+  lyrics: Get_Current_User_getCurrentUser["lyrics"];
+  playlists: Get_Current_User_getCurrentUser["playlists"];
 }
 
 export interface UseCurrentUserReturnShape {
@@ -80,12 +85,18 @@ export const UseCurrentUser = () => {
       setCurrentUser({
         uid: currentUid,
         email: userConfigItems?.email || "",
-        lyrics: data?.getCurrentUser ? data?.getCurrentUser : [],
+        lyrics: data?.getCurrentUser?.lyrics ? data?.getCurrentUser.lyrics : [],
+        playlists: data?.getCurrentUser?.playlists
+          ? data?.getCurrentUser.playlists
+          : [],
       });
       setToLocalStorage("currentUser", {
         uid: currentUid,
         email: userConfigItems?.email || "",
-        lyrics: data?.getCurrentUser ? data?.getCurrentUser : [],
+        lyrics: data?.getCurrentUser?.lyrics ? data?.getCurrentUser.lyrics : [],
+        playlists: data?.getCurrentUser?.playlists
+          ? data?.getCurrentUser.playlists
+          : [],
       });
       setIsLoggedIn(true);
     }

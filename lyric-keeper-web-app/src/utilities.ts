@@ -8,8 +8,34 @@ export const truncate = ({
   limit: number;
 }) => `${string.slice(0, limit)}${string.length > limit ? "..." : ""}`;
 
-type findNonPrivateLyricsType = (lyrics: Lyric[]) => Lyric[];
+export const findNonPrivateLyrics = <I>(lyrics: I[]): I[] | undefined => {
+  if (lyrics)
+    return lyrics.filter(
+      (item: any) => item?.isPrivate === null || item?.isPrivate === false
+    );
+  return undefined;
+};
 
-export const findNonPrivateLyrics: findNonPrivateLyricsType = (
-  lyrics: Lyric[]
-) => lyrics.filter(({ isPrivate }) => isPrivate === null || false);
+interface OrderLyricsArgShape<I> {
+  fullLyricData: I[];
+  lyricIdList: { lyricId: string }[];
+}
+
+// Using generics to allow for possible type expansion in the future
+export const orderLyricsBasedOnIdList = <I extends Lyric>({
+  fullLyricData,
+  lyricIdList,
+}: OrderLyricsArgShape<I>): I[] => {
+  const index: { [key: string]: I } = {};
+  const returnArr: I[] = [];
+
+  fullLyricData.forEach(({ ...lyricData }) => {
+    index[lyricData.id] = { ...lyricData };
+  });
+
+  lyricIdList.forEach(({ lyricId }) => {
+    if (index[lyricId]) returnArr.push({ ...index[lyricId] });
+  });
+
+  return returnArr;
+};

@@ -6,19 +6,23 @@ interface Props {
   isOpen: boolean;
   setIsOpen: React.Dispatch<boolean>;
   onClickDelete(): void;
-  lyricTitle: string;
+  entryTitle: string;
+  confirmationText?: string;
 }
 
 export const AreYouSureDialog: React.FC<Props> = ({
   isOpen,
   setIsOpen,
   onClickDelete,
-  lyricTitle,
+  entryTitle,
+  confirmationText,
 }) => (
   <Dialog open={isOpen}>
     <StyledDialogTitle>
-      Are you sure you want to delete:{" "}
-      <DialogLyricTitle>{lyricTitle}</DialogLyricTitle>
+      {confirmationText
+        ? confirmationText
+        : "Are you sure you want to delete: "}
+      <DialogLyricTitle>{entryTitle}</DialogLyricTitle>
     </StyledDialogTitle>
     <div style={{ textAlign: "center" }}>
       <DialogButton

@@ -32,6 +32,17 @@ export const Query_Get_All_Lyrics = gql`
   ${Lyric}
 `;
 
+export const Query_Get_All_Lyrics_Title_And_Author = gql`
+  query Get_All_Lyrics_Title_And_Author {
+    allLyrics {
+      id
+      title
+      author
+      isPrivate
+    }
+  }
+`;
+
 export const Query_Find_Lyric_With_Short_Url = gql`
   query Find_Lyric_With_Short_Url($shortUrl: String!) {
     findLyricWithShortUrl(input: { shortUrl: $shortUrl }) {
@@ -95,7 +106,26 @@ export const Mutation_Update_Lyric = gql`
 export const Query_Get_Current_User = gql`
   query Get_Current_User($uid: String!) {
     getCurrentUser(input: { uid: $uid }) {
-      lyricId
+      lyrics {
+        lyricId
+      }
+      playlists {
+        id
+        playlistName
+        lyricList {
+          lyricId
+        }
+      }
+    }
+  }
+`;
+
+export const Mutation_Create_New_User = gql`
+  mutation Create_New_User($uid: String!) {
+    createNewUser(input: { uid: $uid }) {
+      result {
+        error
+      }
     }
   }
 `;
@@ -121,4 +151,56 @@ export const Query_Get_Multiple_Lyrics_By_Id = gql`
     }
   }
   ${Lyric}
+`;
+
+export const Mutation_Create_New_Playlist = gql`
+  mutation Create_New_Playlist(
+    $uid: String!
+    $playlistName: String!
+    $lyricList: [IdObjInput]!
+  ) {
+    createNewPlaylist(
+      input: { uid: $uid, playlistName: $playlistName, lyricList: $lyricList }
+    ) {
+      result {
+        error
+      }
+    }
+  }
+`;
+
+export const Query_Find_Playlist_With_Id = gql`
+  query Find_Playlist_With_Id($uid: String!, $playlistId: String!) {
+    findPlaylistWithId(input: { uid: $uid, playlistId: $playlistId }) {
+      id
+      playlistName
+      lyricList {
+        lyricId
+      }
+    }
+  }
+`;
+
+export const Mutation_Delete_Playlist = gql`
+  mutation Delete_Playlist($uid: String!, $playlistId: String!) {
+    deletePlaylist(input: { uid: $uid, playlistId: $playlistId })
+  }
+`;
+
+export const Mutation_Edit_Playlist = gql`
+  mutation Edit_Playlist(
+    $playlistId: String!
+    $playlistName: String!
+    $lyricList: [InputIdObj]!
+    $uid: String!
+  ) {
+    editPlaylist(
+      input: {
+        uid: $uid
+        playlistId: $playlistId
+        playlistName: $playlistName
+        lyricList: $lyricList
+      }
+    )
+  }
 `;

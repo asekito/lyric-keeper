@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, Snackbar } from "@material-ui/core";
 import {
-  ModalContentWrapper,
   HeadingWrapper,
   HeadingTitle,
   StyledModal,
   StyledFab,
 } from "./elements";
+import { ModalContentWrapper } from "GlobalComponents";
 import { NewLyricForm } from "./NewLyricForm";
 import AddIcon from "@material-ui/icons/Add";
 import { Lyric } from "Types";

@@ -7,7 +7,7 @@ import {
 } from "./elements";
 import Delete from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
-import { Link, LoadingIndicator } from "GlobalComponents";
+import { Link, LoadingIndicator, AreYouSureDialog } from "GlobalComponents";
 import { useMutation } from "react-apollo";
 import {
   Delete_Lyric_Matching_IdVariables,
@@ -23,10 +23,9 @@ import {
 import { truncate } from "utilities";
 import { UseResponsiveCheck, UseCurrentUserReturnShape } from "Hooks";
 import { SettingsObj } from "Homepage";
-import { AreYouSureDialog } from "./AreYouSureDialog";
 
 type Props = Lyric & {
-  getAndUpdateAllLyrics(settings?: SettingsObj): void;
+  getAndUpdateAllLyrics?(settings?: SettingsObj): void;
   darkModeIsEnabled: boolean;
   currentUser: UseCurrentUserReturnShape["currentUser"];
   showDeleteButton?: boolean;
@@ -47,7 +46,7 @@ export const LyricCard: React.FC<Props> = ({
     Delete_Lyric_Matching_Id,
     Delete_Lyric_Matching_IdVariables
   >(Mutation_Delete_Lyric_Matching_Id, {
-    onCompleted: () => getAndUpdateAllLyrics(),
+    onCompleted: () => getAndUpdateAllLyrics && getAndUpdateAllLyrics(),
   });
 
   const [deleteLyricFromUserList] = useMutation<
@@ -65,7 +64,7 @@ export const LyricCard: React.FC<Props> = ({
     <>
       {currentUser && showDeleteButton && (
         <AreYouSureDialog
-          lyricTitle={title}
+          entryTitle={title}
           onClickDelete={() => {
             deleteLyricFromUserList({
               variables: { uid: currentUser.uid, lyricId: id },

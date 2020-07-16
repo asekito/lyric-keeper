@@ -12,6 +12,12 @@ import {
 } from "./elements";
 import { firebase } from "firebaseApp";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { useMutation } from "react-apollo";
+import { Mutation_Create_New_User } from "operations";
+import {
+  Create_New_User,
+  Create_New_UserVariables,
+} from "Types/__types__/Create_New_User";
 
 interface Props {
   isOpen: boolean;
@@ -42,6 +48,11 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
   const isLoginType = modalType === "login";
   const isCreateAccountType = modalType === "create-account";
 
+  const [createNewUserMutation] = useMutation<
+    Create_New_User,
+    Create_New_UserVariables
+  >(Mutation_Create_New_User);
+
   // \\\\\\ CREATE ACCOUNT LOGIC //////
 
   const createNewUser = ({ email, password, setError }: EmailAndPassword) => {
@@ -61,6 +72,7 @@ export const LoginCreateAccountModal: React.FC<Props> = ({
         setAuthIsLoading(false);
         if (r && r.user) {
           setUser({ uid: r.user.uid, email: r.user.email });
+          createNewUserMutation({ variables: { uid: r.user.uid } });
           setIsOpen(false);
         }
       });

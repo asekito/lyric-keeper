@@ -21,9 +21,9 @@ export const Script = () => {
     currentUser &&
       data.forEach(({ id, title }) => {
         // addNewLyric({ variables: { title, chorus, verses, author, shortUrl } });
-        addNewLyricToUserList({
-          variables: { uid: currentUser?.uid, lyricId: id },
-        });
+        // addNewLyricToUserList({
+        //   variables: { uid: currentUser?.uid, lyricId: id },
+        // });
         console.log(`${title} added!`);
       });
   }, []);

@@ -25,7 +25,7 @@ export const PlaylistCard: React.FC<Get_Current_User_getCurrentUser_playlists> =
         <Grid
           container
           style={{
-            width: "80%",
+            width: "70%",
             textAlign: "center",
             marginRight: "auto",
             marginLeft: isMobile ? "16px" : "auto",

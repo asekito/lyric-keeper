@@ -68,6 +68,11 @@ export const NewLyricsSelectorModal: React.FC<Props> = ({
       <ModalContentWrapper darkMode={darkModeIsEnabled}>
         <NewPlaylistDescriptiveText>
           Select the lyric(s) you'd like to add to your playlist
+          <br />
+          <div style={{ fontSize: "0.9rem", marginTop: "10px" }}>
+            Currently, private lyrics cannot be added to a playlist. I'm working
+            on this, though!
+          </div>
         </NewPlaylistDescriptiveText>
         <NewLyricControlButton
           variant="contained"

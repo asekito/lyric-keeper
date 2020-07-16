@@ -154,12 +154,13 @@ export const EditView: React.FC<Props> = ({
           onChange={({ target: { value } }) => setTextFieldText(value)}
         />
       </div>
-      <NewPlaylistDescriptiveText
-        style={{ marginTop: "0px", marginBottom: "30px" }}
-      >
-        To reorder your lyrics, simply drag and drop from the list below
-      </NewPlaylistDescriptiveText>
       <Container maxWidth="sm">
+        <NewPlaylistDescriptiveText
+          style={{ marginTop: "0px", marginBottom: "30px" }}
+        >
+          You can reorder the list below by simply dragging each item into the
+          slot you'd like!
+        </NewPlaylistDescriptiveText>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="edit-section">
             {provided => (

@@ -9,9 +9,10 @@ import ListIcon from "@material-ui/icons/List";
 import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import { FogGrey, LighterPurple, BrightGreen } from "ColorVars";
 import { UseCurrentUserReturnShape, UseCurrentUser } from "Hooks";
-import { StyledMenuItem, StyledMenu } from "./elements";
+import { StyledMenuItem, StyledMenu, NavMainText } from "./elements";
 import { truncate } from "utilities";
 import { Link, LoginCreateAccountModal } from "GlobalComponents";
+import HomeIcon from "@material-ui/icons/Home";
 
 export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -76,7 +77,10 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
           <MenuIcon />
         </IconButton> */}
           <Link to="/" style={{ color: "white" }}>
-            <Typography variant="h6">Lyric Keeper</Typography>
+            <IconButton>
+              <HomeIcon style={{ color: "white" }} />
+            </IconButton>{" "}
+            <NavMainText variant="h6">Lyric Keeper</NavMainText>
           </Link>
           {isLoggedIn && currentUser ? (
             <>

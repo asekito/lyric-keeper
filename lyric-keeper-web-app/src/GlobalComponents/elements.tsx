@@ -240,3 +240,9 @@ export const ModalContentWrapper = styled.div<{ darkMode: boolean }>`
   left: 20%;
   overflow: scroll;
 `;
+
+export const NavMainText = styled(Typography)`
+  display: inline;
+  position: absolute;
+  top: 16px;
+`;

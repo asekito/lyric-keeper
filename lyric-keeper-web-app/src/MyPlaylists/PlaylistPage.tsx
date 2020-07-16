@@ -215,25 +215,23 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
           </NewLyricControlButton>
         )}
         {!editView ? (
-          <>
-            <PageHeader variant="h4">{playlistData?.playlistName}</PageHeader>
-            <Container maxWidth="sm" style={{ marginTop: "40px" }}>
-              {
-                <>
-                  <LyricCountWrapper
-                    darkMode={darkModeIsEnabled}
-                  >{`Lyrics: ${lyrics.length}`}</LyricCountWrapper>
-                  {lyrics.map(({ ...props }) => (
-                    <LyricCard
-                      currentUser={currentUser}
-                      darkModeIsEnabled={darkModeIsEnabled}
-                      {...props}
-                    />
-                  ))}
-                </>
-              }
-            </Container>
-          </>
+          <Container maxWidth="sm">
+            <>
+              <PageHeader style={{ paddingBottom: "30px" }} variant="h4">
+                {playlistData?.playlistName}
+              </PageHeader>
+              <LyricCountWrapper
+                darkMode={darkModeIsEnabled}
+              >{`Lyrics: ${lyrics.length}`}</LyricCountWrapper>
+              {lyrics.map(({ ...props }) => (
+                <LyricCard
+                  currentUser={currentUser}
+                  darkModeIsEnabled={darkModeIsEnabled}
+                  {...props}
+                />
+              ))}
+            </>
+          </Container>
         ) : (
           <EditView
             playlistName={playlistData?.playlistName}

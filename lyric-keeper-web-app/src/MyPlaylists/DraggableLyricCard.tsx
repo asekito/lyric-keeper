@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { UseResponsiveCheck, UseDarkMode } from "Hooks";
 import { truncate } from "utilities";
-import {
-  CardWrapper,
-  CardTitle,
-  TitleAuthorDivider,
-  CardAuthor,
-} from "./elements";
+import { CardWrapper, CardTitle, CardAuthor } from "./elements";
 import { AreYouSureDialog } from "GlobalComponents";
 import Delete from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";

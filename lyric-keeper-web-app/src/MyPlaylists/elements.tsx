@@ -43,7 +43,7 @@ export const CardWrapper = styled.div<{
 }>`
   min-height: 40px;
   margin: auto;
-  padding: 8px;
+  padding: 10px;
   margin-top: 15px;
   border-radius: 6px;
   div {

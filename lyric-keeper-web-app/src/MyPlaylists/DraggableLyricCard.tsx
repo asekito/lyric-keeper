@@ -44,7 +44,7 @@ export const DraggableLyricCard: React.FC<Props> = ({
     setSelected(false);
   }, [clearAll]);
 
-  const limit = isMobile ? 7 : 14;
+  const limit = isMobile ? 12 : 21;
 
   return (
     <div style={{ display: "block" }}>
@@ -79,28 +79,37 @@ export const DraggableLyricCard: React.FC<Props> = ({
         darkMode={darkModeIsEnabled}
         isSelected={selected}
       >
-        <div style={{ display: "inline-block", paddingTop: "8px" }}>
+        <div style={{ display: "inline-block" }}>
           {draggable && (
-            <DragHandleIcon style={{ height: "30px", marginRight: "20px" }} />
+            <DragHandleIcon
+              style={{
+                height: "30px",
+                marginRight: "60px",
+                top: "14px",
+                position: "relative",
+              }}
+            />
           )}
+          <CardTitle>{truncate({ string: title, limit })}</CardTitle>
+          {/* <TitleAuthorDivider>{" | "}</TitleAuthorDivider> */}
           {showDeleteIcon && onClickDelete && (
             <IconButton
               onClick={() => setShowAreYouSureDialog(true)}
               style={{
                 display: "inline",
                 verticalAlign: "super",
-                marginRight: "15px",
+                marginLeft: "60px",
                 padding: "0px",
-                top: "4px",
+                top: "18px",
               }}
             >
               <Delete />
             </IconButton>
           )}
-          <CardTitle>{truncate({ string: title, limit })}</CardTitle>
-          <TitleAuthorDivider>{" | "}</TitleAuthorDivider>
           {author && (
-            <CardAuthor>{truncate({ string: author, limit })}</CardAuthor>
+            <CardAuthor style={{ display: "block" }}>
+              {truncate({ string: author, limit })}
+            </CardAuthor>
           )}
         </div>
       </CardWrapper>

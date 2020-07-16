@@ -10,6 +10,7 @@ import {
 import { AreYouSureDialog } from "GlobalComponents";
 import Delete from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import DragHandleIcon from "@material-ui/icons/DragHandle";
 
 interface Props {
   title: string;
@@ -20,6 +21,7 @@ interface Props {
   selectable?: boolean;
   showDeleteIcon?: boolean;
   onClickDelete?({ id }: { id: string }): void;
+  draggable?: boolean;
 }
 
 export const DraggableLyricCard: React.FC<Props> = ({
@@ -31,6 +33,7 @@ export const DraggableLyricCard: React.FC<Props> = ({
   selectable = true,
   showDeleteIcon = false,
   onClickDelete,
+  draggable = false,
 }) => {
   const [showAreYouSureDialog, setShowAreYouSureDialog] = useState(false);
   const [selected, setSelected] = useState(false);
@@ -55,6 +58,7 @@ export const DraggableLyricCard: React.FC<Props> = ({
         />
       )}
       <CardWrapper
+        draggable={draggable}
         onClick={
           selectable && setSelectedLyrics
             ? () => {
@@ -76,6 +80,9 @@ export const DraggableLyricCard: React.FC<Props> = ({
         isSelected={selected}
       >
         <div style={{ display: "inline-block", paddingTop: "8px" }}>
+          {draggable && (
+            <DragHandleIcon style={{ height: "30px", marginRight: "20px" }} />
+          )}
           {showDeleteIcon && onClickDelete && (
             <IconButton
               onClick={() => setShowAreYouSureDialog(true)}

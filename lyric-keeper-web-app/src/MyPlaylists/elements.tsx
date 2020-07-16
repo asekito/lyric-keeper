@@ -39,6 +39,7 @@ export const NewLyricControlButton = styled(Button)`
 export const CardWrapper = styled.div<{
   darkMode: boolean;
   isSelected: boolean;
+  draggable: boolean;
 }>`
   min-height: 40px;
   margin: auto;
@@ -48,7 +49,7 @@ export const CardWrapper = styled.div<{
   div {
     text-decoration: none !important;
   }
-  cursor: pointer;
+  cursor: ${({ draggable }) => (draggable ? "grab" : "pointer")};
   ${({ isSelected }) =>
     isSelected ? `border: solid ${SemiLightGreen} 10px;` : "border: none;"}
   background-color: ${({ darkMode }) =>

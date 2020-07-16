@@ -11,7 +11,7 @@ import { UseDarkMode, UseCurrentUser } from "Hooks";
 import { DraggableLyricCard } from "./DraggableLyricCard";
 import Container from "@material-ui/core/Container";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { NewLyricControlButton } from "./elements";
+import { NewLyricControlButton, NewPlaylistDescriptiveText } from "./elements";
 import Save from "@material-ui/icons/Save";
 import { useMutation, useQuery } from "react-apollo";
 import {
@@ -154,6 +154,11 @@ export const EditView: React.FC<Props> = ({
           onChange={({ target: { value } }) => setTextFieldText(value)}
         />
       </div>
+      <NewPlaylistDescriptiveText
+        style={{ marginTop: "0px", marginBottom: "30px" }}
+      >
+        To reorder your lyrics, simply drag and drop from the list below
+      </NewPlaylistDescriptiveText>
       <Container maxWidth="sm">
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="edit-section">
@@ -169,6 +174,7 @@ export const EditView: React.FC<Props> = ({
                           ref={draggableProvided.innerRef}
                         >
                           <DraggableLyricCard
+                            draggable
                             showDeleteIcon
                             onClickDelete={deleteIdFromList}
                             selectable={false}

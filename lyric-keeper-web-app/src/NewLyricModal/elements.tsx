@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  MainGreen,
-  DarkModePageBackground,
-  SecondaryGreen,
-  LighterPurple,
-} from "ColorVars";
+import { MainGreen, SecondaryGreen, LighterPurple } from "ColorVars";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Switch from "@material-ui/core/Switch";

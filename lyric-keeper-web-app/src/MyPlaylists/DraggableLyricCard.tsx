@@ -19,7 +19,7 @@ interface Props {
   clearAll?: boolean;
   selectable?: boolean;
   showDeleteIcon?: boolean;
-  onClickDelete?({}: { id: string }): void;
+  onClickDelete?({ id }: { id: string }): void;
 }
 
 export const DraggableLyricCard: React.FC<Props> = ({

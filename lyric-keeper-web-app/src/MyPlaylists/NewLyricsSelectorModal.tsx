@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Modal from "@material-ui/core/Modal";
 import {
   NewPlaylistDescriptiveText,
   MainAreaWrapper,
   NewLyricControlButton,
+  StyledModal,
 } from "./elements";
 import {
   Get_All_Lyrics_Title_And_Author,
@@ -16,12 +16,11 @@ import { findNonPrivateLyrics } from "utilities";
 import { LyricCountWrapper, ModalContentWrapper } from "GlobalComponents";
 import { DraggableLyricCard } from "./DraggableLyricCard";
 import ClearAllIcon from "@material-ui/icons/ClearAll";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 interface Props {
   modalIsOpen: boolean;
   setModalIsOpen: React.Dispatch<boolean>;
-  selectedLyrics: any[];
-  setSelectedLyrics: React.Dispatch<any[]>;
   lyricIdList: string[];
   setLyricIdList: React.Dispatch<string[]>;
 }
@@ -29,11 +28,10 @@ interface Props {
 export const NewLyricsSelectorModal: React.FC<Props> = ({
   modalIsOpen,
   setModalIsOpen,
-  selectedLyrics,
-  setSelectedLyrics,
   lyricIdList,
   setLyricIdList,
 }) => {
+  const [selectedLyrics, setSelectedLyrics] = useState<any[]>([]);
   const [clearAll, setClearAll] = useState(false);
   const [allLyrics, setAllLyrics] = useState<
     Get_All_Lyrics_Title_And_Author["allLyrics"]
@@ -57,10 +55,16 @@ export const NewLyricsSelectorModal: React.FC<Props> = ({
         );
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, loading]);
 
+  const addNewLyricsToList = () => {
+    setLyricIdList([...lyricIdList, ...Object.keys(selectedLyrics)]);
+    setModalIsOpen(false);
+  };
+
   return (
-    <Modal onClose={() => setModalIsOpen(false)} open={modalIsOpen}>
+    <StyledModal onClose={() => setModalIsOpen(false)} open={modalIsOpen}>
       <ModalContentWrapper darkMode={darkModeIsEnabled}>
         <NewPlaylistDescriptiveText>
           Select the lyric(s) you'd like to add to your playlist
@@ -73,6 +77,14 @@ export const NewLyricsSelectorModal: React.FC<Props> = ({
           }}
         >
           Clear selection <ClearAllIcon />
+        </NewLyricControlButton>
+        <NewLyricControlButton
+          variant="contained"
+          onClick={() => {
+            addNewLyricsToList();
+          }}
+        >
+          Done <CheckCircleIcon />
         </NewLyricControlButton>
         <MainAreaWrapper maxWidth="sm">
           <LyricCountWrapper darkMode={darkModeIsEnabled}>{`Lyrics selected: ${
@@ -91,6 +103,6 @@ export const NewLyricsSelectorModal: React.FC<Props> = ({
           </>
         </MainAreaWrapper>
       </ModalContentWrapper>
-    </Modal>
+    </StyledModal>
   );
 };

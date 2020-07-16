@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Lyric, Edit_Playlist, Edit_PlaylistVariables } from "Types";
-import { StyledTextField } from "GlobalComponents";
+import {
+  Lyric,
+  Edit_Playlist,
+  Edit_PlaylistVariables,
+  Get_Multiple_Lyrics_By_Id,
+  Get_Multiple_Lyrics_By_IdVariables,
+} from "Types";
+import { StyledTextField, LoadingScreen } from "GlobalComponents";
 import { UseDarkMode, UseCurrentUser } from "Hooks";
 import { DraggableLyricCard } from "./DraggableLyricCard";
 import Container from "@material-ui/core/Container";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { NewLyricControlButton } from "./elements";
 import Save from "@material-ui/icons/Save";
-import { useMutation } from "react-apollo";
-import { Mutation_Edit_Playlist } from "operations";
+import { useMutation, useQuery } from "react-apollo";
+import {
+  Mutation_Edit_Playlist,
+  Query_Get_Multiple_Lyrics_By_Id,
+} from "operations";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import { NewLyricsSelectorModal } from "./NewLyricsSelectorModal";
 
@@ -26,9 +35,10 @@ export const EditView: React.FC<Props> = ({
   refetchAllData,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [newSelectedLyrics, setNewSelectedLyrics] = useState<any[]>([]);
   const [lyricsIndex, setLyricsIndex] = useState<{ [key: string]: Lyric }>({});
-  const [lyricIdList, setLyricIdList] = useState<string[]>([]);
+  const [lyricIdList, setLyricIdList] = useState<string[]>(
+    lyricList.map(({ id }) => id)
+  );
   const [textFieldText, setTextFieldText] = useState(playlistName);
   const { darkModeIsEnabled } = UseDarkMode();
   const { currentUser } = UseCurrentUser();
@@ -37,15 +47,32 @@ export const EditView: React.FC<Props> = ({
     Mutation_Edit_Playlist
   );
 
+  const { data, loading, refetch: refetchLyricsData } = useQuery<
+    Get_Multiple_Lyrics_By_Id,
+    Get_Multiple_Lyrics_By_IdVariables
+  >(Query_Get_Multiple_Lyrics_By_Id, {
+    variables: {
+      ids: lyricIdList.map(id => ({
+        lyricId: id,
+      })),
+    },
+  });
+
   useEffect(() => {
-    const index: any = {};
-    lyricList.forEach(({ ...lyricData }) => {
-      index[lyricData.id] = { ...lyricData };
-    });
-    setLyricsIndex(index);
-    setLyricIdList(lyricList.map(({ id }) => id));
+    if (!loading && Object.keys(lyricsIndex).length !== lyricIdList.length) {
+      if (!data && Object.keys(lyricsIndex).length !== lyricIdList.length) {
+        refetchLyricsData();
+        return;
+      } else if (data && data.getMultipleLyricsById) {
+        const index: any = {};
+        data?.getMultipleLyricsById.forEach(({ ...lyricData }) => {
+          index[lyricData.id] = { ...lyricData };
+        });
+        setLyricsIndex(index);
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data, loading, lyricIdList]);
 
   // Handle persistance of drag 'n drop data
   const onDragEnd = (result: any) => {
@@ -83,6 +110,12 @@ export const EditView: React.FC<Props> = ({
     setLyricIdList(data => data.filter(lyricId => lyricId !== id));
   };
 
+  if (
+    !Object.keys(lyricsIndex).length ||
+    Object.keys(lyricsIndex).length !== lyricIdList.length
+  )
+    return <LoadingScreen darkMode={darkModeIsEnabled} />;
+
   return (
     <>
       <NewLyricsSelectorModal
@@ -90,8 +123,6 @@ export const EditView: React.FC<Props> = ({
         setLyricIdList={setLyricIdList}
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}
-        selectedLyrics={newSelectedLyrics}
-        setSelectedLyrics={setNewSelectedLyrics}
       />
       {currentUser && lyricIdList && (
         <NewLyricControlButton

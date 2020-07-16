@@ -11,6 +11,7 @@ import {
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import Modal from "@material-ui/core/Modal";
 
 export const NoPlaylistsText = styled(Typography)`
   && {
@@ -153,5 +154,16 @@ export const SmallPlaylistCardText = styled(Typography)`
     display: inline;
     margin-left: 5px;
     text-align: left;
+  }
+`;
+
+export const StyledModal = styled(Modal)`
+  && {
+    .sc-fzoiQi {
+      width: 90%;
+      left: 5%;
+      top: 5%;
+      height: 84vh;
+    }
   }
 `;

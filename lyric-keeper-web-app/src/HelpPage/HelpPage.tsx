@@ -5,14 +5,21 @@ import { UseDarkMode } from "Hooks";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Delete from "@material-ui/icons/Delete";
+import Share from "@material-ui/icons/Share";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import {
   StyledSectionButton,
   StyledDetailsSection,
   Bold,
   StyledIframe,
 } from "./elements";
+import Snackbar from "@material-ui/core/Snackbar";
+
+interface LinkNumberShape {
+  linkNumber: number;
+}
 
 const Spacer = () => (
   <>
@@ -22,7 +29,10 @@ const Spacer = () => (
 );
 
 export const HelpPage: React.FC = () => {
+  const [snackBarIsOpen, setSnackBarIsOpen] = useState(false);
   const { darkModeIsEnabled } = UseDarkMode();
+
+  const handleClose = () => setSnackBarIsOpen(false);
 
   const windowSearchQuery = parseInt(
     window.location.search.slice(3, window.location.search.length),
@@ -37,26 +47,59 @@ export const HelpPage: React.FC = () => {
     dd5: windowSearchQuery === 5,
   });
 
+  const copyStringToClipboard = (string: string) => {
+    navigator.clipboard.writeText(string).then(() => setSnackBarIsOpen(true));
+  };
+
+  const generateLink = ({ linkNumber }: LinkNumberShape) =>
+    `lyrickeeper.netlify.com/help/?q=${linkNumber}`;
+
+  const ShareIcon: React.FC<LinkNumberShape> = ({ linkNumber }) => (
+    <IconButton
+      onClick={() => copyStringToClipboard(generateLink({ linkNumber }))}
+    >
+      <Share />
+    </IconButton>
+  );
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        open={snackBarIsOpen}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Link copied to clipboard"
+        action={
+          <React.Fragment>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
       <PageWrapper isDarkMode={darkModeIsEnabled}>
         <Container maxWidth="md" style={{ paddingBottom: "30px" }}>
-          <PageHeader>FAQ</PageHeader>
+          <PageHeader style={{ marginBottom: "30px" }}>FAQ</PageHeader>
           <ExpansionPanel
             expanded={dropDownStates.dd1}
             onChange={() =>
               setDropDownStates(({ dd1, ...rest }) => ({ dd1: !dd1, ...rest }))
             }
           >
-            <ExpansionPanelSummary
-              expandIcon={
-                dropDownStates.dd1 ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />
-              }
-            >
+            <ExpansionPanelSummary expandIcon={<ArrowDropDownIcon />}>
               <StyledSectionButton variant="text">
                 How do I install the Lyric Keeper app?
               </StyledSectionButton>
+              <ShareIcon linkNumber={1} />
             </ExpansionPanelSummary>
             <StyledDetailsSection>
               My goal is for you to be able to enjoy everything Lyric Keeper has
@@ -94,14 +137,11 @@ export const HelpPage: React.FC = () => {
               setDropDownStates(({ dd2, ...rest }) => ({ dd2: !dd2, ...rest }))
             }
           >
-            <ExpansionPanelSummary
-              expandIcon={
-                dropDownStates.dd2 ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />
-              }
-            >
+            <ExpansionPanelSummary expandIcon={<ArrowDropDownIcon />}>
               <StyledSectionButton variant="text">
                 Do I need an account to use Lyric Keeper?
               </StyledSectionButton>
+              <ShareIcon linkNumber={2} />
             </ExpansionPanelSummary>
             <StyledDetailsSection>
               To keep Lyric Keeper free and safe for its' users, I put the
@@ -129,14 +169,11 @@ export const HelpPage: React.FC = () => {
               setDropDownStates(({ dd3, ...rest }) => ({ dd3: !dd3, ...rest }))
             }
           >
-            <ExpansionPanelSummary
-              expandIcon={
-                dropDownStates.dd3 ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />
-              }
-            >
+            <ExpansionPanelSummary expandIcon={<ArrowDropDownIcon />}>
               <StyledSectionButton variant="text">
                 How do I create a lyric?
               </StyledSectionButton>
+              <ShareIcon linkNumber={3} />
             </ExpansionPanelSummary>
             <StyledDetailsSection>
               <Bold>Please note: you must be logged in to create a lyric.</Bold>
@@ -180,14 +217,11 @@ export const HelpPage: React.FC = () => {
               setDropDownStates(({ dd4, ...rest }) => ({ dd4: !dd4, ...rest }))
             }
           >
-            <ExpansionPanelSummary
-              expandIcon={
-                dropDownStates.dd4 ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />
-              }
-            >
+            <ExpansionPanelSummary expandIcon={<ArrowDropDownIcon />}>
               <StyledSectionButton variant="text">
                 How do I edit or delete a lyric?
               </StyledSectionButton>
+              <ShareIcon linkNumber={4} />
             </ExpansionPanelSummary>
             <StyledDetailsSection>
               <Bold>
@@ -224,14 +258,11 @@ export const HelpPage: React.FC = () => {
               setDropDownStates(({ dd5, ...rest }) => ({ dd5: !dd5, ...rest }))
             }
           >
-            <ExpansionPanelSummary
-              expandIcon={
-                dropDownStates.dd5 ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />
-              }
-            >
+            <ExpansionPanelSummary expandIcon={<ArrowDropDownIcon />}>
               <StyledSectionButton variant="text">
                 What are playlists and how can i use them?
               </StyledSectionButton>
+              <ShareIcon linkNumber={5} />
             </ExpansionPanelSummary>
             <StyledDetailsSection></StyledDetailsSection>
           </ExpansionPanel>

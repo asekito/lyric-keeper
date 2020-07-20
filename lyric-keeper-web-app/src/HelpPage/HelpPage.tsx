@@ -190,7 +190,7 @@ export const HelpPage: React.FC = () => {
                 }}
               >
                 <Image
-                  alt="New Lyric button pic"
+                  alt="New Lyric button"
                   src="https://lyric-keeper.s3.amazonaws.com/new-lyric-button.png"
                 />
               </div>
@@ -205,7 +205,7 @@ export const HelpPage: React.FC = () => {
               <Spacer />
               <Image
                 width="100%"
-                alt="New Lyric button pic"
+                alt="New Lyric form"
                 src="https://lyric-keeper.s3.amazonaws.com/new-lyric-form.png"
               />
               <br />
@@ -264,7 +264,32 @@ export const HelpPage: React.FC = () => {
               </StyledSectionButton>
               <ShareIcon linkNumber={5} />
             </ExpansionPanelSummary>
-            <StyledDetailsSection></StyledDetailsSection>
+            <StyledDetailsSection>
+              <Bold>What are playlists?</Bold>
+              <Spacer />
+              Playlists allow you to group together lyrics. Their primary
+              purpose is to provide you with an easy way of keeping track of
+              your lyrics. For example, you may decide you want to play a set of
+              slow songs at your next gig. Without creating a playlist, you
+              would need to either memorize your set list or write it down,
+              somewhere. Both options have disadvantages which I believe are
+              alleviated by playlists.
+              <Spacer />
+              <Bold>HOW DO I USE THEM?</Bold>
+              <Spacer />
+              <Bold>Creating playlists: </Bold>
+              <Spacer />
+              To create a playlist, first either:
+              <Spacer />
+              <Bold>1.</Bold> Click on the user icon in the top right-hand
+              corner of the screen. Click "My Playlists". Next, click the "New
+              playlist" button.
+              <Spacer />
+              <Bold>––––– or –––––</Bold>
+              <Spacer />
+              <Bold>2.</Bold> Visit '/my-playlists'. And click the "New
+              playlist" button.
+            </StyledDetailsSection>
           </ExpansionPanel>
         </Container>
       </PageWrapper>

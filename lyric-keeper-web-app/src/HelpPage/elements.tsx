@@ -13,6 +13,7 @@ export const StyledDetailsSection = styled(ExpansionPanelDetails)`
   line-height: 32px;
   text-align: left;
   display: block;
+  padding-bottom: 40px;
 `;
 
 export const Bold = styled.div`

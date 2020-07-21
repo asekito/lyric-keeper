@@ -21,6 +21,11 @@ export const Bold = styled.div`
   display: inline;
 `;
 
+export const Italic = styled.div`
+  font-style: italic;
+  display: inline;
+`;
+
 export const StyledIframe = styled.iframe`
   min-height: 420px;
   max-height: 640px;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Container from "@material-ui/core/Container";
-import { PageHeader, Navbar, PageWrapper, Image } from "GlobalComponents";
+import { PageHeader, Navbar, PageWrapper, Image, Link } from "GlobalComponents";
 import { UseDarkMode } from "Hooks";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -14,6 +14,7 @@ import {
   StyledDetailsSection,
   Bold,
   StyledIframe,
+  Italic,
 } from "./elements";
 import Snackbar from "@material-ui/core/Snackbar";
 
@@ -260,7 +261,7 @@ export const HelpPage: React.FC = () => {
           >
             <ExpansionPanelSummary expandIcon={<ArrowDropDownIcon />}>
               <StyledSectionButton variant="text">
-                What are playlists and how can i use them?
+                What are playlists & how can i use them?
               </StyledSectionButton>
               <ShareIcon linkNumber={5} />
             </ExpansionPanelSummary>
@@ -275,7 +276,7 @@ export const HelpPage: React.FC = () => {
               somewhere. Both options have disadvantages which I believe are
               alleviated by playlists.
               <Spacer />
-              <Bold>HOW DO I USE THEM?</Bold>
+              <Bold>HOW CAN I USE THEM?</Bold>
               <Spacer />
               <Bold>Creating playlists: </Bold>
               <Spacer />
@@ -287,8 +288,28 @@ export const HelpPage: React.FC = () => {
               <Spacer />
               <Bold>––––– or –––––</Bold>
               <Spacer />
-              <Bold>2.</Bold> Visit '/my-playlists'. And click the "New
-              playlist" button.
+              <Bold>2.</Bold> Visit{" "}
+              <Link to="/my-playlists">
+                <Italic>/my-playlists</Italic>
+              </Link>
+              . And click the "New playlist" button.
+              <Spacer />
+              From the new playlist screen you can begin customizing your list.
+              Add a name and select a few lyrics to get started. Lastly, click
+              the save button.
+              <Spacer />
+              And you're done!
+              <Spacer />
+              <Bold>Editing playlists: </Bold>
+              <Spacer />
+              From the "My Playlists" screen, open the playlist you'd like to
+              edit.
+              <Spacer />
+              <Bold>Deleting playlists:</Bold>
+              <Spacer />
+              From the "My Playlists" screen, open the playlist you'd like to
+              delete. Next, click the "Edit" button. Finally, click the "Delete
+              Playlist" button and click "Yes", when prompted.
             </StyledDetailsSection>
           </ExpansionPanel>
         </Container>

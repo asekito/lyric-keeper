@@ -53,7 +53,7 @@ export const HelpPage: React.FC = () => {
   };
 
   const generateLink = ({ linkNumber }: LinkNumberShape) =>
-    `lyrickeeper.netlify.com/help/?q=${linkNumber}`;
+    `lyric-keeper.netlify.com/help/?q=${linkNumber}`;
 
   const ShareIcon: React.FC<LinkNumberShape> = ({ linkNumber }) => (
     <IconButton

@@ -233,7 +233,13 @@ export const HelpPage: React.FC = () => {
               <Spacer />
               To edit a lyric, simply open the lyric by clicking on its' name.
               You can find a list of all the lyrics you've created by
-              <Bold>navigating to "/my-lyrics"</Bold> or by{" "}
+              <Bold>
+                navigating to{" "}
+                <Link to="/my-lyrics">
+                  <Italic>/my-lyrics</Italic>
+                </Link>
+              </Bold>{" "}
+              or by{" "}
               <Bold>
                 clicking the user icon found in the top-right corner of your
                 screen, then clicking "My Lyrics"
@@ -303,7 +309,16 @@ export const HelpPage: React.FC = () => {
               <Bold>Editing playlists: </Bold>
               <Spacer />
               From the "My Playlists" screen, open the playlist you'd like to
-              edit.
+              edit. The directions from this point should be fairly self
+              explanatory. You can:
+              <Spacer />
+              <Bold>•</Bold> Drag lyrics to rearange them
+              <Spacer />
+              <Bold>•</Bold> Change the name of the playlist by using the input
+              at the top of the screen
+              <Spacer />
+              <Bold>•</Bold> Delete lyrics from the playlist by clicking the
+              delete button on the lyric you'd like to delete.
               <Spacer />
               <Bold>Deleting playlists:</Bold>
               <Spacer />

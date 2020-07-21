@@ -64,7 +64,7 @@ export const HelpPage: React.FC = () => {
   );
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",

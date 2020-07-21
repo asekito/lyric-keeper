@@ -278,7 +278,7 @@ export const HelpPage: React.FC = () => {
               purpose is to provide you with an easy way of keeping track of
               your lyrics. For example, you may decide you want to play a set of
               slow songs at your next gig. Without creating a playlist, you
-              would need to either memorize your set list or write it down,
+              would need to either memorize your set list or write it down
               somewhere. Both options have disadvantages which I believe are
               alleviated by playlists.
               <Spacer />

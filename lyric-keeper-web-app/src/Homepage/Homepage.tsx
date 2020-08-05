@@ -100,7 +100,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
   const getAndUpdateAllLyrics = (settings?: SettingsObj) => {
     settings?.refetchLyrics && refetch();
     // Handled offline data
-    if (!data && !loading) {
+    if (!data || loading) {
       try {
         const cachedData = client.readQuery({
           query: Query_Get_All_Lyrics,
@@ -111,7 +111,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
         setLyricData(nonPrivateLyrics);
         setLyricDataSourceOfTruth(nonPrivateLyrics);
       } catch (error) {
-        console.log(error);
+        console.warn(error);
       }
     } else if (data && !loading) {
       const nonPrivateLyrics = findNonPrivateLyrics<Get_All_Lyrics_allLyrics>(
@@ -158,7 +158,7 @@ export const Homepage: React.FC<any> = ({ client }) => {
     setLoginModalIsOpen(true);
   };
 
-  if (loading) return <LoadingScreen darkMode={darkModeIsEnabled} />;
+  // if (loading) return <LoadingScreen darkMode={darkModeIsEnabled} />;
 
   return (
     <>
@@ -220,22 +220,28 @@ export const Homepage: React.FC<any> = ({ client }) => {
           >
             <RefreshIcon />
           </StyledIconButton>
-          <LyricCountWrapper
-            darkMode={darkModeIsEnabled}
-          >{`Lyrics: ${lyricData?.length}`}</LyricCountWrapper>
-          {lyricData && lyricData?.length ? (
-            lyricData?.map(({ ...props }) => (
-              <LyricCard
-                currentUser={currentUser}
-                darkModeIsEnabled={darkModeIsEnabled}
-                getAndUpdateAllLyrics={getAndUpdateAllLyrics}
-                {...props}
-              />
-            ))
+          {loading ? (
+            <LoadingScreen topSpacing darkMode={darkModeIsEnabled} />
           ) : (
-            <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
-              No Lyrics to display...
-            </NoLyricsToDisplayText>
+            <>
+              <LyricCountWrapper
+                darkMode={darkModeIsEnabled}
+              >{`Lyrics: ${lyricData?.length}`}</LyricCountWrapper>
+              {lyricData && lyricData?.length ? (
+                lyricData?.map(({ ...props }) => (
+                  <LyricCard
+                    currentUser={currentUser}
+                    darkModeIsEnabled={darkModeIsEnabled}
+                    getAndUpdateAllLyrics={getAndUpdateAllLyrics}
+                    {...props}
+                  />
+                ))
+              ) : (
+                <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
+                  No Lyrics to display...
+                </NoLyricsToDisplayText>
+              )}
+            </>
           )}
           {isLoggedIn && <NewLyricModal addEntry={addEntry} />}
         </MainAreaWrapper>

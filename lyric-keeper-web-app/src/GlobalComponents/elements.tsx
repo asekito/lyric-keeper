@@ -178,7 +178,10 @@ export const StyledImg = styled.img<{ isHidden: boolean }>`
   ${({ isHidden }) => isHidden && "display: hidden;"}
 `;
 
-export const StyledPlaceholder = styled(Skeleton)<{ darkMode: boolean }>`
+export const StyledPlaceholder = styled(Skeleton)<{
+  darkMode: boolean;
+  topSpacing?: boolean;
+}>`
   && {
     text-align: center;
     font-size: 2rem;
@@ -188,7 +191,7 @@ export const StyledPlaceholder = styled(Skeleton)<{ darkMode: boolean }>`
     background-color: ${({ darkMode }) =>
       darkMode ? DarkModePageBackground : "white"};
     margin: auto;
-    top: -24%;
+    top: ${({ topSpacing }) => (topSpacing ? "-4%" : "-24%")};
     bottom: 0;
     right: 0;
     left: 0;

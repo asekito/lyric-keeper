@@ -22,7 +22,10 @@ export const LoadingIndicator: React.FC<{ style?: any }> = ({ style }) => (
   </div>
 );
 
-export const LoadingScreen: React.FC<{ darkMode: boolean }> = props => {
+export const LoadingScreen: React.FC<{
+  darkMode: boolean;
+  topSpacing?: boolean;
+}> = props => {
   const [timeoutId, setTimeoutId] = useState(0);
   const [currentPhrase, setCurrentPhrase] = useState(
     phrases[Math.floor(Math.random() * (phrases.length - 0) + 0)]

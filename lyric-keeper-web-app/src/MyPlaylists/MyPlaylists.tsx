@@ -18,6 +18,7 @@ export const MyPlaylists: React.FC = () => {
 
   useEffect(() => {
     if (currentUser?.playlists) setPlayLists(currentUser?.playlists);
+    console.log(currentUser?.playlists);
   }, [currentUser]);
 
   return (

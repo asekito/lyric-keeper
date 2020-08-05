@@ -6,6 +6,7 @@ import {
   Get_Current_User,
   Get_Current_User_getCurrentUser,
 } from "Types";
+import { UseIsOffline } from "./UseIsOffline";
 
 interface SetUserTypes {
   uid: string;
@@ -42,6 +43,8 @@ const getValueFromPersistantUser = (val: string) => {
 };
 
 export const UseCurrentUser = () => {
+  const { isOnline } = UseIsOffline();
+
   // Use userConfigItems for adding new user items in the future
   const [userConfigItems, setUserConfigItems] = useState<Partial<SetUserTypes>>(
     { email: getValueFromPersistantUser("email") || "" }
@@ -74,13 +77,13 @@ export const UseCurrentUser = () => {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    setToLocalStorage("currentUser", currentUser);
-  }, [currentUser]);
+    if (isOnline) setToLocalStorage("currentUser", currentUser);
+  }, [currentUser, isOnline]);
 
   if (error) console.log(error);
 
   useEffect(() => {
-    if (currentUid && !skip) {
+    if (currentUid && !skip && isOnline) {
       refetch();
       setCurrentUser({
         uid: currentUid,

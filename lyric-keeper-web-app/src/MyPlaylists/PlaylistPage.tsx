@@ -135,6 +135,23 @@ export const PlaylistPage: React.FC<any> = ({ client }) => {
     setEditView(false);
   }, [data]);
 
+  if (isOffline)
+    return (
+      <>
+        <Navbar {...currentUserDetails} />
+        <PageWrapper isDarkMode={darkModeIsEnabled}>
+          <NoPlaylistsText
+            style={{ width: "400px", marginRight: "auto", marginLeft: "auto" }}
+          >
+            It looks like you're offline!
+            <div style={{ marginTop: "20px" }} />
+            Unfortunately, playlists are not currently available while you're
+            offline.
+          </NoPlaylistsText>
+        </PageWrapper>
+      </>
+    );
+
   if (!isLoggedIn)
     return (
       <>

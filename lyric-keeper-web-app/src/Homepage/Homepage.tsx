@@ -146,10 +146,11 @@ export const Homepage: React.FC<any> = ({ client }) => {
 
       const lyricId = lyricData.data?.addNewLyric?.id;
 
-      lyricId &&
+      if (lyricId) {
         addNewLyricToUserList({
           variables: { uid: currentUser?.uid, lyricId },
         });
+      }
     }
   };
 

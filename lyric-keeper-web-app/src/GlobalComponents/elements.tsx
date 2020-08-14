@@ -27,6 +27,12 @@ export const StyledContainer = styled(Container)`
   margin-top: 20px;
   padding-top: 13px;
   text-align: center;
+  && {
+    &&.MuiContainer-root {
+      padding-right: 14px;
+      padding-left: 14px;
+    }
+  }
 `;
 
 export const LoginHeader = styled(Typography)`
@@ -77,7 +83,7 @@ export const MarketingWrapper = styled.div`
 `;
 
 export const MainMarketingHeader = styled(Typography)`
-  & {
+  && {
     font-size: 1.5rem;
     color: black;
     letter-spacing: 2px;
@@ -88,14 +94,14 @@ export const MainMarketingHeader = styled(Typography)`
 export const StyledFab = styled(Fab)`
   right: -52%;
   top: -21px;
-  & {
+  && {
     width: 35px;
     height: 35px;
   }
 `;
 
 export const SecondaryMarketingText = styled(Typography)`
-  & {
+  && {
     font-size: 1.2rem;
     color: ${SecondaryColor};
     letter-spacing: 3px;
@@ -104,7 +110,7 @@ export const SecondaryMarketingText = styled(Typography)`
 `;
 
 export const MarketingText = styled(Typography)`
-  & {
+  && {
     font-size: 0.9rem;
     letter-spacing: 2px;
     margin-top: 35px;
@@ -113,7 +119,7 @@ export const MarketingText = styled(Typography)`
 `;
 
 export const LoginOrCreateAccountButton = styled(Button)`
-  & {
+  && {
     color: ${PrimaryBlue};
     margin-right: auto;
     margin-left: auto;
@@ -138,7 +144,7 @@ export const MbarText = styled.div`
 `;
 
 export const MbarButton = styled(Button)`
-  & {
+  && {
     font-size: 0.9rem;
     margin-left: 10px;
     color: ${SecondaryGreen};

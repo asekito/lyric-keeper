@@ -11,17 +11,19 @@ import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { Link } from "GlobalComponents";
 
 export const WelcomeText = styled(Typography)<{ darkMode: boolean }>`
-  font-size: 2rem;
-  letter-spacing: 7px;
-  color: ${MainGreen};
-  border: ${({ darkMode }) => (darkMode ? `white` : `#0000001c`)} solid 1px;
-  border-radius: 6px;
-  width: fit-content;
-  margin: auto;
-  padding: 2px;
-  padding-left: 7px;
-  margin-bottom: 30px;
-  margin-top: 20px;
+  && {
+    font-size: 2rem;
+    letter-spacing: 7px;
+    color: ${MainGreen};
+    border: ${({ darkMode }) => (darkMode ? `white` : `#0000001c`)} solid 1px;
+    border-radius: 6px;
+    width: fit-content;
+    margin: auto;
+    padding: 2px;
+    padding-left: 7px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
 `;
 
 export const DefaultPageWrapper = styled.div<{ darkMode: boolean }>`

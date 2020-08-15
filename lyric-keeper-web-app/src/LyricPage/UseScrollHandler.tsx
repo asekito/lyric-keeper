@@ -35,7 +35,7 @@ export const UseScrollHandler = () => {
 
   const decreaseTime = () => {
     clearAndRestart();
-    setTimeoutDuration(t => t - 500);
+    setTimeoutDuration(t => t > 500 ? t - 500 : t);
   };
 
   return {

@@ -45,7 +45,10 @@ export const SnackbarButtons: React.FC<Props> = ({
     {
       name: "Back",
       icon: () => <ArrowBackIosIcon />,
-      onClick: () => history.goBack(),
+      onClick: () => {
+        stop();
+        history.goBack();
+      },
     },
     {
       name: "EDIT",
@@ -84,21 +87,21 @@ export const SnackbarButtons: React.FC<Props> = ({
     style: React.CSSProperties;
     onClick(): void;
   }> = ({ children, style }: any) =>
-    isTablet ? (
-      <IconButton
-        edge="end"
-        style={{
-          ...style,
-          backgroundColor: SecondaryLightGrey,
-        }}
-      >
-        {children}
-      </IconButton>
-    ) : (
-      <Button style={{ ...style }} size="large" variant="contained">
-        {children}
-      </Button>
-    );
+      isTablet ? (
+        <IconButton
+          edge="end"
+          style={{
+            ...style,
+            backgroundColor: SecondaryLightGrey,
+          }}
+        >
+          {children}
+        </IconButton>
+      ) : (
+          <Button style={{ ...style }} size="large" variant="contained">
+            {children}
+          </Button>
+        );
 
   return (
     <Grid container>

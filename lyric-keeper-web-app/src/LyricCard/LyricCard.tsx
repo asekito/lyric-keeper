@@ -22,7 +22,7 @@ import {
 } from "operations";
 import { truncate } from "utilities";
 import { UseResponsiveCheck, UseCurrentUserReturnShape } from "Hooks";
-import { SettingsObj } from "Homepage";
+import { SettingsObj } from "LibraryPage";
 
 type Props = Lyric & {
   getAndUpdateAllLyrics?(settings?: SettingsObj): void;

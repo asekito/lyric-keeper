@@ -256,3 +256,10 @@ export const NavMainText = styled(Typography)`
   left: 70px;
   top: 18px;
 `;
+
+export const DefaultPageWrapper = styled.div<{ darkMode: boolean }>`
+  text-align: center;
+  background-color: ${({ darkMode }) => (darkMode ? `#1a1a1a` : `white`)};
+  padding-top: 30px;
+  min-height: 88vh;
+`;

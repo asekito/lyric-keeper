@@ -10,6 +10,7 @@ import localForage from "localforage";
 import { MyLyrics } from "MyLyrics";
 import { HelpPage } from "HelpPage";
 import { MyPlaylists, NewPlaylistScreen, PlaylistPage } from "MyPlaylists";
+import { LibraryPage } from "LibraryPage";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,11 +41,7 @@ function App() {
     return (
       <ApolloProvider client={client}>
         <Router forceRefresh>
-          <Route
-            path="/"
-            exact
-            component={() => <Homepage client={client} />}
-          />
+          <Route path="/" exact component={() => <Homepage />} />
           <Route
             path="/lyric/:lyricUrl"
             component={() => <LyricPage client={client} />}
@@ -54,6 +51,10 @@ function App() {
             component={() => <MyLyrics client={client} />}
           />
           <Route path="/help" component={() => <HelpPage />} />
+          <Route
+            path="/library"
+            component={() => <LibraryPage client={client} />}
+          />
           <Route path="/my-playlists" component={() => <MyPlaylists />} />
           <Route path="/new-playlist" component={() => <NewPlaylistScreen />} />
           <Route

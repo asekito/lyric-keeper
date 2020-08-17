@@ -7,6 +7,10 @@ export * from "./Navbar";
 export * from "./PageHeader";
 export * from "./PageWrapper";
 export * from "./Image";
-export { LyricCountWrapper, ModalContentWrapper } from "./elements";
+export {
+  LyricCountWrapper,
+  ModalContentWrapper,
+  DefaultPageWrapper,
+} from "./elements";
 export * from "./StyledTextField";
 export * from "./AreYouSureDialog";

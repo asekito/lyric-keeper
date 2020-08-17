@@ -8,7 +8,11 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import ListIcon from "@material-ui/icons/List";
 import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import { FogGrey, LighterPurple, BrightGreen } from "ColorVars";
-import { UseCurrentUserReturnShape, UseCurrentUser } from "Hooks";
+import {
+  UseCurrentUserReturnShape,
+  UseCurrentUser,
+  UseResponsiveCheck,
+} from "Hooks";
 import { StyledMenuItem, StyledMenu, NavMainText } from "./elements";
 import { truncate } from "utilities";
 import { Link, LoginCreateAccountModal } from "GlobalComponents";
@@ -19,6 +23,8 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
 
   const currentUserHookData = UseCurrentUser();
+
+  const { isMobile } = UseResponsiveCheck();
 
   const open = Boolean(anchorEl);
 
@@ -71,6 +77,7 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
         <Toolbar
           style={{
             backgroundColor: FogGrey,
+            padding: isMobile ? "0px" : "",
           }}
         >
           {/* <IconButton edge="start" color="inherit" aria-label="menu">
@@ -80,7 +87,15 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
             <IconButton>
               <HomeIcon style={{ color: "white" }} />
             </IconButton>{" "}
-            <NavMainText variant="h6">Lyric Keeper</NavMainText>
+            <NavMainText
+              style={{
+                left: isMobile ? "40px" : "",
+                top: isMobile ? "11px" : "",
+              }}
+              variant="h6"
+            >
+              Lyric Keeper
+            </NavMainText>
           </Link>
           {isLoggedIn && currentUser ? (
             <>

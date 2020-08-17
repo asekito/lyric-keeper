@@ -28,6 +28,8 @@ import {
   DefaultPageWrapper,
 } from "GlobalComponents";
 import { UseCurrentUser, UseDarkMode } from "Hooks";
+import { LoggedInView } from "./LoggedInView";
+import { LoggedOutView } from "./LoggedOutView";
 
 export const Homepage: React.FC = () => {
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
@@ -118,59 +120,7 @@ export const Homepage: React.FC = () => {
           checked={darkModeIsEnabled}
           onChange={({ target: { checked } }) => setDarkMode(checked)}
         />
-        {/* <MainAreaWrapper maxWidth="sm">
-          <StyledTextField
-            darkMode={darkModeIsEnabled}
-            label="Search"
-            name="search"
-            value={search}
-            variant="standard"
-            onChange={e => {
-              handleChange(e);
-              filter(e.target.value);
-            }}
-          />
-          <StyledSelect
-            darkMode={darkModeIsEnabled}
-            value={filterBy}
-            name="filterBy"
-            onChange={handleChange}
-          >
-            <MenuItem value="title">Title</MenuItem>
-            <MenuItem value="author">Artist</MenuItem>
-          </StyledSelect>
-          <StyledIconButton
-            darkMode={darkModeIsEnabled}
-            onClick={() => getAndUpdateAllLyrics({ refetchLyrics: true })}
-            style={{ marginLeft: "26px" }}
-          >
-            <RefreshIcon />
-          </StyledIconButton>
-          {loading ? (
-            <LoadingScreen topSpacing darkMode={darkModeIsEnabled} />
-          ) : (
-            <>
-              <LyricCountWrapper
-                darkMode={darkModeIsEnabled}
-              >{`Lyrics: ${lyricData?.length}`}</LyricCountWrapper>
-              {lyricData && lyricData?.length ? (
-                lyricData?.map(({ ...props }) => (
-                  <LyricCard
-                    currentUser={currentUser}
-                    darkModeIsEnabled={darkModeIsEnabled}
-                    getAndUpdateAllLyrics={getAndUpdateAllLyrics}
-                    {...props}
-                  />
-                ))
-              ) : (
-                <NoLyricsToDisplayText darkMode={darkModeIsEnabled}>
-                  No Lyrics to display...
-                </NoLyricsToDisplayText>
-              )}
-            </>
-          )}
-          {isLoggedIn && <NewLyricModal addEntry={addEntry} />}
-        </MainAreaWrapper> */}
+        {isLoggedIn ? <LoggedInView /> : <LoggedOutView />}
       </DefaultPageWrapper>
     </>
   );

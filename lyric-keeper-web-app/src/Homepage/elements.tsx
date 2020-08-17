@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MainGreen, PrimaryBlue } from "ColorVars";
+import { MainGreen, PrimaryBlue, SecondaryLightGrey } from "ColorVars";
 import Select from "@material-ui/core/Select";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -68,4 +68,25 @@ export const StyledLink = styled(Link)`
   letter-spacing: 1px;
   font-family: sans-serif;
   font-weight: bold;
+`;
+
+export const LoggedOutDescriptiveText = styled.div`
+  align-items: center;
+  align-content: baseline;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 10px;
+  margin-top: 40px;
+  color: ${PrimaryBlue};
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+  font-weight: bold;
+`;
+
+export const LoggedOutInfoSectionWrapper = styled.div`
+  padding: 2rem;
+  background-color: ${SecondaryLightGrey};
+  border-radius: 10px;
+  margin-top: 40px;
 `;

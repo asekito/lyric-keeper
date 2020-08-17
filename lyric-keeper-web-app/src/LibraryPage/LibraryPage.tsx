@@ -22,6 +22,7 @@ import { UseDarkMode, UseCurrentUser } from "Hooks";
 import { useQuery } from "react-apollo";
 import { Query_Get_All_Lyrics } from "operations";
 import { findNonPrivateLyrics } from "utilities";
+import { SecondaryColor } from "ColorVars";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -91,7 +92,20 @@ export const LibraryPage: React.FC<any> = ({ client }) => {
     <>
       <Navbar />
       <DefaultPageWrapper darkMode={darkModeIsEnabled}>
-        <PageHeader style={{ marginBottom: "30px" }}>Library</PageHeader>
+        <PageHeader style={{ marginBottom: "10px" }}>Library</PageHeader>
+        <PageHeader
+          style={{
+            marginBottom: "30px",
+            fontSize: "1.2rem",
+            color: SecondaryColor,
+            maxWidth: "300px",
+            textAlign: "center",
+            margin: "0px auto 30px",
+          }}
+        >
+          You can help build this library by creating lyrics that are not
+          private. Thank you so much for your contributions!
+        </PageHeader>
         <MainAreaWrapper maxWidth="sm">
           <StyledTextField
             darkMode={darkModeIsEnabled}

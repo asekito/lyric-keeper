@@ -46,7 +46,7 @@ export const LibraryPage: React.FC<any> = ({ client }) => {
 
   const { data, loading, refetch } = useQuery(Query_Get_All_Lyrics);
 
-  const { darkModeIsEnabled, setDarkMode } = UseDarkMode();
+  const { darkModeIsEnabled } = UseDarkMode();
 
   const filter = (searchTerm: string) => {
     setLyricData(

@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import { MainGreen, PrimaryBlue, SecondaryLightGrey } from "ColorVars";
-import Select from "@material-ui/core/Select";
-import Container from "@material-ui/core/Container";
+import {
+  MainGreen,
+  PrimaryBlue,
+  SecondaryLightGrey,
+  SecondaryColor,
+} from "ColorVars";
 import Typography from "@material-ui/core/Typography";
 import Switch from "@material-ui/core/Switch";
-import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/IconButton";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { Link } from "GlobalComponents";
@@ -89,4 +90,42 @@ export const LoggedOutInfoSectionWrapper = styled.div`
   background-color: ${SecondaryLightGrey};
   border-radius: 10px;
   margin-top: 40px;
+`;
+
+export const DashboardBox = styled.div`
+  background-color: ${SecondaryLightGrey};
+  height: 250px;
+  width: 250px;
+  border-radius: 25px;
+  margin-bottom: 5%;
+  cursor: pointer;
+`;
+
+export const StyledDashboardBoxLink = styled(Link)`
+  background-color: ${SecondaryLightGrey};
+  height: 250px;
+  width: 250px;
+  border-radius: 25px;
+  margin-bottom: 5%;
+`;
+
+export const DashboardBoxText = styled(Typography)`
+  && {
+    font-size: 2rem;
+    text-align: center;
+    margin: auto;
+    color: ${SecondaryColor};
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+`;
+
+export const FlexWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 `;

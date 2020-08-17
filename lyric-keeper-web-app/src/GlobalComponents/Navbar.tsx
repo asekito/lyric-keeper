@@ -5,8 +5,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import ListIcon from "@material-ui/icons/List";
-import QueueMusicIcon from "@material-ui/icons/QueueMusic";
+import ListIcon from "@material-ui/icons/ListAltOutlined";
+import QueueMusicIcon from "@material-ui/icons/QueueMusicOutlined";
 import { FogGrey, LighterPurple, BrightGreen } from "ColorVars";
 import {
   UseCurrentUserReturnShape,
@@ -109,14 +109,24 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
             <MenuIcon />
           </IconButton>
           <Link to="/" style={{ color: "white" }}>
-            {!isMobile && !isLoggedIn && (
+            {!isMobile && (
+              <IconButton>
+                <HomeIcon style={{ color: "white" }} />
+              </IconButton>
+            )}
+            {isMobile && isLoggedIn && (
               <IconButton>
                 <HomeIcon style={{ color: "white" }} />
               </IconButton>
             )}
             <NavMainText
               style={{
-                left: isMobile ? "40px" : "",
+                left:
+                  isMobile && !isLoggedIn
+                    ? "40px"
+                    : isMobile && isLoggedIn
+                    ? "90px"
+                    : "",
                 top: isMobile ? mainTextTopVal : "",
               }}
               variant="h6"
@@ -200,7 +210,7 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
                     style={{ color: LighterPurple, textAlign: "center" }}
                     onClick={handleUserMenuClose}
                   >
-                    My Lyrics <ListIcon />
+                    <ListIcon style={{ marginRight: "10px" }} /> My Lyrics
                   </StyledMenuItem>
                 </Link>
                 <Link to="/my-playlists">
@@ -208,7 +218,8 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
                     style={{ color: LighterPurple, textAlign: "center" }}
                     onClick={handleUserMenuClose}
                   >
-                    My Playlists <QueueMusicIcon />
+                    <QueueMusicIcon style={{ marginRight: "10px" }} />
+                    My Playlists
                   </StyledMenuItem>
                 </Link>
                 <StyledMenuItem onClick={logout}>Sign out</StyledMenuItem>

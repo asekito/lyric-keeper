@@ -16,8 +16,10 @@ import {
 import { StyledMenuItem, StyledMenu, NavMainText } from "./elements";
 import { truncate } from "utilities";
 import { Link, LoginCreateAccountModal } from "GlobalComponents";
-import HomeIcon from "@material-ui/icons/Home";
+import HomeIcon from "@material-ui/icons/HomeOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
+import LibraryIcon from "@material-ui/icons/LibraryMusicOutlined";
+import Help from "@material-ui/icons/HelpOutlineOutlined";
 
 export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
   const [userMenuAnchorEl, setUserMenuAnchorEl] = useState<null | HTMLElement>(
@@ -122,6 +124,7 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
               Lyric Keeper
             </NavMainText>
           </Link>
+          {/* -------- Left navigational menu -------- */}
           <StyledMenu
             id="menu-appbar"
             anchorEl={navMenuAnchorEl}
@@ -138,7 +141,30 @@ export const Navbar: React.FC<Partial<UseCurrentUserReturnShape>> = props => {
             onClose={handleNavMenuClose}
             style={{ padding: "10px" }}
           >
-            Testing...
+            <Link to="/">
+              <StyledMenuItem
+                style={{ color: LighterPurple, textAlign: "center" }}
+                onClick={handleUserMenuClose}
+              >
+                <HomeIcon style={{ marginRight: "10px" }} /> Home
+              </StyledMenuItem>
+            </Link>
+            <Link to="/library">
+              <StyledMenuItem
+                style={{ color: LighterPurple, textAlign: "center" }}
+                onClick={handleUserMenuClose}
+              >
+                <LibraryIcon style={{ marginRight: "10px" }} /> Library
+              </StyledMenuItem>
+            </Link>
+            <Link to="/help">
+              <StyledMenuItem
+                style={{ color: LighterPurple, textAlign: "center" }}
+                onClick={handleUserMenuClose}
+              >
+                <Help style={{ marginRight: "10px" }} /> Help
+              </StyledMenuItem>
+            </Link>
           </StyledMenu>
           {isLoggedIn && currentUser ? (
             <>

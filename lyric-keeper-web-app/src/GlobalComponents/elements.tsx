@@ -176,6 +176,7 @@ export const LoadingScreenWrapper = styled.div<{ darkMode: boolean }>`
 export const StyledMenuItem = styled(MenuItem)`
   &&& {
     text-align: center;
+    font-size: 1.3rem;
   }
 `;
 
@@ -262,7 +263,7 @@ export const NavMainText = styled(Typography)`
   display: inline;
   position: absolute;
   left: 100px;
-  top: 18px;
+  top: 17px;
 `;
 
 export const DefaultPageWrapper = styled.div<{ darkMode: boolean }>`

@@ -12,7 +12,7 @@ import ListIcon from "@material-ui/icons/ListAltOutlined";
 import Help from "@material-ui/icons/HelpOutlineOutlined";
 import LibraryIcon from "@material-ui/icons/LibraryMusicOutlined";
 import { PageHeader } from "GlobalComponents";
-import { UseResponsiveCheck, UseCurrentUser, UseDarkMode } from "Hooks";
+import { UseResponsiveCheck, UseCurrentUser } from "Hooks";
 import { NewLyricModal } from "NewLyricModal";
 import { useMutation } from "react-apollo";
 import {

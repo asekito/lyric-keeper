@@ -261,7 +261,7 @@ export const ModalContentWrapper = styled.div<{ darkMode: boolean }>`
 export const NavMainText = styled(Typography)`
   display: inline;
   position: absolute;
-  left: 70px;
+  left: 100px;
   top: 18px;
 `;
 

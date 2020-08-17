@@ -106,12 +106,12 @@ export const Homepage: React.FC = () => {
           isOpen={marketingModalIsOpen}
           setIsOpen={setMarketingModalIsOpen}
         />
-        <StyledLink to="/help">
+        {/* <StyledLink to="/help">
           <HelpOutlineIcon style={{ fontSize: "1.2rem" }} />
           <div style={{ display: "inline", marginLeft: "5px" }}>
             How to use this app
           </div>
-        </StyledLink>
+        </StyledLink> */}
         <WelcomeText darkMode={darkModeIsEnabled} variant="h3">
           Lyric Keeper
         </WelcomeText>

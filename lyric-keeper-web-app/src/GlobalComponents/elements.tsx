@@ -250,7 +250,7 @@ export const ModalContentWrapper = styled.div<{ darkMode: boolean }>`
   background-color: ${({ darkMode }) =>
     darkMode ? DarkModePageBackground : "white"};
   min-width: 65%;
-  height: 60vh;
+  height: 100vh;
   position: absolute;
   margin: auto;
   border-radius: 6px;

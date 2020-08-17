@@ -1,16 +1,11 @@
 import React from "react";
-import {
-  HeadingWrapper,
-  HeadingTitle,
-  StyledModal,
-  StyledFab,
-} from "./elements";
+import { HeadingWrapper, HeadingTitle, StyledFab } from "./elements";
 import { ModalContentWrapper } from "GlobalComponents";
 import { NewLyricForm } from "./NewLyricForm";
-import AddIcon from "@material-ui/icons/Add";
 import { Lyric } from "Types";
 import { UseDarkMode } from "Hooks";
 import CloseIcon from "@material-ui/icons/Close";
+import Modal from "@material-ui/core/Modal";
 
 interface Props {
   addEntry(item: Lyric): void;
@@ -28,7 +23,7 @@ export const NewLyricModal = ({ addEntry, isOpen, setIsOpen }: Props) => {
 
   return (
     <>
-      <StyledModal
+      <Modal
         style={{
           position: "fixed",
           zIndex: 99999,
@@ -54,7 +49,7 @@ export const NewLyricModal = ({ addEntry, isOpen, setIsOpen }: Props) => {
           </HeadingWrapper>
           <NewLyricForm onClickFunction={onClickFunction} />
         </ModalContentWrapper>
-      </StyledModal>
+      </Modal>
     </>
   );
 };

@@ -3,7 +3,6 @@ import { MainGreen, SecondaryGreen, LighterPurple } from "ColorVars";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Switch from "@material-ui/core/Switch";
-import Modal from "@material-ui/core/Modal";
 import Fab from "@material-ui/core/Fab";
 
 export const TextFieldStyles = styled.div`
@@ -22,14 +21,6 @@ export const HeadingTitle = styled(Typography)`
   font-size: 28px;
   padding: 2px;
   letter-spacing: 3px;
-`;
-
-export const StyledModal = styled(Modal)`
-  && {
-    .sc-fznzOf {
-      height: 100vh;
-    }
-  }
 `;
 
 export const StyledFab = styled(Fab)`

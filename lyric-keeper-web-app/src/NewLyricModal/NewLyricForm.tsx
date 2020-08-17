@@ -57,8 +57,8 @@ export const NewLyricForm: React.FC<Props> = ({
       value: isPrivate,
       name: "isPrivate",
       helpText: isPrivate
-        ? "This lyric is private and will not be seen on the shared homescreen"
-        : "This lyric is public and will be seen by anyone using this app",
+        ? "This lyric is private and will not be seen in the lyric library"
+        : "This lyric is public and will be seen by anyone in the lyric library",
       isSwitch: true,
     },
     {

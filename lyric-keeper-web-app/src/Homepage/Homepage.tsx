@@ -44,7 +44,10 @@ export const Homepage: React.FC = () => {
         <MarketingBar onLoginButtonClick={() => setLoginModalIsOpen(true)} />
       )}
       <Navbar {...currentUserDetails} />
-      <DefaultPageWrapper darkMode={darkModeIsEnabled}>
+      <DefaultPageWrapper
+        style={{ paddingBottom: "20px" }}
+        darkMode={darkModeIsEnabled}
+      >
         <LoginCreateAccountModal
           currentUserIsLoading={currentUserIsLoading}
           isOpen={loginModalIsOpen}
@@ -64,7 +67,11 @@ export const Homepage: React.FC = () => {
           checked={darkModeIsEnabled}
           onChange={({ target: { checked } }) => setDarkMode(checked)}
         />
-        {isLoggedIn ? <LoggedInView /> : <LoggedOutView />}
+        {isLoggedIn ? (
+          <LoggedInView darkModeIsEnabled={darkModeIsEnabled} />
+        ) : (
+          <LoggedOutView darkModeIsEnabled={darkModeIsEnabled} />
+        )}
       </DefaultPageWrapper>
     </>
   );

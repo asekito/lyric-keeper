@@ -12,7 +12,7 @@ import ListIcon from "@material-ui/icons/ListAltOutlined";
 import Help from "@material-ui/icons/HelpOutlineOutlined";
 import LibraryIcon from "@material-ui/icons/LibraryMusicOutlined";
 import { PageHeader } from "GlobalComponents";
-import { UseResponsiveCheck, UseCurrentUser } from "Hooks";
+import { UseResponsiveCheck, UseCurrentUser, UseDarkMode } from "Hooks";
 import { NewLyricModal } from "NewLyricModal";
 import { useMutation } from "react-apollo";
 import {
@@ -27,7 +27,9 @@ import {
   Mutation_Add_New_Lyric_To_User_List,
 } from "operations";
 
-export const LoggedInView: React.FC = () => {
+export const LoggedInView: React.FC<{ darkModeIsEnabled: boolean }> = ({
+  darkModeIsEnabled,
+}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { isMobile } = UseResponsiveCheck();
   const { currentUser } = UseCurrentUser();
@@ -98,7 +100,12 @@ export const LoggedInView: React.FC = () => {
                 ? StyledDashboardBoxLink
                 : (DashboardBox as any);
               return (
-                <WrappingElement key={boxName} onClick={onClick} to={link}>
+                <WrappingElement
+                  darkModeIsEnabled={darkModeIsEnabled}
+                  key={boxName}
+                  onClick={onClick}
+                  to={link}
+                >
                   <DashboardBoxText>
                     {<Icon style={{ fontSize: "4.5rem" }} />}
                     {boxName}

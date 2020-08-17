@@ -13,13 +13,15 @@ import Button from "@material-ui/core/Button";
 import RightArrow from "@material-ui/icons/ArrowRight";
 import { UseResponsiveCheck } from "Hooks";
 
-export const LoggedOutView: React.FC = () => {
+export const LoggedOutView: React.FC<{ darkModeIsEnabled: boolean }> = ({
+  darkModeIsEnabled,
+}) => {
   const { isMobile } = UseResponsiveCheck();
   return (
     <Container maxWidth="md">
       <PageHeader>Welcome to Lyric Keeper!</PageHeader>
-      <LoggedOutInfoSectionWrapper>
-        <LoggedOutDescriptiveText>
+      <LoggedOutInfoSectionWrapper darkModeIsEnabled={darkModeIsEnabled}>
+        <LoggedOutDescriptiveText darkModeIsEnabled={darkModeIsEnabled}>
           <Grid container>
             <Grid item xs={12} md={1}>
               <MoneyIcon
@@ -35,7 +37,7 @@ export const LoggedOutView: React.FC = () => {
             </Grid>
           </Grid>
         </LoggedOutDescriptiveText>
-        <LoggedOutDescriptiveText>
+        <LoggedOutDescriptiveText darkModeIsEnabled={darkModeIsEnabled}>
           <Grid container>
             <Grid item xs={12} md={1}>
               <ListIcon
@@ -53,7 +55,7 @@ export const LoggedOutView: React.FC = () => {
           </Grid>
         </LoggedOutDescriptiveText>
       </LoggedOutInfoSectionWrapper>
-      <div style={{ marginBottom: "40px" }}>
+      <div style={{ paddingBottom: "40px" }}>
         <Link to="/help">
           <Button
             variant="outlined"

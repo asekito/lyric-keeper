@@ -4,6 +4,8 @@ import {
   PrimaryBlue,
   SecondaryLightGrey,
   SecondaryColor,
+  LighterBlue,
+  DarkModeSecondaryLightGrey,
 } from "ColorVars";
 import Typography from "@material-ui/core/Typography";
 import Switch from "@material-ui/core/Switch";
@@ -71,29 +73,36 @@ export const StyledLink = styled(Link)`
   font-weight: bold;
 `;
 
-export const LoggedOutDescriptiveText = styled.div`
+export const LoggedOutDescriptiveText = styled.div<{
+  darkModeIsEnabled: boolean;
+}>`
   align-items: center;
   align-content: baseline;
   justify-content: center;
   display: flex;
   margin-bottom: 10px;
   margin-top: 40px;
-  color: ${PrimaryBlue};
+  color: ${({ darkModeIsEnabled }) =>
+    darkModeIsEnabled ? LighterBlue : PrimaryBlue};
   font-size: 1.8rem;
   letter-spacing: 1px;
   font-family: sans-serif;
   font-weight: bold;
 `;
 
-export const LoggedOutInfoSectionWrapper = styled.div`
+export const LoggedOutInfoSectionWrapper = styled.div<{
+  darkModeIsEnabled: boolean;
+}>`
   padding: 2rem;
-  background-color: ${SecondaryLightGrey};
+  background-color: ${({ darkModeIsEnabled }) =>
+    darkModeIsEnabled ? DarkModeSecondaryLightGrey : SecondaryLightGrey};
   border-radius: 10px;
   margin-top: 40px;
 `;
 
-export const DashboardBox = styled.div`
-  background-color: ${SecondaryLightGrey};
+export const DashboardBox = styled.div<{ darkModeIsEnabled: boolean }>`
+  background-color: ${({ darkModeIsEnabled }) =>
+    darkModeIsEnabled ? DarkModeSecondaryLightGrey : SecondaryLightGrey};
   height: 250px;
   width: 250px;
   border-radius: 25px;
@@ -101,8 +110,11 @@ export const DashboardBox = styled.div`
   cursor: pointer;
 `;
 
-export const StyledDashboardBoxLink = styled(Link)`
-  background-color: ${SecondaryLightGrey};
+export const StyledDashboardBoxLink = styled(Link)<{
+  darkModeIsEnabled: boolean;
+}>`
+  background-color: ${({ darkModeIsEnabled }) =>
+    darkModeIsEnabled ? DarkModeSecondaryLightGrey : SecondaryLightGrey};
   height: 250px;
   width: 250px;
   border-radius: 25px;

@@ -22,7 +22,7 @@ import { UseDarkMode, UseCurrentUser } from "Hooks";
 import { useQuery } from "react-apollo";
 import { Query_Get_All_Lyrics } from "operations";
 import { findNonPrivateLyrics } from "utilities";
-import { SecondaryColor } from "ColorVars";
+import { SecondaryColor, DarkModeLighterPurple } from "ColorVars";
 
 type allLyrics = Get_All_Lyrics["allLyrics"];
 
@@ -97,7 +97,7 @@ export const LibraryPage: React.FC<any> = ({ client }) => {
           style={{
             marginBottom: "30px",
             fontSize: "1.2rem",
-            color: SecondaryColor,
+            color: darkModeIsEnabled ? DarkModeLighterPurple : SecondaryColor,
             maxWidth: "300px",
             textAlign: "center",
             margin: "0px auto 30px",

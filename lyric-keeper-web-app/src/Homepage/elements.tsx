@@ -27,7 +27,7 @@ export const WelcomeText = styled(Typography)<{ darkMode: boolean }>`
 `;
 
 export const StyledSwitch = styled(Switch)`
-  && {
+  &&& {
     .MuiSwitch-colorSecondary.Mui-checked {
       color: ${MainGreen};
     }

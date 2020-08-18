@@ -36,18 +36,20 @@ export const StyledContainer = styled(Container)`
 `;
 
 export const LoginHeader = styled(Typography)`
-  color: ${MainGreen};
-  font-size: 1.7rem;
-  text-align: center;
+  && {
+    color: ${MainGreen};
+    font-size: 1.7rem;
+    text-align: center;
+  }
 `;
 
 export const StyledTextField = styled(TextField)`
-  display: block;
-  width: 320px;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 30px;
   && {
+    display: block;
+    width: 320px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
     .MuiInput-root.MuiInputBase-root {
       width: inherit;
     }
@@ -55,26 +57,32 @@ export const StyledTextField = styled(TextField)`
 `;
 
 export const Error = styled(Typography)`
-  color: red;
-  margin-right: auto;
-  margin-left: auto;
-  text-align: center;
-  margin-top: 10px;
+  && {
+    color: red;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    margin-top: 10px;
+  }
 `;
 
 export const StyledButton = styled(Button)`
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 20px;
+  && {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+  }
 `;
 
 export const ModalStyleSwitcher = styled(Typography)`
-  width: fit-content;
-  margin: auto;
-  font-size: 1rem;
-  color: ${SecondaryGreen};
-  margin-top: 30px;
-  cursor: pointer;
+  && {
+    width: fit-content;
+    margin: auto;
+    font-size: 1rem;
+    color: ${SecondaryGreen};
+    margin-top: 30px;
+    cursor: pointer;
+  }
 `;
 
 export const MarketingWrapper = styled.div`
@@ -168,6 +176,7 @@ export const LoadingScreenWrapper = styled.div<{ darkMode: boolean }>`
 export const StyledMenuItem = styled(MenuItem)`
   &&& {
     text-align: center;
+    font-size: 1.3rem;
   }
 `;
 
@@ -241,7 +250,7 @@ export const ModalContentWrapper = styled.div<{ darkMode: boolean }>`
   background-color: ${({ darkMode }) =>
     darkMode ? DarkModePageBackground : "white"};
   min-width: 65%;
-  height: 60vh;
+  height: 100vh;
   position: absolute;
   margin: auto;
   border-radius: 6px;
@@ -253,6 +262,13 @@ export const ModalContentWrapper = styled.div<{ darkMode: boolean }>`
 export const NavMainText = styled(Typography)`
   display: inline;
   position: absolute;
-  left: 70px;
-  top: 18px;
+  left: 100px;
+  top: 17px;
+`;
+
+export const DefaultPageWrapper = styled.div<{ darkMode: boolean }>`
+  text-align: center;
+  background-color: ${({ darkMode }) => (darkMode ? `#1a1a1a` : `white`)};
+  padding-top: 30px;
+  min-height: 88vh;
 `;

@@ -12,7 +12,6 @@ import Switch from "@material-ui/core/Switch";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { Link } from "GlobalComponents";
-import Grow from "@material-ui/core/Grow";
 
 export const WelcomeText = styled(Typography)<{ darkMode: boolean }>`
   && {

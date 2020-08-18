@@ -59,7 +59,7 @@ export const LoggedOutView: React.FC<{ darkModeIsEnabled: boolean }> = ({
         <Link to="/help">
           <Button
             variant="outlined"
-            style={{ color: MainGreen, marginTop: "40px" }}
+            style={{ color: MainGreen, marginTop: "40px", fontSize: "1.2rem" }}
           >
             More information <RightArrow />
           </Button>
@@ -67,7 +67,7 @@ export const LoggedOutView: React.FC<{ darkModeIsEnabled: boolean }> = ({
         <Link to="/library" style={{ marginLeft: isMobile ? "" : "20px" }}>
           <Button
             variant="outlined"
-            style={{ color: MainGreen, marginTop: "40px" }}
+            style={{ color: MainGreen, marginTop: "40px", fontSize: "1.2rem" }}
           >
             Go to our free lyric library
             <RightArrow />

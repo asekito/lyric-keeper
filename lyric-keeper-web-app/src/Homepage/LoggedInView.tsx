@@ -26,6 +26,7 @@ import {
   Mutation_Add_New_Lyric,
   Mutation_Add_New_Lyric_To_User_List,
 } from "operations";
+import Grow from "@material-ui/core/Grow";
 
 export const LoggedInView: React.FC<{ darkModeIsEnabled: boolean }> = ({
   darkModeIsEnabled,
@@ -100,17 +101,18 @@ export const LoggedInView: React.FC<{ darkModeIsEnabled: boolean }> = ({
                 ? StyledDashboardBoxLink
                 : (DashboardBox as any);
               return (
-                <WrappingElement
-                  darkModeIsEnabled={darkModeIsEnabled}
-                  key={boxName}
-                  onClick={onClick}
-                  to={link}
-                >
-                  <DashboardBoxText>
-                    {<Icon style={{ fontSize: "4.5rem" }} />}
-                    {boxName}
-                  </DashboardBoxText>
-                </WrappingElement>
+                <Grow key={boxName} in timeout={800}>
+                  <WrappingElement
+                    darkModeIsEnabled={darkModeIsEnabled}
+                    onClick={onClick}
+                    to={link}
+                  >
+                    <DashboardBoxText>
+                      {<Icon style={{ fontSize: "4.5rem" }} />}
+                      {boxName}
+                    </DashboardBoxText>
+                  </WrappingElement>
+                </Grow>
               );
             }
           )}

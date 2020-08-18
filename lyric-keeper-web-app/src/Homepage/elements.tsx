@@ -12,6 +12,7 @@ import Switch from "@material-ui/core/Switch";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { Link } from "GlobalComponents";
+import Grow from "@material-ui/core/Grow";
 
 export const WelcomeText = styled(Typography)<{ darkMode: boolean }>`
   && {
@@ -108,12 +109,6 @@ export const DashboardBox = styled.div<{ darkModeIsEnabled: boolean }>`
   border-radius: 25px;
   margin-bottom: 5%;
   cursor: pointer;
-  && {
-    transition: all 0.2s ease-in-out;
-  }
-  &&:hover {
-    transform: scale(1.1);
-  }
 `;
 
 export const StyledDashboardBoxLink = styled(Link)<{
@@ -125,12 +120,6 @@ export const StyledDashboardBoxLink = styled(Link)<{
   width: 250px;
   border-radius: 25px;
   margin-bottom: 5%;
-  && {
-    transition: all 0.2s ease-in-out;
-  }
-  &&:hover {
-    transform: scale(1.1);
-  }
 `;
 
 export const DashboardBoxText = styled(Typography)`

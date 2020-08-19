@@ -107,37 +107,37 @@ export const LibraryPage: React.FC<any> = ({ client }) => {
           private. Thank you so much for your contributions!
         </PageHeader>
         <MainAreaWrapper maxWidth="sm">
-          <StyledTextField
-            darkMode={darkModeIsEnabled}
-            label="Search"
-            name="search"
-            value={search}
-            variant="standard"
-            onChange={e => {
-              handleChange(e);
-              filter(e.target.value);
-            }}
-          />
-          <StyledSelect
-            darkMode={darkModeIsEnabled}
-            value={filterBy}
-            name="filterBy"
-            onChange={handleChange}
-          >
-            <MenuItem value="title">Title</MenuItem>
-            <MenuItem value="author">Artist</MenuItem>
-          </StyledSelect>
-          <StyledIconButton
-            darkMode={darkModeIsEnabled}
-            onClick={() => getAndUpdateAllLyrics({ refetchLyrics: true })}
-            style={{ marginLeft: "26px" }}
-          >
-            <RefreshIcon />
-          </StyledIconButton>
           {loading ? (
             <LoadingScreen topSpacing darkMode={darkModeIsEnabled} />
           ) : (
             <>
+              <StyledTextField
+                darkMode={darkModeIsEnabled}
+                label="Search"
+                name="search"
+                value={search}
+                variant="standard"
+                onChange={e => {
+                  handleChange(e);
+                  filter(e.target.value);
+                }}
+              />
+              <StyledSelect
+                darkMode={darkModeIsEnabled}
+                value={filterBy}
+                name="filterBy"
+                onChange={handleChange}
+              >
+                <MenuItem value="title">Title</MenuItem>
+                <MenuItem value="author">Artist</MenuItem>
+              </StyledSelect>
+              <StyledIconButton
+                darkMode={darkModeIsEnabled}
+                onClick={() => getAndUpdateAllLyrics({ refetchLyrics: true })}
+                style={{ marginLeft: "26px" }}
+              >
+                <RefreshIcon />
+              </StyledIconButton>
               <LyricCountWrapper
                 darkMode={darkModeIsEnabled}
               >{`Lyrics: ${lyricData?.length}`}</LyricCountWrapper>

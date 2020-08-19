@@ -10,12 +10,15 @@ import { Query_Find_Lyric_With_Short_Url } from "operations";
 import { Link, LoadingScreen } from "GlobalComponents";
 import NoSleep from "nosleep.js";
 import { UseDarkMode } from "Hooks";
+import { useHistory } from "react-router-dom";
 
 const noSleep = new NoSleep();
 
 export const LyricPage: React.FC<any> = ({ client }) => {
   const [lyricData, setLyricData] = useState<Lyric | null>();
   const [edit, setEdit] = useState(false);
+
+  const history = useHistory();
 
   const { darkModeIsEnabled } = UseDarkMode();
 
@@ -64,7 +67,9 @@ export const LyricPage: React.FC<any> = ({ client }) => {
       <StyledErrorMessage>
         Sorry! But we were unable to find this Lyric!
         <br />
-        <Link to="/">Click here to go back</Link>
+        <div style={{ color: "purple" }} onClick={() => history.goBack()}>
+          Click here to go back
+        </div>
       </StyledErrorMessage>
     );
 
